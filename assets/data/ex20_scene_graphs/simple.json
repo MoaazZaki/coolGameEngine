@@ -1,0 +1,40 @@
+{
+  "name": "root",
+  "mesh": "cube",
+  "children": {
+    "child-1": {
+      "translation": [-2, 2, 0],
+      "scale": [0.5, 0.5, 0.5],
+      "mesh": "cube",
+      "children": {
+        "grand-child-1": {
+          "translation": [0, 2, -2],
+          "scale": [0.5, 0.5, 0.5],
+          "mesh": "cube"
+        },
+        "grand-child-2": {
+          "translation": [0, 2, 2],
+          "scale": [0.5, 0.5, 0.5],
+          "mesh": "cube"
+        }
+      }
+    },
+    "child-2": {
+      "translation": [2, 2, 0],
+      "scale": [0.5, 0.5, 0.5],
+      "mesh": "cube",
+      "children": {
+        "grand-child-1": {
+          "translation": [0, 2, -2],
+          "scale": [0.5, 0.5, 0.5],
+          "mesh": "cube"
+        },
+        "grand-child-2": {
+          "translation": [0, 2, 2],
+          "scale": [0.5, 0.5, 0.5],
+          "mesh": "cube"
+        }
+      }
+    }
+  }
+}
