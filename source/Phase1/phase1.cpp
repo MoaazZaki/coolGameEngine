@@ -17,11 +17,6 @@ class UniformsApplication : public our::Application {
         program.attach("assets/shaders/phase1/heart.frag", GL_FRAGMENT_SHADER);
         program.link();
 
-        glm::vec2 windowResolution = getWindowConfiguration().size; //TODO: please clean this ..
-        int16_t resolution[] = {
-                windowResolution.y , windowResolution.x
-        };
-
         glGenVertexArrays(1, &vertex_array);
         glBindVertexArray(vertex_array);
 
