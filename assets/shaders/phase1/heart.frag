@@ -1,20 +1,29 @@
 #version 330 core
 
 in vec4 currentPos;
-
+//in float screenRatio;
 out vec4 frag_color;
 
+uniform vec2 cursorPos;
+uniform float screenRatio;
 
 void main()
 {
       // Normalized pixel coordinates (from 0 to 1)
     vec2 uv = currentPos.xy;
-    //uv.x-=0.5;
-    uv.y-=0.1; 
-    uv.x *= 1920.0 / 1080.0;
+   
+   //uv.x+=0.3;
+    //uv.y+=0.5; 
+
+    
+    uv.x *= 1920.0/1080.0;
     uv.y *= 0.86;
     uv.x *= 0.98;
     
+    uv.x -= cursorPos.x;
+    uv.y -= cursorPos.y;
+
+
     float temp1 = uv.x;
     float temp2 = uv.y;   
     
