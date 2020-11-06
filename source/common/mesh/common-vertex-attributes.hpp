@@ -6,7 +6,7 @@
 
 #include <glad/gl.h>
 
-namespace our {
+namespace famm {
 
     // For each of our common vertex types, we are defining how they can be sent to the shader attributes
 

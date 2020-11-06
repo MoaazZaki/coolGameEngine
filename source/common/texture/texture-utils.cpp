@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-glm::ivec2 our::texture_utils::loadImage(GLuint texture, const char *filename, bool generate_mipmap) {
+glm::ivec2 famm::texture_utils::loadImage(GLuint texture, const char *filename, bool generate_mipmap) {
     glm::ivec2 size;
     int channels;
     //Since OpenGL puts the texture origin at the bottom left while images typically has the origin at the top left,
@@ -40,7 +40,7 @@ glm::ivec2 our::texture_utils::loadImage(GLuint texture, const char *filename, b
     return size;
 }
 
-glm::ivec2 our::texture_utils::loadImageGrayscale(GLuint texture, const char *filename, bool generate_mipmap) {
+glm::ivec2 famm::texture_utils::loadImageGrayscale(GLuint texture, const char *filename, bool generate_mipmap) {
     glm::ivec2 size;
     int channels;
     //Since OpenGL puts the texture origin at the bottom left while images typically has the origin at the top left,
@@ -73,7 +73,7 @@ glm::ivec2 our::texture_utils::loadImageGrayscale(GLuint texture, const char *fi
     return size;
 }
 
-void our::texture_utils::singleColor(GLuint texture, our::Color color, glm::ivec2 size){
+void famm::texture_utils::singleColor(GLuint texture, famm::Color color, glm::ivec2 size){
     //Allocate array for texture data
     auto* data = new Color[size.x * size.y];
     //Fill array with the same color
@@ -93,8 +93,8 @@ void our::texture_utils::singleColor(GLuint texture, our::Color color, glm::ivec
     delete[] data;
 }
 
-void our::texture_utils::checkerBoard(GLuint texture, glm::ivec2 size, glm::ivec2 patternSize, our::Color color1, our::Color color2){
-    auto* data = new our::Color[size.x * size.y];
+void famm::texture_utils::checkerBoard(GLuint texture, glm::ivec2 size, glm::ivec2 patternSize, famm::Color color1, famm::Color color2){
+    auto* data = new famm::Color[size.x * size.y];
     int ptr = 0;
     for(int y = 0; y < size.y; y++){
         for(int x = 0; x < size.x; x++){

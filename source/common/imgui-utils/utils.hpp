@@ -12,7 +12,7 @@
 #include <imgui.h>
 #include <glm/common.hpp>
 
-namespace our {
+namespace famm {
 
     namespace gl_enum_options {
         typedef std::map<GLenum, const char*> const EnumMap;

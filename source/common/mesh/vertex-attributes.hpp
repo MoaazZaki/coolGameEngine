@@ -3,7 +3,7 @@
 
 #include <glad/gl.h>
 
-namespace our {
+namespace famm {
 
     // Just as convenience, we write which location "we" use for each attribute in our shader.
     // If you used different locations, modify these constants or just ignore (dont' use) them

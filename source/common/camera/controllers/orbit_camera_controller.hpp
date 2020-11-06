@@ -9,7 +9,7 @@
 #include <camera/camera.hpp>
 #include <application.hpp>
 
-namespace our {
+namespace famm {
 
     // Allows you to control the camera in an orbit motion around a point in world space
     class OrbitCameraController {

@@ -8,7 +8,7 @@
 
 #include <algorithm>
 
-namespace our::texture_utils {
+namespace famm::texture_utils {
 
     // Load an image from a file
     glm::ivec2 loadImage(GLuint texture, const char* filename, bool generate_mipmap = true);
@@ -17,7 +17,7 @@ namespace our::texture_utils {
 
     void singleColor(GLuint texture, Color color={255,255,255,255}, glm::ivec2 size={1,1});
 
-    void checkerBoard(GLuint texture, glm::ivec2 size, glm::ivec2 patternSize, our::Color color1, our::Color color2);
+    void checkerBoard(GLuint texture, glm::ivec2 size, glm::ivec2 patternSize, famm::Color color1, famm::Color color2);
 
 }
 

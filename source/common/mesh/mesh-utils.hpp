@@ -5,7 +5,7 @@
 
 #include <glm/glm.hpp>
 
-namespace our::mesh_utils {
+namespace famm::mesh_utils {
 
     // Load an ".obj" file into the mesh
     bool loadOBJ(Mesh& mesh, const char* filename);
@@ -24,7 +24,7 @@ namespace our::mesh_utils {
                 const glm::vec2& texture_offset = {0, 0},
                 const glm::vec2& texture_tiling = {1, 1});
 
-    void Plane(our::Mesh& mesh,
+    void Plane(famm::Mesh& mesh,
                const glm::ivec2& resolution = {1, 1},
                bool colored = false,
                const glm::vec3& center={0, 0, 0},

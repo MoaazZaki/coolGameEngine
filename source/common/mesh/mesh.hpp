@@ -12,7 +12,7 @@
 
 #include "vertex-attributes.hpp"
 
-namespace our {
+namespace famm {
 
     // A mesh class to hold the vertex array and its associated buffers (VBOs and EBO)
     class Mesh {

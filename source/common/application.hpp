@@ -9,7 +9,7 @@
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
 
-namespace our {
+namespace famm {
 
     // This struct handles window attributes: (title, size, isFullscreen).
     struct WindowConfiguration {

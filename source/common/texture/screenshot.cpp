@@ -7,7 +7,7 @@
 
 #include <vector>
 
-bool our::screenshot_png(const std::string& filename, bool include_alpha) {
+bool famm::screenshot_png(const std::string& filename, bool include_alpha) {
 
     // Read the current viewport parameters
     struct {

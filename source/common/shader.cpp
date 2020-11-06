@@ -9,18 +9,18 @@
 #define STB_INCLUDE_IMPLEMENTATION
 #include <stb/stb_include.h>
 
-void our::ShaderProgram::create() {
+void famm::ShaderProgram::create() {
     //Create Shader Program
     program = glCreateProgram();
 }
 
-void our::ShaderProgram::destroy() {
+void famm::ShaderProgram::destroy() {
     //Delete Shader Program
     if(program != 0) glDeleteProgram(program);
     program = 0;
 }
 
-bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const {
+bool famm::ShaderProgram::attach(const std::string &filename, GLenum type) const {
     // first, we use C++17 filesystem library to get the directory (parent) path of the file.
     // the parent path will be sent to stb_include to search for files referenced by any "#include" preprocessor command.
     auto file_path = std::filesystem::path(filename);
@@ -70,7 +70,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
     return true;
 }
 
-bool our::ShaderProgram::link() const {
+bool famm::ShaderProgram::link() const {
     //Link
     glLinkProgram(program);
 

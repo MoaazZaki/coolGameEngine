@@ -2,12 +2,12 @@
 #include <shader.hpp>
 
 
-class UniformsApplication : public our::Application {
+class UniformsApplication : public famm::Application {
 
-    our::ShaderProgram program;
+    famm::ShaderProgram program;
     GLuint vertex_array = 0;
 
-    our::WindowConfiguration getWindowConfiguration() override {
+    famm::WindowConfiguration getWindowConfiguration() override {
         return { "Phase 1 Task", {1920, 1080}, false };
     }
 

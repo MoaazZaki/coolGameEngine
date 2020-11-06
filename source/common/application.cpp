@@ -84,7 +84,7 @@ void GLAPIENTRY opengl_callback(GLenum source, GLenum type, GLuint id, GLenum se
     << " raised from " << _source << ": " << message << std::endl;
 }
 
-void our::Application::configureOpenGL() {
+void famm::Application::configureOpenGL() {
     // Request that OpenGL is 3.3
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -119,12 +119,12 @@ void our::Application::configureOpenGL() {
     glfwWindowHint(GLFW_REFRESH_RATE, GLFW_DONT_CARE);
 }
 
-our::WindowConfiguration our::Application::getWindowConfiguration() {
+famm::WindowConfiguration famm::Application::getWindowConfiguration() {
     return {"OpenGL Application", {1280, 720}, false };
 }
 
 // This is the main class function that run the whole application (Initialize, Game loop, House cleaning).
-int our::Application::run() {
+int famm::Application::run() {
 
     // Set the function to call when an error occurs.
     glfwSetErrorCallback(glfw_error_callback);
@@ -240,7 +240,7 @@ int our::Application::run() {
             auto time = std::time(nullptr);
             auto localtime = std::localtime(&time);
             stream << "screenshots/screenshot-" << std::put_time(localtime, "%Y-%m-%d-%H-%M-%S") << ".png";
-            if(our::screenshot_png(stream.str())){
+            if(famm::screenshot_png(stream.str())){
                 std::cout << "Screenshot saved to: " << stream.str() << std::endl;
             } else {
                 std::cerr << "Failed to save a Screenshot" << std::endl;
@@ -272,7 +272,7 @@ int our::Application::run() {
 }
 
 // Sets-up the window callback functions from GLFW to our (Mouse/Keyboard) classes.
-void our::Application::setupCallbacks() {
+void famm::Application::setupCallbacks() {
 
     // We use GLFW to store a pointer to "this" window instance.
     glfwSetWindowUserPointer(window, this);

@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-namespace our {
+namespace famm {
 
     class ShaderProgram {
 

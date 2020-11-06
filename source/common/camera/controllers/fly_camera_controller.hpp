@@ -9,7 +9,7 @@
 #include <camera/camera.hpp>
 #include <application.hpp>
 
-namespace our {
+namespace famm {
 
     // Allows you to control the camera freely in world space
     class FlyCameraController {

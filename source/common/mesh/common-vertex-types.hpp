@@ -8,7 +8,7 @@
 
 #include <data-types.h>
 
-namespace our {
+namespace famm {
 
     // Some Vertex type that we will "probably" use
 
@@ -49,10 +49,10 @@ namespace std {
     inline size_t hash_combine(size_t h1, size_t h2){ return h1 ^ (h2 << 1); }
 
     //A Hash function for struct Vertex
-    template<> struct hash<our::Vertex> {
-        size_t operator()(our::Vertex const& vertex) const {
+    template<> struct hash<famm::Vertex> {
+        size_t operator()(famm::Vertex const& vertex) const {
             size_t combined = hash<glm::vec3>()(vertex.position);
-            combined = hash_combine(combined, hash<our::Color>()(vertex.color));
+            combined = hash_combine(combined, hash<famm::Color>()(vertex.color));
             combined = hash_combine(combined, hash<glm::vec2>()(vertex.tex_coord));
             combined = hash_combine(combined, hash<glm::vec3>()(vertex.normal));
             return combined;

@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace our {
+namespace famm {
 
     // An enum for the camera projection type
     enum struct CameraType {
