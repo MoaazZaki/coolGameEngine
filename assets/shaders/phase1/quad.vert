@@ -3,9 +3,6 @@
 //in float ratio;
 
 out vec4 currentPos;
-out float screenRatio;
-
-
 
 void main() {
     const vec3 positions[6] = vec3[6](
@@ -24,5 +21,4 @@ void main() {
     gl_Position = vec4(position, 1.0);
 
     currentPos = gl_Position ;
-    //screenRatio = ratio;
 }

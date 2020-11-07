@@ -4,31 +4,43 @@
 #include <iostream>
 class UniformsApplication : public famm::Application {
 
-    famm::ShaderProgram program;
-    GLuint vertex_array = 0, resolution_buffer = 0;
+    famm::ShaderProgram program_heart, program_smiley, program_pacman, program_g;
+    GLuint vertex_array = 0;
 
     glm::vec2 cursorPos = glm::vec2(0.0, 0.0);
     glm::float32 windowRatio;
+    
+    GLuint currentShape = 1;
 
     famm::WindowConfiguration getWindowConfiguration() override {
         return { "Phase 1 Task", {1920, 1080}, false };
     }
 
     void onInitialize() override {
-        program.create();
-        program.attach("assets/shaders/phase1/quad.vert", GL_VERTEX_SHADER);
-        program.attach("assets/shaders/phase1/smile_face.frag", GL_FRAGMENT_SHADER);
-        program.link();
+        program_heart.create();
+        program_smiley.create();
+        program_pacman.create();
+        program_g.create();
+
+        program_heart.attach("assets/shaders/phase1/quad.vert", GL_VERTEX_SHADER);
+        program_heart.attach("assets/shaders/phase1/heart.frag", GL_FRAGMENT_SHADER);
+        program_heart.link();
+
+        program_smiley.attach("assets/shaders/phase1/quad.vert", GL_VERTEX_SHADER);
+        program_smiley.attach("assets/shaders/phase1/smiley.frag", GL_FRAGMENT_SHADER);
+        program_smiley.link();
+
+        program_pacman.attach("assets/shaders/phase1/quad.vert", GL_VERTEX_SHADER);
+        program_pacman.attach("assets/shaders/phase1/pacman.frag", GL_FRAGMENT_SHADER);
+        program_pacman.link();
+
+        program_g.attach("assets/shaders/phase1/quad.vert", GL_VERTEX_SHADER);
+        program_g.attach("assets/shaders/phase1/g.frag", GL_FRAGMENT_SHADER);
+        program_g.link();
 
         glGenVertexArrays(1, &vertex_array);
         glBindVertexArray(vertex_array);
 
-        //glGenBuffers(1, &resolution_buffer);
-        //glBindBuffer(GL_ARRAY_BUFFER, resolution_buffer);
-
-        //float ratio[] = { 1920.0 / 1080.0 };
-        //glBufferData(GL_ARRAY_BUFFER, sizeof(float), ratio, GL_STATIC_DRAW);
-        //glVertexAttribPointer(0, 1, GL_FLOAT, false, sizeof(float), (void*)0);
         windowRatio = getWindowConfiguration().size.x / (glm::float32)getWindowConfiguration().size.y;
 
         glEnableVertexAttribArray(0);
@@ -41,20 +53,52 @@ class UniformsApplication : public famm::Application {
 
     void onDraw(double deltaTime) override {
         glClear(GL_COLOR_BUFFER_BIT);
-        glUseProgram(program);
 
-        //myMouse.update();
         cursorPos = famm::Application::mouse.getMousePosition();
         cursorPos.y = 1080.0 - cursorPos.y;
+        cursorPos = (cursorPos / glm::vec2(1600.0 / 3.0, 540.0)) - glm::vec2(1.8, 1);
+        
+   
+        if (keyboard.justPressed(GLFW_KEY_2)  || keyboard.justPressed(GLFW_KEY_KP_2) ) currentShape = 2;
+        else if (keyboard.justPressed(GLFW_KEY_3) || keyboard.justPressed(GLFW_KEY_KP_3) ) currentShape = 3;
+        else if (keyboard.justPressed(GLFW_KEY_4) || keyboard.justPressed(GLFW_KEY_KP_4) ) currentShape = 4;
+        else if (keyboard.justPressed(GLFW_KEY_1) || keyboard.justPressed(GLFW_KEY_KP_1) ) currentShape = 1;
 
-        cursorPos = (cursorPos / glm::vec2(1600.0/3.0,540.0)) - glm::vec2(1.8,1);
-        //std::cout << cursorPos.x << "," << cursorPos.y << " - ";
+        GLuint cursor_uniform_location;
+        GLuint window_ratio_uniform_location;
 
-        GLuint cursor_uniform_location = glGetUniformLocation(program, "cursorPos");
-        glUniform2f(cursor_uniform_location, cursorPos.x, cursorPos.y);
+        switch (currentShape) {
+            case 1:
+                glUseProgram(program_smiley);
+                cursor_uniform_location = glGetUniformLocation(program_smiley, "cursorPos");
+                glUniform2f(cursor_uniform_location, cursorPos.x, cursorPos.y);
+                window_ratio_uniform_location = glGetUniformLocation(program_smiley, "screenRatio");
+                glUniform1f(window_ratio_uniform_location, windowRatio);
+                break;
 
-        GLuint window_ratio_uniform_location = glGetUniformLocation(program, "screenRatio");
-        glUniform1f(window_ratio_uniform_location, windowRatio);
+            case 2:
+                glUseProgram(program_heart);
+                cursor_uniform_location = glGetUniformLocation(program_heart, "cursorPos");
+                glUniform2f(cursor_uniform_location, cursorPos.x, cursorPos.y);
+                window_ratio_uniform_location = glGetUniformLocation(program_heart, "screenRatio");
+                glUniform1f(window_ratio_uniform_location, windowRatio);
+                break;
+            case 3:
+                glUseProgram(program_pacman);
+                cursor_uniform_location = glGetUniformLocation(program_pacman, "cursorPos");
+                glUniform2f(cursor_uniform_location, cursorPos.x, cursorPos.y);
+                window_ratio_uniform_location = glGetUniformLocation(program_pacman, "screenRatio");
+                glUniform1f(window_ratio_uniform_location, windowRatio);
+                break;
+            case 4:
+                glUseProgram(program_g);
+                cursor_uniform_location = glGetUniformLocation(program_g, "cursorPos");
+                glUniform2f(cursor_uniform_location, cursorPos.x, cursorPos.y);
+                window_ratio_uniform_location = glGetUniformLocation(program_g, "screenRatio");
+                glUniform1f(window_ratio_uniform_location, windowRatio);
+                break;
+        }
+
 
         glBindVertexArray(vertex_array);
         glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -62,16 +106,11 @@ class UniformsApplication : public famm::Application {
         glBindVertexArray(0);
     }
 
-
-    /*void onImmediateGui(ImGuiIO& io) override {
-        ImGui::Begin("Controls");
-        ImGui::SliderFloat2("Scale", glm::value_ptr(cursorPos), -2, 2);
-        ImGui::End();
-
-    }*/
-
     void onDestroy() override {
-        program.destroy();
+        program_smiley.destroy();
+        program_heart.destroy();
+        program_pacman.destroy();
+        program_g.destroy();
         glDeleteVertexArrays(1, &vertex_array);
     }
 
