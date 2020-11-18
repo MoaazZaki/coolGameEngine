@@ -12,7 +12,8 @@ namespace famm {
     // ECS Types
     typedef  std::uint8_t ComponentType;        //components and entities are defined as unsigned ints (Ids)
     typedef  std::uint32_t Entity;
-    typedef  std::bitset<MAX_COMPONENTS> Signature;     //the signature on an entity is a bit set having the size of all components (1 in bits corresponding to components that the entity has)
+    typedef  std::bitset<MAX_COMPONENTS> Signature;     //the signature on an entity/system is a bit set having the size of all components 
+                                                        //(1 in bits corresponding to components that the entity/system has)
 
     //constants
     const Entity MAX_ENTITIES = 5000;
