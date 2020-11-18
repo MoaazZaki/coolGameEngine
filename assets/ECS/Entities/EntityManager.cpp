@@ -3,6 +3,7 @@
 famm::EntityManager::entityManager() {
 	
 	for (Entity e = 0; e < MAX_ENTITIES; e++) remainingEntities.push(e);
+	for (Signature s = 0; s < MAX_ENTITIES; s++) entitySignatures[s] = 0;
 	aliveEntitiesCount = 0;
 
 }
