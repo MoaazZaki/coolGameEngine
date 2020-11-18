@@ -21,7 +21,7 @@ namespace famm {
 
 		ComponentArray();									//constructor: set entriesCount to 0
 		void addData(Entity entity, T componentdata);		//insert component data of entity in the componentarray
-		void removeData(Entity entity);	//remove component data of entity from the componentarray
+		void removeData(Entity entity);						//remove component data of entity from the componentarray
 		T& getData(Entity entity);							//get the component data of a specific entity
 		void entityDestroyed(Entity entity) override;		//remove destroyed entity data from the componentarray
 
