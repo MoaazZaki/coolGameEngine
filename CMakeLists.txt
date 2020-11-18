@@ -35,7 +35,11 @@ set(COMMON_SOURCES
         source/common/shader.cpp
         source/common/mesh/mesh-utils.cpp
         source/common/texture/texture-utils.cpp
-        source/common/texture/screenshot.cpp)
+        source/common/texture/screenshot.cpp
+        source/Phase1/phase1.cpp
+        source/common/game-state/GameStateManager.cpp
+        source/common/game-state/PlayState.cpp
+)
 
 # Define the directories in which to search for the included headers
 include_directories(
@@ -50,5 +54,5 @@ include_directories(
 # For each example, we add an executable target
 # Each target compiles one example source file and the common & vendor source files
 # Then we link GLFW with each target
-add_executable(PHASE1 source/Phase1/phase1.cpp ${COMMON_SOURCES} ${VENDOR_SOURCES})
-target_link_libraries(PHASE1 glfw)
+add_executable(MAIN source/Phase1/main.cpp ${COMMON_SOURCES} ${VENDOR_SOURCES})
+target_link_libraries(MAIN glfw)
