@@ -3,6 +3,7 @@
 
 #include <data-types.h>
 #include <queue>
+#include <array>
 namespace famm {
 
 	class EntityManager {
@@ -16,7 +17,7 @@ namespace famm {
 	public:
 
 		//fill the remainingEntities queue with entity ids from 0 to MAX_ENTITIES
-		entityManager();
+		EntityManager();
 
 		//Create a new entity by pushing the first available id from the queue
 		Entity createEntity();

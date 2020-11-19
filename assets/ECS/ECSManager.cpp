@@ -2,9 +2,9 @@
 
 famm::ECSManager::ECSManager() {
 
-	eManagerPtr = new EntityManager*;
-	cManagerPtr = new ComponentManager*;
-	sManagerPtr = new SystemManager*;
+	eManagerPtr = new EntityManager;
+	cManagerPtr = new ComponentManager;
+	sManagerPtr = new SystemManager;
 
 }
 

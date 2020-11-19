@@ -1,9 +1,9 @@
 #include "EntityManager.hpp"
 
-famm::EntityManager::entityManager() {
+famm::EntityManager::EntityManager() {
 	
-	for (Entity e = 0; e < MAX_ENTITIES; e++) remainingEntities.push(e);
-	for (Signature s = 0; s < MAX_ENTITIES; s++) entitySignatures[s] = 0;
+	for (auto e = 0; e < MAX_ENTITIES; e++) remainingEntities.push(e);
+	for (auto s = 0; s < MAX_ENTITIES; s++) entitySignatures[s] = 0;
 	aliveEntitiesCount = 0;
 
 }

@@ -1,9 +1,9 @@
 #ifndef ECSMANAGER_H
 #define ECSMANAGER_H
 
-#include <EntityManager.hpp>
-#include <ComponentManager.hpp>
-#include <SystemManager.hpp>
+#include "Entities/EntityManager.hpp"
+#include "Components/ComponentManager.hpp"
+#include "Systems/SystemManager.hpp"
 
 namespace famm {
 

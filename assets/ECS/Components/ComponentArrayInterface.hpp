@@ -1,6 +1,8 @@
 #ifndef COMPONENTARRAYINTERFACE_H
 #define COMPONENTARRAYINTERFACE_H
 
+#include <data-types.h>
+
 namespace famm {
 
 	class ComponentArrayInterface {

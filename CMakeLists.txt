@@ -40,6 +40,11 @@ set(COMMON_SOURCES
         source/common/game-state/GameStateManager.cpp
         source/common/game-state/PlayState.cpp
         source/common/DeviceManager.cpp
+        assets/ECS/Entities/EntityManager.cpp
+        assets/ECS/Components/ComponentManager.cpp
+        assets/ECS/Components/ComponentArray.cpp
+        assets/ECS/Systems/SystemManager.cpp
+        assets/ECS/ECSManager.cpp
 )
 
 # Define the directories in which to search for the included headers

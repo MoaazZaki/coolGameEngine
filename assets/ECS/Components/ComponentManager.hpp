@@ -1,7 +1,7 @@
 #ifndef COMPONENTMANAGER_H
 #define COMPONENTMANAGER_H
 
-#include <ComponentArray.hpp>
+#include "ComponentArray.hpp"
 #include <data-types.h>
 #include <unordered_map>
 

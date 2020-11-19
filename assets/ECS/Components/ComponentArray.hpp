@@ -1,7 +1,7 @@
 #ifndef COMPONENTARRAY_H
 #define COMPONENTARRAY_H
 
-#include <ComponentArrayInterface.hpp>
+#include "ComponentArrayInterface.hpp"
 #include <unordered_map>
 #include <data-types.h>
 

@@ -1,13 +1,15 @@
 #include "ComponentArray.hpp"
 
-famm::ComponentArray::ComponentArray() {
+
+template<typename T>
+famm::ComponentArray<T>::ComponentArray() {
 
 	entriesCount = 0;
 
 }
 
 template<typename T>
-void famm::ComponentArray::addData(Entity entity, T componentdata) {
+void famm::ComponentArray<T>::addData(Entity entity, T componentdata) {
 
 	assert( entityIndexMap.find(entity) == entityIndexMap.end() && "Entity already has component data in the component array" );
 
@@ -24,7 +26,7 @@ void famm::ComponentArray::addData(Entity entity, T componentdata) {
 }
 
 template<typename T>
-void famm::ComponentArray::removeData(Entity entity) {
+void famm::ComponentArray<T>::removeData(Entity entity) {
 
 	assert(entityIndexMap.find(entity) != entityIndexMap.end() && "Entity already doesn't have component data in the component array");
 
@@ -49,7 +51,7 @@ void famm::ComponentArray::removeData(Entity entity) {
 }
 
 template<typename T>
-T& famm::ComponentArray::getData(Entity entity) {
+T& famm::ComponentArray<T>::getData(Entity entity) {
 
 	assert(entityIndexMap.find(entity) != entityIndexMap.end() && "Entity already doesn't have component data in the component array");
 
@@ -57,7 +59,8 @@ T& famm::ComponentArray::getData(Entity entity) {
 
 }
 
-void famm::ComponentArray::entityDestroyed(Entity entity) {
+template<typename T>
+void famm::ComponentArray<T>::entityDestroyed(Entity entity) {
 
 	//check if the entity has data in the current type of componentArray. If so, remove its data
 	if (entityIndexMap.find(entity) != entityIndexMap.end()) removeData(entity);
