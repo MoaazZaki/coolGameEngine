@@ -8,7 +8,9 @@ namespace famm {
 	class System
 	{
 	public:
-		std::set<Entity> mEntities;
+
+		std::set<Entity> entitiesSet;		//set of entities that the system works on
+
 	};
 
 }
