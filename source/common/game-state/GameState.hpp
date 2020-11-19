@@ -1,6 +1,8 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
+#include <DeviceManager.hpp>
+
 namespace famm {
 
 	class GameState
@@ -11,8 +13,8 @@ namespace famm {
 		virtual void onDraw() {};
 		virtual void onExit() {};
 
-		virtual void Pause() {};
-		virtual void Resume() {};
+		virtual void pause() {};
+		virtual void resume() {};
 	};
 	
 

@@ -16,11 +16,12 @@ namespace famm {
 		GLuint currentShape;
 
 	public:
+		PhaseOneApplication(DeviceManager* deviceManager):Application(deviceManager){}
+
 		void onInitialize() override;
 		void onDraw(double deltaTime) override;
 		void onDestroy() override;
 
-		famm::WindowConfiguration getWindowConfiguration() override;
 	};
 }
 #endif

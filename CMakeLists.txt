@@ -39,6 +39,7 @@ set(COMMON_SOURCES
         source/Phase1/phase1.cpp
         source/common/game-state/GameStateManager.cpp
         source/common/game-state/PlayState.cpp
+        source/common/DeviceManager.cpp
 )
 
 # Define the directories in which to search for the included headers

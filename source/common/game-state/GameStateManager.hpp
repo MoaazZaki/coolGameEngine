@@ -14,7 +14,7 @@ namespace famm {
 		GameState* pausedState;
 		GameState* nextState;
 
-		
+		DeviceManager deviceManager;
 	public:
 		
 		void onInitilaize();
@@ -23,7 +23,7 @@ namespace famm {
 
 		//void onSwitch();
 
-		//void onDestroy();
+		void onDestroy();
 	};
 
 	

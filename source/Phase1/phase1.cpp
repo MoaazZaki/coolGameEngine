@@ -1,9 +1,6 @@
 #include "phase1.hpp"
 
 
-famm::WindowConfiguration famm::PhaseOneApplication::getWindowConfiguration()  {
-    return { "Phase 1 Task", {1920, 1080}, false };
-}
 
 void famm::PhaseOneApplication::onInitialize()  {
     vertex_array = 0;
@@ -34,7 +31,7 @@ void famm::PhaseOneApplication::onInitialize()  {
     glGenVertexArrays(1, &vertex_array);
     glBindVertexArray(vertex_array);
 
-    windowRatio = getWindowConfiguration().size.x / (glm::float32)getWindowConfiguration().size.y;
+    windowRatio = deviceManager->getWindowSettings().size.x / (glm::float32)deviceManager->getWindowSettings().size.y;
 
     glEnableVertexAttribArray(0);
 
@@ -47,15 +44,13 @@ void famm::PhaseOneApplication::onInitialize()  {
 void famm::PhaseOneApplication::onDraw(double deltaTime)  {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    cursorPos = famm::Application::mouse.getMousePosition();
-    cursorPos.y = 1080.0 - cursorPos.y;
-    cursorPos = (cursorPos / glm::vec2(1600.0 / 3.0, 540.0)) - glm::vec2(1.8, 1);
+    cursorPos = deviceManager->getNormalizedMousePos();
 
-
-    if (keyboard.justPressed(GLFW_KEY_2) || keyboard.justPressed(GLFW_KEY_KP_2)) currentShape = 2;
-    else if (keyboard.justPressed(GLFW_KEY_3) || keyboard.justPressed(GLFW_KEY_KP_3)) currentShape = 3;
-    else if (keyboard.justPressed(GLFW_KEY_4) || keyboard.justPressed(GLFW_KEY_KP_4)) currentShape = 4;
-    else if (keyboard.justPressed(GLFW_KEY_1) || keyboard.justPressed(GLFW_KEY_KP_1)) currentShape = 1;
+    
+    if (deviceManager->pressChecker(famm::ControlsActions::DOWN, famm::PressModes::IS_PRESSED)) currentShape = 2;
+    else if (deviceManager->pressChecker(famm::ControlsActions::LEFT, famm::PressModes::IS_PRESSED)) currentShape = 3;
+    else if (deviceManager->pressChecker(famm::ControlsActions::RIGHT, famm::PressModes::IS_PRESSED)) currentShape = 4;
+    else if (deviceManager->pressChecker(famm::ControlsActions::UP, famm::PressModes::IS_PRESSED)) currentShape = 1;
 
     GLuint cursor_uniform_location;
     GLuint window_ratio_uniform_location;

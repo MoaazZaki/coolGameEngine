@@ -8,10 +8,16 @@
 namespace famm {
 
 	class PlayState : public famm::GameState {
-		famm::PhaseOneApplication game;
+		famm::PhaseOneApplication* game;
+		double last_frame_time;
 	public:
-		void onEnter() override;
+		PlayState(DeviceManager* deviceManager){
+			game = new famm::PhaseOneApplication(deviceManager);
+		}
 
+		void onEnter() override;
+		void onDraw() override;
+		void onExit() override;
 	};
 
 }
