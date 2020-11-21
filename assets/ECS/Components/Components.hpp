@@ -10,7 +10,8 @@ namespace famm {
 
 		glm::vec3 position;		//for translation
 		glm::vec3 scale;		//for scaling
-		Entity parent;
+		glm::vec3 rotation;		//representing Euler Angles
+		Entity parent;			//parent id
 
 	};
 
