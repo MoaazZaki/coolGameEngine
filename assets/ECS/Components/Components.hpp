@@ -3,6 +3,8 @@
 
 #include <data-types.h>
 #include <vec3.hpp>
+#include <mesh.hpp>
+#include <Material.hpp>
 
 namespace famm {
 	
@@ -14,6 +16,22 @@ namespace famm {
 		Entity parent;			//parent id
 
 	};
+
+	struct MeshRenderer {
+
+		Mesh* M;       // Pointer to the mesh Class
+		Material * mat; // pointer to the material class
+		
+
+
+
+
+	};
+
+
+
+
+
 
 }
 #endif

@@ -11,12 +11,16 @@
 #include <glad/gl.h>
 
 #include "vertex-attributes.hpp"
+#include "Material.hpp"
 
 namespace famm {
+
+   
 
     // A mesh class to hold the vertex array and its associated buffers (VBOs and EBO)
     class Mesh {
     private:
+      
         GLuint vertex_array = 0;
         GLuint element_buffer = 0;
         std::vector<GLuint> vertex_buffers; // We allow the mesh to contain multiple buffers
@@ -244,6 +248,14 @@ namespace famm {
         Mesh &operator=(Mesh const &) = delete;
 
     };
+
+
+
+
+
+
+
+
 
 }
 
