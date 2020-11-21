@@ -9,12 +9,16 @@ namespace famm {
 	{
 	public:
 
-		virtual void onEnter() {};
-		virtual void onDraw() {};
-		virtual void onExit() {};
+		virtual void onEnter() {}
+		virtual void onDraw() {}
+		virtual void onExit() {}
 
-		virtual void pause() {};
-		virtual void resume() {};
+		virtual void pause() {}
+		virtual void resume() {}
+
+		virtual bool statePaused() { return false; }
+		virtual bool stateTerminated() { return false; }
+		
 	};
 	
 

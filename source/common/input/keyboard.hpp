@@ -52,6 +52,7 @@ namespace famm {
         // Was the key pressed in the previous frame but became unpressed in the current frame
         [[nodiscard]] bool justReleased(int key) const {return !currentKeyStates[key] && previousKeyStates[key];}
 
+
         [[nodiscard]] bool isEnabled() const { return enabled; }
         void setEnabled(bool enabled, GLFWwindow* window) {
             if(this->enabled != enabled) {
@@ -59,6 +60,10 @@ namespace famm {
                 else disable();
             }
         }
+
+
+
+
     };
 
 }

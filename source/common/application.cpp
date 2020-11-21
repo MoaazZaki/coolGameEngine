@@ -194,7 +194,12 @@ int famm::Application::startInit() {
     configureOpenGL();                                      // This function sets OpenGL window hints.
 
     /////////////
-    if (deviceManager->createNewWindow()) return 1; //creating Window
+    static bool firstTime = true;
+    if (firstTime)
+    {
+        if (deviceManager->createNewWindow()) return 1; //creating Window
+        firstTime = false;
+    }
     ////////////////
 
     gladLoadGL(glfwGetProcAddress);         // Load the OpenGL functions from the driver
@@ -224,6 +229,7 @@ int famm::Application::startInit() {
     ImGui::CreateContext();
     io = ImGui::GetIO();
     ImGui::StyleColorsDark();
+    ImFont* font1 = io.Fonts->AddFontFromFileTTF("assets/Fonts/Roboto-Black.ttf", 22);
 
     // Initialize ImGui for GLFW and OpenGL
     ImGui_ImplGlfw_InitForOpenGL(deviceManager->getWindow(), true);
@@ -283,7 +289,7 @@ int famm::Application::startLoop(double &last_frame_time) {
 #endif
 
     // If F12 is pressed, take a screenshot
-    if(deviceManager->pressChecker(famm::ControlsActions::SCREEN_SHOT, famm::PressModes::IS_PRESSED)){
+    if(deviceManager->pressedActionChecker(famm::ControlsActions::SCREEN_SHOT, famm::PressModes::IS_PRESSED)){
         glViewport(0, 0, frame_buffer_size.x, frame_buffer_size.y);
         std::stringstream stream;
         auto time = std::time(nullptr);

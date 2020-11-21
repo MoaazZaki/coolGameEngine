@@ -49,6 +49,9 @@ namespace famm {
         int startLoop(double& last_frame_time);      // This is the main class function that run the whole application (Initialize, Game loop, House cleaning).
         int startCleaning();
 
+        virtual bool statePaused() { return false; }
+        virtual bool stateTerminated() { return false; }
+
     };
 
 }

@@ -13,11 +13,18 @@ namespace famm {
 	public:
 		PlayState(DeviceManager* deviceManager){
 			game = new famm::PhaseOneApplication(deviceManager);
+			onEnter();
 		}
 
 		void onEnter() override;
 		void onDraw() override;
 		void onExit() override;
+
+		void resume()override { game->onResume(); }
+
+
+		bool statePaused() override;
+
 	};
 
 }

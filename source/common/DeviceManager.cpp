@@ -3,8 +3,8 @@
 
 
 famm::DeviceManager::DeviceManager() {
-    windowSettings = { "PHASE1",{1920,1080},false };
-    controlSettings = { GLFW_KEY_W , GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_A, GLFW_KEY_F12,5};
+    windowSettings = { "PHASE1",{1920,1080},true ,true };
+    controlSettings = { GLFW_KEY_W , GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_A,GLFW_KEY_Q,GLFW_KEY_E, GLFW_KEY_F12,GLFW_KEY_ESCAPE,5};
 }
 
 void famm::DeviceManager::setupCallbacks(CallbacksModes mode, int param1, int param2, int param3=0, int param4=0) {
@@ -55,13 +55,21 @@ int famm::DeviceManager::createNewWindow() {
     return 0;
 }
 
-famm::WindowSettings famm::DeviceManager::updateWindowSettings(bool isFullScreen, std::uint16_t width = 0, std::uint16_t height = 0)
+void famm::DeviceManager::updateWindowSettings(bool isFullScreen, std::uint16_t width = 0, std::uint16_t height = 0)
 {
-    if (!width && !height)
+    if (width && height)
         windowSettings.size = glm::i16vec2(width, height);
     windowSettings.isFullscreen = isFullScreen;
+    windowSettings.isRefreshed = false;
 
-    return windowSettings;
+}
+
+void famm::DeviceManager::refreshWidow() {
+    destroyWindow();
+    createNewWindow();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330 core");
+    windowSettings.isRefreshed = true;
 }
 
 void famm::DeviceManager::swapWindowBuffers()
@@ -75,7 +83,7 @@ void famm::DeviceManager::updateInput()
     mouse.update();
 }
 
-bool famm::DeviceManager::pressChecker(ControlsActions action, PressModes mode)
+bool famm::DeviceManager::pressedActionChecker(ControlsActions action, PressModes mode)
 {
     std::uint16_t key = getCorrespondingKey(action);
     switch (mode)
@@ -96,6 +104,37 @@ bool famm::DeviceManager::pressChecker(ControlsActions action, PressModes mode)
     }
 }
 
+bool famm::DeviceManager::pressedKeyChecker(std::uint16_t key, PressModes mode)
+{
+
+    switch (mode)
+    {
+    case famm::PressModes::IS_PRESSED:
+        return keyboard.isPressed(key);
+        break;
+    case famm::PressModes::JUST_PRESSED:
+        return keyboard.justPressed(key);
+        break;
+    case famm::PressModes::JUST_RELEASED:
+        return keyboard.justReleased(key);
+        break;
+    default:
+        std::cout << "WARNING: Wrong press mode is passed!" << std::endl;
+        return false;
+        break;
+    }
+}
+
+std::int16_t famm::DeviceManager::getUsedKey(PressModes mode)
+{
+    for (int i = 65; i < 91; i++)
+    {
+        if (pressedKeyChecker(i,mode)) return i;
+    }
+
+    return -1;
+}
+
 std::uint16_t famm::DeviceManager::getCorrespondingKey(ControlsActions action) {
     switch (action)
     {
@@ -111,8 +150,17 @@ std::uint16_t famm::DeviceManager::getCorrespondingKey(ControlsActions action) {
     case famm::ControlsActions::LEFT:
         return controlSettings.left;
         break;
+    case famm::ControlsActions::CAMERA_UP:
+        return controlSettings.cameraUp;
+        break;
+    case famm::ControlsActions::CAMERA_DOWN:
+        return controlSettings.cameraDown;
+        break;
     case famm::ControlsActions::SCREEN_SHOT:
         return controlSettings.screenShot;
+        break;
+    case famm::ControlsActions::MENU:
+        return controlSettings.menu;
         break;
     }
 }
@@ -125,3 +173,37 @@ glm::vec2 famm::DeviceManager::getNormalizedMousePos() {
     return cursorPos;
 }
 
+int* famm::DeviceManager::getSenesitivity() {
+    return &(controlSettings.sensitivity);
+}
+
+void famm::DeviceManager::setCorrespondingKey(ControlsActions action, std::uint16_t key)
+{
+    switch (action)
+    {
+    case famm::ControlsActions::UP:
+        controlSettings.up = key;
+        break;
+    case famm::ControlsActions::DOWN:
+        controlSettings.down = key;
+        break;
+    case famm::ControlsActions::RIGHT:
+        controlSettings.right = key;
+        break;
+    case famm::ControlsActions::LEFT:
+        controlSettings.left = key;
+        break;
+    case famm::ControlsActions::CAMERA_UP:
+        controlSettings.cameraUp = key;
+        break;
+    case famm::ControlsActions::CAMERA_DOWN:
+        controlSettings.cameraDown = key;
+        break;
+    case famm::ControlsActions::SCREEN_SHOT:
+        controlSettings.screenShot = key;
+        break;
+    case famm::ControlsActions::MENU:
+        controlSettings.menu = key;
+        break;
+    }
+}

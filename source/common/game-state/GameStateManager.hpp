@@ -4,6 +4,8 @@
 #include <memory>
 #include <game-state\GameState.hpp>
 #include <game-state\PlayState.hpp>
+#include <game-state\InGameMenuState.hpp>
+#include <game-state\GameMenuState.hpp>
 
 namespace famm {
 
@@ -15,6 +17,8 @@ namespace famm {
 		GameState* nextState;
 
 		DeviceManager deviceManager;
+
+		
 	public:
 		
 		void onInitilaize();
