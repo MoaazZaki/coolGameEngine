@@ -46,6 +46,12 @@ namespace famm {
 		//void deviceManagerCallbacks(CallbacksModes mode, int param1, int param2, int param3, int param4);
 
 		ImGuiIO* getImGuiObject() { return &io; }
+		ShaderProgram* getShaderPointer(std::string name) {	
+			std::unordered_map<std::string, ShaderProgram*>::const_iterator shader = tableOfShaderPrograms.find(name);
+			return shader->second;
+		}
+
+		void startCleaning();
 	};
 
 

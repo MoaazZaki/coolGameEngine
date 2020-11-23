@@ -11,8 +11,8 @@ namespace famm {
 		famm::PhaseOneApplication* game;
 		double last_frame_time;
 	public:
-		PlayState(DeviceManager* deviceManager, ImGuiIO* io){
-			game = new famm::PhaseOneApplication(deviceManager,io);
+		PlayState(DeviceManager* deviceManager, Store* myStore){
+			game = new famm::PhaseOneApplication(deviceManager, myStore);
 			onEnter();
 		}
 

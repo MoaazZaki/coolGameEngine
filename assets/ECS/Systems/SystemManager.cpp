@@ -44,6 +44,7 @@ void famm::SystemManager::entitySignatureChanged(Entity entity, Signature newEnt
 		//if the entity's new signature mismatches the system's, remove it from the entitiesSet
 		else it.second->entitiesSet.erase(entity);
 
+		
 	}
 
 }

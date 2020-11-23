@@ -9,7 +9,7 @@
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
 #include "DeviceManager.hpp"
-
+#include <./game-state/Store.hpp>
 namespace famm {
 
 
@@ -18,7 +18,8 @@ namespace famm {
     class Application {
     protected:
         DeviceManager* deviceManager;
-        ImGuiIO *io;
+        Store * myStore;
+        ImGuiIO* io;
         // Virtual functions to be overrode and change the default behaviour of the application
         // according to the example needs.
         //virtual void configureOpenGL();                             // This function sets OpenGL Window Hints in GLFW.
@@ -27,9 +28,10 @@ namespace famm {
         virtual void setupCallbacks(GLFWwindow* window);             // Sets-up the window callback functions from GLFW to our (Mouse/Keyboard) classes.
 
     public:
-        Application(DeviceManager* deviceManager, ImGuiIO* io) {
+        Application(DeviceManager* deviceManager, Store* myStore) {
             this->deviceManager = deviceManager;
-            this->io = io;
+            this->io = myStore->getImGuiObject();
+            this->myStore = myStore;
         }
 
         virtual void onInitialize(){}                   // Called once before the game loop.

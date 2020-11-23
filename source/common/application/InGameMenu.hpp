@@ -11,7 +11,7 @@ namespace famm {
 		bool isTerminated;
 
 	public:
-		InGameMenu(DeviceManager* deviceManager, ImGuiIO* io) : Application(deviceManager, io) { isPaused = false; isTerminated = false; }
+		InGameMenu(DeviceManager* deviceManager, Store* myStore) : Application(deviceManager, myStore) { isPaused = false; isTerminated = false; }
 
 		void onInitialize() override;
 		void onDraw(double deltaTime) override;

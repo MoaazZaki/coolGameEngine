@@ -318,12 +318,6 @@ int famm::Application::startCleaning() {
     // Call for cleaning up
     onDestroy();
 
-    // Shutdown ImGui & destroy the context
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-
-    
-    return 0; // Good bye
+   
 
 }

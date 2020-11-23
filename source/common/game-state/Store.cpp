@@ -174,8 +174,26 @@ void famm::Store::startInit()
     for (int i = 0; i < namesOfShadersProgram.size(); i++)
     {
         tableOfShaderPrograms[shaderName[i]] = new ShaderProgram;
-        tableOfShaderPrograms[shaderName[i]]->attach(namesOfShadersProgram[i].first, GL_VERTEX_SHADER);
-        tableOfShaderPrograms[shaderName[i]]->attach(namesOfShadersProgram[i].second, GL_FRAGMENT_SHADER);
+        tableOfShaderPrograms[shaderName[i]]->create();
+        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/phase1/"+namesOfShadersProgram[i].first, GL_VERTEX_SHADER);
+        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/phase1/" + namesOfShadersProgram[i].second, GL_FRAGMENT_SHADER);
         tableOfShaderPrograms[shaderName[i]]->link();
     }
+}
+
+void famm::Store::startCleaning()
+{
+    for (auto& it : tableOfShaderPrograms)
+    {
+        it.second->destroy();
+        delete it.second;
+    }
+
+    // Shutdown ImGui & destroy the context
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+
+
+    return 0; // Good bye
 }

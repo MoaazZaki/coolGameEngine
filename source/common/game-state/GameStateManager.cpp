@@ -2,7 +2,7 @@
 
 void famm::GameStateManager::onInitilaize() {
 	myStore.startInit();
-	currentState = new famm::GameMenuState(&deviceManager, myStore.getImGuiObject());
+	currentState = new famm::GameMenuState(&deviceManager, &myStore);
 }
 
 void famm::GameStateManager::onDraw() {
@@ -14,7 +14,7 @@ void famm::GameStateManager::onDraw() {
 			if(PlayState* d = dynamic_cast<PlayState*>(currentState))
 			{ 
 				pausedState = currentState;
-				currentState = new famm::InGameMenuState(&deviceManager, myStore.getImGuiObject());
+				currentState = new famm::InGameMenuState(&deviceManager, &myStore);
 			}
 			else if (InGameMenuState* d = dynamic_cast<InGameMenuState*>(currentState))
 			{
@@ -26,7 +26,7 @@ void famm::GameStateManager::onDraw() {
 			else
 			{
 				pausedState = currentState;
-				currentState = new famm::PlayState(&deviceManager, myStore.getImGuiObject());
+				currentState = new famm::PlayState(&deviceManager, &myStore);
 				delete pausedState;
 				pausedState = NULL;
 			}
@@ -48,7 +48,7 @@ void famm::GameStateManager::onDraw() {
 			{
 				if (pausedState) delete pausedState;
 				delete currentState;
-				currentState = new famm::GameMenuState(&deviceManager, myStore.getImGuiObject());
+				currentState = new famm::GameMenuState(&deviceManager, &myStore);
 			}
 		}
 	}
@@ -60,7 +60,7 @@ void famm::GameStateManager::onDraw() {
 void famm::GameStateManager::onDestroy()
 {
 	currentState->onExit();
-
+	myStore.startCleaning();
 	if (currentState != NULL) delete currentState;
 
 	// Destroy the window
