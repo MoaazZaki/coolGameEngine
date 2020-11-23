@@ -18,22 +18,22 @@ namespace famm {
     class Application {
     protected:
         DeviceManager* deviceManager;
-        ImGuiIO io;
+        ImGuiIO *io;
         // Virtual functions to be overrode and change the default behaviour of the application
         // according to the example needs.
-        virtual void configureOpenGL();                             // This function sets OpenGL Window Hints in GLFW.
+        //virtual void configureOpenGL();                             // This function sets OpenGL Window Hints in GLFW.
 
         virtual void deviceManagerCallbacks(CallbacksModes mode, int param1, int param2, int param3, int param4);
         virtual void setupCallbacks(GLFWwindow* window);             // Sets-up the window callback functions from GLFW to our (Mouse/Keyboard) classes.
 
     public:
-        Application(DeviceManager* deviceManager) {
+        Application(DeviceManager* deviceManager, ImGuiIO* io) {
             this->deviceManager = deviceManager;
-
+            this->io = io;
         }
 
         virtual void onInitialize(){}                   // Called once before the game loop.
-        virtual void onImmediateGui(ImGuiIO& io){}      // Called every frame to draw the Immediate GUI (if any).
+        virtual void onImmediateGui(ImGuiIO* io){}      // Called every frame to draw the Immediate GUI (if any).
         virtual void onDraw(double deltaTime){}         // Called every frame in the game loop passing the time taken to draw the frame "Delta time".
         virtual void onDestroy(){}                      // Called once after the game loop ends for house cleaning.
 

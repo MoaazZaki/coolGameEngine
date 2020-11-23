@@ -1,8 +1,8 @@
 #include "GameStateManager.hpp"
 
 void famm::GameStateManager::onInitilaize() {
-	currentState = new famm::GameMenuState(&deviceManager);
-	
+	myStore.startInit();
+	currentState = new famm::GameMenuState(&deviceManager, myStore.getImGuiObject());
 }
 
 void famm::GameStateManager::onDraw() {
@@ -14,7 +14,7 @@ void famm::GameStateManager::onDraw() {
 			if(PlayState* d = dynamic_cast<PlayState*>(currentState))
 			{ 
 				pausedState = currentState;
-				currentState = new famm::InGameMenuState(&deviceManager);
+				currentState = new famm::InGameMenuState(&deviceManager, myStore.getImGuiObject());
 			}
 			else if (InGameMenuState* d = dynamic_cast<InGameMenuState*>(currentState))
 			{
@@ -26,7 +26,7 @@ void famm::GameStateManager::onDraw() {
 			else
 			{
 				pausedState = currentState;
-				currentState = new famm::PlayState(&deviceManager);
+				currentState = new famm::PlayState(&deviceManager, myStore.getImGuiObject());
 				delete pausedState;
 				pausedState = NULL;
 			}
@@ -48,7 +48,7 @@ void famm::GameStateManager::onDraw() {
 			{
 				if (pausedState) delete pausedState;
 				delete currentState;
-				currentState = new famm::GameMenuState(&deviceManager);
+				currentState = new famm::GameMenuState(&deviceManager, myStore.getImGuiObject());
 			}
 		}
 	}

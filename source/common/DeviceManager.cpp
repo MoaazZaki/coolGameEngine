@@ -3,7 +3,7 @@
 
 
 famm::DeviceManager::DeviceManager() {
-    windowSettings = { "PHASE1",{1920,1080},true ,true };
+    windowSettings = { "PHASE1",{1920,1080},false ,true };
     controlSettings = { GLFW_KEY_W , GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_A,GLFW_KEY_Q,GLFW_KEY_E, GLFW_KEY_F12,GLFW_KEY_ESCAPE,5};
 }
 

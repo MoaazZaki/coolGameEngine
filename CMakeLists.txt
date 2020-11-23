@@ -49,7 +49,7 @@ set(COMMON_SOURCES
         assets/ECS/Components/ComponentArray.cpp
         assets/ECS/Systems/SystemManager.cpp
         assets/ECS/ECSManager.cpp
-
+        source/common/game-state/Store.cpp
 )
 
 # Define the directories in which to search for the included headers

@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <bitset>
 
+
+
 namespace famm {
     // Since we may want to store colors in bytes instead of floats for efficiency,
     // we are creating our own 32-bit R8G8B8A8 Color data type with the default GLM precision

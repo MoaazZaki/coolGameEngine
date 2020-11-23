@@ -11,12 +11,12 @@ namespace famm {
 		bool isTerminated;
 
 	public:
-		InGameMenu(DeviceManager* deviceManager) :Application(deviceManager) { isPaused = false; isTerminated = false; }
+		InGameMenu(DeviceManager* deviceManager, ImGuiIO* io) : Application(deviceManager, io) { isPaused = false; isTerminated = false; }
 
 		void onInitialize() override;
 		void onDraw(double deltaTime) override;
 		void onDestroy() override;
-		void onImmediateGui(ImGuiIO& io) override;
+		void onImmediateGui(ImGuiIO* io) override;
 
 		//void onPause();
 		//void onResume();

@@ -46,7 +46,7 @@ void famm::GameMenu::onDestroy() {
     //ImGui::DestroyContext();
     isTerminated = true;
 }
-void famm::GameMenu::onImmediateGui(ImGuiIO& io) {
+void famm::GameMenu::onImmediateGui(ImGuiIO* io) {
     ImGuiStyle& style = ImGui::GetStyle();
     style.FramePadding = ImVec2(15, 12);
     style.ItemSpacing = ImVec2(10, 50);

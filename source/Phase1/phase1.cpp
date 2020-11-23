@@ -108,7 +108,7 @@ void famm::PhaseOneApplication::onDraw(double deltaTime)  {
     if ((deviceManager->pressedActionChecker(famm::ControlsActions::MENU, famm::PressModes::JUST_PRESSED) && !isPaused)) onPause();
 }
 
-void famm::PhaseOneApplication::onImmediateGui(ImGuiIO& io)
+void famm::PhaseOneApplication::onImmediateGui(ImGuiIO* io)
 {
     //if ((deviceManager->pressedActionChecker(famm::ControlsActions::MENU, famm::PressModes::JUST_PRESSED) && !isPaused)) onPause();
     //else if ((deviceManager->pressedActionChecker(famm::ControlsActions::MENU, famm::PressModes::JUST_PRESSED) && isPaused)) onResume();

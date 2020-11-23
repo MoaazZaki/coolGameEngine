@@ -20,12 +20,12 @@ namespace famm {
 		bool inputButtonFlags[6] = { false,false,false,false,false,false };
 		
 	public:
-		PhaseOneApplication(DeviceManager* deviceManager):Application(deviceManager){}
+		PhaseOneApplication(DeviceManager* deviceManager, ImGuiIO* io):Application(deviceManager,io){}
 
 		void onInitialize() override;
 		void onDraw(double deltaTime) override;
 		void onDestroy() override;
-		void onImmediateGui(ImGuiIO& io) override;
+		void onImmediateGui(ImGuiIO* io) override;
 
 		void onPause();
 		void onResume();

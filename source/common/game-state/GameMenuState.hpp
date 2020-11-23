@@ -11,8 +11,8 @@ namespace famm {
 		famm::GameMenu* menu;
 		double last_frame_time;
 	public:
-		GameMenuState(DeviceManager* deviceManager) {
-			menu = new famm::GameMenu(deviceManager);
+		GameMenuState(DeviceManager* deviceManager, ImGuiIO* io) {
+			menu = new famm::GameMenu(deviceManager,io);
 			onEnter();
 		}
 
