@@ -32,13 +32,17 @@ namespace famm {
 
         void setFarPlane(float far,  ECSManager* ECSmanager);
 
-        void setEyePosition(glm::vec3 eye,  ECSManager* ECSmanager);
+        void setYaw(float yaw, ECSManager* ECSmanager);
+        
+        void setPitch(float pitch, ECSManager* ECSmanager);
+
+        /*void setEyePosition(glm::vec3 eye,  ECSManager* ECSmanager);
 
         void setDirection(glm::vec3 direction,  ECSManager* ECSmanager);
 
         void setTarget(glm::vec3 target,  ECSManager* ECSmanager);
 
-        void setUp(glm::vec3 up,  ECSManager* ECSmanager);
+        void setUp(glm::vec3 up,  ECSManager* ECSmanager);*/
 
         void setVericalFieldOFViewAngle(float vertical_field_of_view_angle,  ECSManager* ECSmanager);
 
@@ -54,13 +58,17 @@ namespace famm {
 
         float getFarPlane( ECSManager* ECSmanager);
 
-        glm::vec3 getEyePosition( ECSManager* ECSmanager);
+        float getYaw(ECSManager* ECSmanager);
+
+        float getPitch(ECSManager* ECSmanager);
+
+        /*glm::vec3 getEyePosition( ECSManager* ECSmanager);
 
         glm::vec3 getDirection( ECSManager* ECSmanager);
 
         glm::vec3 getTarget( ECSManager* ECSmanager);
 
-        glm::vec3 getUp( ECSManager* ECSmanager);
+        glm::vec3 getUp( ECSManager* ECSmanager);*/
 
         float getVericalFieldOFViewAngle( ECSManager* ECSmanager);
 

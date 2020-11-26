@@ -55,7 +55,23 @@ void famm::CameraSystem::setFarPlane(float far,  ECSManager* ECSmanager)
         camera.far = far;
     }
 }
+void famm::CameraSystem::setYaw(float yaw, ECSManager* ECSmanager)
+{
+    for (auto const& entity : entitiesSet)
+    {
+        auto& camera = ECSmanager->getComponentData<Camera>(entity);
+        camera.yaw = yaw;
+    }
+}
 
+void famm::CameraSystem::setPitch(float pitch, ECSManager* ECSmanager)
+{
+    for (auto const& entity : entitiesSet)
+    {
+        auto& camera = ECSmanager->getComponentData<Camera>(entity);
+        camera.pitch = pitch;
+    }
+}
 //void famm::CameraSystem::setEyePosition(glm::vec3 eye,  ECSManager* ECSmanager)
 //{
 //    for (auto const& entity : entitiesSet)
@@ -197,6 +213,24 @@ float famm::CameraSystem::getVericalFieldOFViewAngle( ECSManager* ECSmanager)
     {
         auto& camera = ECSmanager->getComponentData<Camera>(entity);
         return camera.vertical_field_of_view_angle;
+    }
+}
+
+float famm::CameraSystem::getYaw(ECSManager* ECSmanager)
+{
+    for (auto const& entity : entitiesSet)
+    {
+        auto& camera = ECSmanager->getComponentData<Camera>(entity);
+        return camera.yaw;
+    }
+}
+
+float famm::CameraSystem::getPitch(ECSManager* ECSmanager)
+{
+    for (auto const& entity : entitiesSet)
+    {
+        auto& camera = ECSmanager->getComponentData<Camera>(entity);
+        return camera.pitch;
     }
 }
 
