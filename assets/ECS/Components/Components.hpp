@@ -37,6 +37,7 @@ namespace famm {
 		float vertical_field_of_view_angle;   //for perspective projection
 		float orthographic_height;   //for orthographic projection
 		float field_of_view_y;
+		float yaw, pitch;
 	};
 	struct CameraController {
 		Entity* containerEntity;
