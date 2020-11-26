@@ -1,8 +1,9 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 
+
 #include <data-types.h>
-#include <vec3.hpp>
+#include <glm/vec3.hpp>
 
 namespace famm {
 	
@@ -12,6 +13,26 @@ namespace famm {
 		glm::vec3 scale;		//for scaling
 		Entity parent;
 
+	};
+
+	struct Camera {
+
+		Entity parent;
+		bool projectionType;    //Projection type: 0 for Orthographic -- 1 for Perspective 
+		glm::vec3 eye;
+		glm::vec3 direction;
+		glm::vec3 up;
+		glm::vec3 target;
+		float near, far;       //distances from camera        
+		float aspect_ratio;    //used for calculating the position of the left and right plates
+		float vertical_field_of_view_angle;   //for perspective projection
+		float orthographic_height;   //for orthographic projection
+		float field_of_view_y;
+	};
+
+	struct CameraController {
+		Entity parent;
+		glm::vec3 position_sensitivity;
 	};
 
 }
