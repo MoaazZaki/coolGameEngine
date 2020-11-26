@@ -14,7 +14,6 @@ namespace famm {
     {
     private:
     public:
-
         void moveCamera(ECSManager* ECSmanager, DeviceManager* deviceManager, double delta_time, CameraSystem* camera);
     };
 
