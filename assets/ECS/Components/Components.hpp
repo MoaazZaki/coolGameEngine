@@ -3,7 +3,9 @@
 
 
 #include <data-types.h>
-#include <vec3.hpp>
+#include <glm/vec3.hpp>
+#include "./mesh/mesh.hpp"
+#include "./mesh/Material.hpp"
 
 namespace famm {
 	
@@ -20,11 +22,6 @@ namespace famm {
 
 		Mesh* M;       // Pointer to the mesh Class
 		Material * mat; // pointer to the material class
-		
-
-
-
-
 	};
 
 	struct Camera {
@@ -41,16 +38,9 @@ namespace famm {
 		float orthographic_height;   //for orthographic projection
 		float field_of_view_y;
 	};
-
 	struct CameraController {
 		Entity parent;
 		glm::vec3 position_sensitivity;
 	};
-
-
-
-
-
-
 }
 #endif

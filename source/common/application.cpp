@@ -317,7 +317,7 @@ int famm::Application::startLoop(double &last_frame_time) {
 int famm::Application::startCleaning() {
     // Call for cleaning up
     onDestroy();
-
+    return 0;
    
 
 }

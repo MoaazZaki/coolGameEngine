@@ -40,15 +40,18 @@ set(COMMON_SOURCES
         source/common/texture/screenshot.cpp
         source/Phase1/phase1.cpp
         source/common/game-state/GameStateManager.cpp
+        source/common/game-state/Store.cpp
         source/common/game-state/PlayState.cpp
         source/common/game-state/GameMenuState.cpp
         source/common/game-state/InGameMenuState.cpp
         source/common/DeviceManager.cpp
         assets/ECS/Entities/EntityManager.cpp
+        assets/ECS/ECSManager.cpp
         assets/ECS/Components/ComponentManager.cpp
         assets/ECS/Components/ComponentArray.cpp
         assets/ECS/Systems/SystemManager.cpp
-        assets/ECS/ECSManager.cpp
+        assets/ECS/Systems/CameraSystem.cpp
+        assets/ECS/Systems/CameraControllerSystem.cpp
 )
 
 # Define the directories in which to search for the included headers
