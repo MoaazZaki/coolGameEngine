@@ -25,6 +25,136 @@ famm::Material::Material(int ScalarN,int Vector2N,int Vector3N)
 //}
 
 
+
+
+//Update the whole or part of Uniform vector given vector
+
+void famm::Material::updateShaderScalar(vector<pair<char*, float>> array1,int check)
+{
+	
+
+	// for looping on the unifrom scalar and inserting the values if its not the value of check
+
+	for (int i = 0; i < UniformScalar.size(); i++)
+	{
+		if (array1[i] != check)
+		{
+
+			UniformScalar[i] = array1[i];
+
+		}
+	}
+
+
+
+}
+
+
+void famm::Material::updateShaderVector2(vector<pair<char*, glm::vec2>> array2,int check)
+
+{
+
+		// for looping on the unifrom vector 2 and inserting the values if its not the value of check
+	for (int i = 0; i < UniformVector2.size(); i++)
+	{
+	
+		if (array1[i] != check)
+		{
+
+			UniformVector2[i] = array1[i];
+
+		}
+	
+	
+	}
+
+
+
+}
+
+
+
+void famm::Material::updateShaderVector3(vector<pair<char*, glm::vec3>> array3,int check)
+{
+	
+
+	// for looping on the unifrom vector 3 and inserting the values if its not the value of check if we want to update a part of vector not the whole of it
+	for (int i = 0; i < UniformVector3.size(); i++)
+	{
+
+		if (array1[i] != check)
+		{
+
+			UniformVector3[i] = array1[i];
+
+		}
+
+
+	}
+
+
+
+
+}
+
+
+//Update single value given value for a given  position 
+
+
+void famm::Material::updateSingleShaderScalar(float value, int pos)
+{
+
+
+	
+		UniformScalar[pos] = value;
+	
+	
+	
+
+
+
+}
+
+void famm::Material::updateSingleShaderVector2(glm::vec2 value, int pos)
+{
+
+
+	
+		 
+		UniformVector2[pos] = value;
+
+
+
+
+
+
+}
+
+
+
+void famm::Material::updateSingleShaderVector3(glm::vec3 value, int pos)
+{
+
+
+	
+		UniformVector3[pos] = value;
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
 // filling the scalar vector
 void famm::Material::addToScalar(char* name, float variable)
 {
