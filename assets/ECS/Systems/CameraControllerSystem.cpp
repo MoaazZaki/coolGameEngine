@@ -26,5 +26,22 @@ void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceMana
         else if (deviceManager->pressedActionChecker(famm::ControlsActions::CAMERA_DOWN, famm::PressModes::IS_PRESSED))
             transform.position -= front * ((float)delta_time * cameraController.position_sensitivity.x);
 
+        if (deviceManager->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && !cameraController.mouse_locked) 
+        {
+            deviceManager->getMouse().lockMouse(deviceManager->getWindow());
+            cameraController.mouse_locked = true;
+        }
+        else if (!deviceManager->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && cameraController.mouse_locked) 
+        {
+            deviceManager->getMouse().unlockMouse(deviceManager->getWindow());
+            cameraController.mouse_locked = false;
+        }
+
+        if (deviceManager->getMouse().isPressed(GLFW_MOUSE_BUTTON_1))
+        {
+            glm::vec2 delta = deviceManager->getMouse().getMouseDelta();
+            pitch -= delta.y * cameraController.pitch_sensitivity;
+            yaw -= delta.x * cameraController.yaw_sensitivity;
+        }
     }
 }
