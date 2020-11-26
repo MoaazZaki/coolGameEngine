@@ -40,8 +40,8 @@ void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceMana
         if (deviceManager->getMouse().isPressed(GLFW_MOUSE_BUTTON_1))
         {
             glm::vec2 delta = deviceManager->getMouse().getMouseDelta();
-            pitch -= delta.y * cameraController.pitch_sensitivity;
-            yaw -= delta.x * cameraController.yaw_sensitivity;
+            camera.pitch -= delta.y * cameraController.pitch_sensitivity;
+            camera.yaw -= delta.x * cameraController.yaw_sensitivity;
         }
     }
 }
