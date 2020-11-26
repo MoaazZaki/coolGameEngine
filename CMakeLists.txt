@@ -47,10 +47,6 @@ set(COMMON_SOURCES
         source/common/DeviceManager.cpp
 
         assets/ECS/Entities/EntityManager.cpp
-        assets/ECS/Components/ComponentManager.cpp
-        #assets/ECS/Components/ComponentArray.cpp
-        assets/ECS/Systems/SystemManager.cpp
-        #assets/ECS/ECSManager.cpp
 
         
         assets/ECS/Systems/CameraSystem.cpp

@@ -9,12 +9,14 @@ namespace famm {
 
 	class ComponentManager
 	{
+
 	private:
 
 		std::unordered_map<const char*, ComponentType> componentTypes;				//map storing the name and id of each component type
 		std::unordered_map<const char*, ComponentArrayInterface*> componentArrays;	//map storing the name of every component type and a pointer to its componentarray
 		ComponentType componentTypesCount;											//for assigning ids for newly created component types
 
+		//helper function to return a pointer to the componentarray of a certain component type
 		template<typename T>
 		ComponentArray<T>* getComponentArray() {
 
@@ -25,15 +27,16 @@ namespace famm {
 			//get a pointer to the componentArray of the desired component type
 			return (ComponentArray<T>*) componentArrays[componentTypeName];
 
-		}									//helper function to return a pointer to the componentarray of a certain component type
+		}									
 
 	public:
+
+		//constructor initializes componentTypesCount with 0
 		ComponentManager() {
-
 			componentTypesCount = 0;
+		}										
 
-		}										//constructor initializes componentTypesCount with 0
-
+		//add a new component type (name and id) to the componentTypes map
 		template<typename T>
 		void addComponentType() {
 
@@ -47,8 +50,9 @@ namespace famm {
 			//increment the component types count to be assigned as the id value of the next defined component type
 			componentTypesCount++;
 
-		}								//add a new component type (name and id) to the componentTypes map
+		}								
 
+		//get the componentType (id) of a certain component type (T= component type name)
 		template<typename T>
 		ComponentType getComponentType() {
 
@@ -59,43 +63,44 @@ namespace famm {
 
 			return componentTypes[componentTypeName];
 
-		}						//get the componentType (id) of a certain component type (T= component type name)
+		}						
 
+		//add entity component data for a specific component type in the right componentArray
 		template<typename T>
 		void addComponentData(Entity entity, T componentdata) {
 
 			ComponentArray<T>* cArrPtr = getComponentArray<T>();
 			cArrPtr->addData(entity, componentdata);
 
-		}	//add entity component data for a specific component type in the right componentArray
+		}	
 
+		//remove entity component data for a specific component type from the right componentArray
 		template<typename T>
 		void removeComponentData(Entity entity) {
 
 			ComponentArray<T>* cArrPtr = getComponentArray<T>();
 			cArrPtr->removeData(entity);
 
-		}				//remove entity component data for a specific component type from the right componentArray
+		}				
 
+		//get the component data of a specific component type for a given entity from the right componenetArray
 		template<typename T>
 		T& getComponentData(Entity entity) {
 
 			ComponentArray<T>* cArrPtr = getComponentArray<T>();
 			return cArrPtr->getData(entity);
 
-		}						//get the component data of a specific component type for a given entity from the right componenetArray
+		}						
 
+		//notify all componentArrays that the entity is destroyed to remove its records if they exist
 		void entityDestroyed(Entity entity) {
 
 			//iterate over componentArrays map and call entityDestroyed for all to delete the entity records from corresponding componentArrays
 			for (auto& it : componentArrays) it.second->entityDestroyed(entity);
 
-		}					//notify all componentArrays that the entity is destroyed to remove its records if they exist
+		}	
+
 	};
-
-
-
-
 
 
 }
