@@ -7,6 +7,8 @@
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 #include <imgui.h>
+#include <imgui_impl/imgui_impl_glfw.h>
+#include <imgui_impl/imgui_impl_opengl3.h>
 
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
@@ -15,12 +17,13 @@ namespace famm {
 
 	enum class PressModes {IS_PRESSED,JUST_PRESSED,JUST_RELEASED};
 	enum class CallbacksModes { KEY_EVENT, CURSOR_MOVE_EVENT, MOUSE_BUTTON_EVENT,SCROLL_EVENT};
-	enum class ControlsActions {UP,DOWN,RIGHT,LEFT,SCREEN_SHOT};
+	enum class ControlsActions {UP,DOWN,RIGHT,LEFT,CAMERA_UP,CAMERA_DOWN,SCREEN_SHOT,MENU};
 
 	struct WindowSettings {
 		const char* title;
 		glm::i16vec2 size;
 		bool isFullscreen;
+		bool isRefreshed;
 	};
 
 	struct ControlSettings{
@@ -28,9 +31,12 @@ namespace famm {
 		std::uint16_t down;
 		std::uint16_t right;
 		std::uint16_t left;
+		std::uint16_t cameraUp;
+		std::uint16_t cameraDown;
 		std::uint16_t screenShot;
+		std::uint16_t menu;
 
-		std::uint8_t sensitivity;
+		int sensitivity;
 	};
 
 
@@ -56,17 +62,23 @@ namespace famm {
 		int createNewWindow();
 		void destroyWindow();
 		void attachWindow();
-		WindowSettings updateWindowSettings(bool isFullScreen,std::uint16_t width, std::uint16_t height);
+		void updateWindowSettings(bool isFullScreen,std::uint16_t width, std::uint16_t height);
+		void refreshWidow();
 		void swapWindowBuffers();
 
 		/// <summary>
 		///	Keyboard & Mouse Realted functions
 		/// </summary>
 		void updateInput();
-		bool pressChecker(ControlsActions action,PressModes mode);
+		bool pressedActionChecker(ControlsActions action,PressModes mode);
+		bool pressedKeyChecker(std::uint16_t key, PressModes mode);
+
+		std::int16_t getUsedKey(PressModes mode);
 		std::uint16_t getCorrespondingKey(ControlsActions action);
 		glm::vec2 getNormalizedMousePos();
-		
+		int* getSenesitivity();
+
+		void setCorrespondingKey(ControlsActions action, std::uint16_t key);
 		/// <summary>
 		// Class Getters.
 		/// </summary>

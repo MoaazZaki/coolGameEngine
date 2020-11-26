@@ -2,8 +2,9 @@
 
 
 void famm::PlayState::onEnter(){
+	game->onInitialize();
 	last_frame_time = glfwGetTime();
-	int exitStatus = game->startInit();
+
 }
 
 void famm::PlayState::onDraw() {
@@ -12,5 +13,10 @@ void famm::PlayState::onDraw() {
 }
 
 void famm::PlayState::onExit() {
-	game->startCleaning();
+	game->onDestroy();
+}
+
+bool famm::PlayState::statePaused()
+{
+	return game->statePaused();
 }

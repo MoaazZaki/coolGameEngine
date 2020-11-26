@@ -3,7 +3,7 @@
 
 
 #include <data-types.h>
-#include <glm/vec3.hpp>
+#include <vec3.hpp>
 
 namespace famm {
 	
@@ -11,7 +11,19 @@ namespace famm {
 
 		glm::vec3 position;		//for translation
 		glm::vec3 scale;		//for scaling
-		Entity parent;
+		glm::vec3 rotation;		//representing Euler Angles
+		Entity parent;			//parent id
+
+	};
+
+	struct MeshRenderer {
+
+		Mesh* M;       // Pointer to the mesh Class
+		Material * mat; // pointer to the material class
+		
+
+
+
 
 	};
 
@@ -34,6 +46,11 @@ namespace famm {
 		Entity parent;
 		glm::vec3 position_sensitivity;
 	};
+
+
+
+
+
 
 }
 #endif

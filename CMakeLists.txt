@@ -32,6 +32,8 @@ set(VENDOR_SOURCES ${GLAD_SOURCE} ${IMGUI_SOURCES})
 # A variable with all our source files that are common between executable targets (examples)
 set(COMMON_SOURCES
         source/common/application.cpp
+        source/common/application/GameMenu.cpp
+        source/common/application/InGameMenu.cpp
         source/common/shader.cpp
         source/common/mesh/mesh-utils.cpp
         source/common/texture/texture-utils.cpp
@@ -39,14 +41,14 @@ set(COMMON_SOURCES
         source/Phase1/phase1.cpp
         source/common/game-state/GameStateManager.cpp
         source/common/game-state/PlayState.cpp
+        source/common/game-state/GameMenuState.cpp
+        source/common/game-state/InGameMenuState.cpp
         source/common/DeviceManager.cpp
         assets/ECS/Entities/EntityManager.cpp
         assets/ECS/Components/ComponentManager.cpp
         assets/ECS/Components/ComponentArray.cpp
         assets/ECS/Systems/SystemManager.cpp
         assets/ECS/ECSManager.cpp
-        assets/ECS/Systems/CameraSystem.cpp
-        assets/ECS/Systems/CameraControllerSystem.cpp
 )
 
 # Define the directories in which to search for the included headers

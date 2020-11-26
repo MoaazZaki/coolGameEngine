@@ -11,13 +11,20 @@ namespace famm {
 		famm::PhaseOneApplication* game;
 		double last_frame_time;
 	public:
-		PlayState(DeviceManager* deviceManager){
-			game = new famm::PhaseOneApplication(deviceManager);
+		PlayState(DeviceManager* deviceManager, Store* myStore){
+			game = new famm::PhaseOneApplication(deviceManager, myStore);
+			onEnter();
 		}
 
 		void onEnter() override;
 		void onDraw() override;
 		void onExit() override;
+
+		void resume()override { game->onResume(); }
+
+
+		bool statePaused() override;
+
 	};
 
 }
