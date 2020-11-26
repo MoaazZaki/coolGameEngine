@@ -3,11 +3,18 @@
 
 #include <application.hpp>
 #include <ECSManager.hpp>
+#include <Components/Components.hpp>
+
+#include <RenderedSystem.hpp>
+#include <CameraControllerSystem.hpp>
+
 
 namespace famm {
 	class Game : public famm::Application {
 	private:
 		ECSManager myManager;
+
+		std::vector<Entity> world;
 	public:
 		Game(DeviceManager* deviceManager, Store* myStore) : Application(deviceManager, myStore) { isPaused = false; isTerminated = false; }
 

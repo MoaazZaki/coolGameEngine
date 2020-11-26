@@ -18,6 +18,12 @@ namespace famm {
 		glm::vec3 rotation;		//representing Euler Angles
 		Entity parent;			//parent id
 
+		Transform(
+			const glm::vec3& position = { 0,0,0 },
+			const glm::vec3& rotation = { 0,0,0 },
+			const glm::vec3& scale = { 1,1,1 }
+		) : position(position), rotation(rotation), scale(scale) {}
+
 		glm::mat4 to_mat4() const {
 			return glm::translate(glm::mat4(1.0f), position) *
 				glm::yawPitchRoll(rotation.y, rotation.x, rotation.z) *
