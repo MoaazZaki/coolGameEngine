@@ -32,9 +32,9 @@ namespace famm {
 		void addToVector2(char* name, glm::vec2 variable);
 		void addToVector3(char* name, glm::vec3 variable);
 
-		void updateShaderScalar(vector<pair<char*, float>> array); //Update the whole or part of Uniform vector given vector 
-		void  updateShaderVector2(vector<pair<char*, glm::vec2>> array);
-		void  updateShaderVector3(vector<pair<char*, glm::vec3>> array);
+		void updateShaderScalar(vector<pair<char*, float>> array1,int check); //Update the whole or part of Uniform vector given vector 
+		void  updateShaderVector2(vector<pair<char*, glm::vec2>> array2, int check);
+		void  updateShaderVector3(vector<pair<char*, glm::vec3>> array3, int check);
 
 		void updateSingleShaderScalar(float value, int pos); //Update single value given value and position 
 		void  updateSingleShaderVector2(glm::vec2 value, int pos);
