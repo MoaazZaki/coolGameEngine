@@ -16,28 +16,87 @@ namespace famm {
 		ComponentType componentTypesCount;											//for assigning ids for newly created component types
 
 		template<typename T>
-		ComponentArray<T>* getComponentArray();										//helper function to return a pointer to the componentarray of a certain component type
+		ComponentArray<T>* getComponentArray() {
+
+			//get the component type name
+			const char* componentTypeName = typeid(T).name();
+			assert(componentTypes.find(componentTypeName) != componentTypes.end() && "Component type doesn't currently exist.");
+
+			//get a pointer to the componentArray of the desired component type
+			return (ComponentArray<T>*) componentArrays[componentTypeName];
+
+		}									//helper function to return a pointer to the componentarray of a certain component type
 
 	public:
-		ComponentManager();										//constructor initializes componentTypesCount with 0
+		ComponentManager() {
+
+			componentTypesCount = 0;
+
+		}										//constructor initializes componentTypesCount with 0
 
 		template<typename T>
-		void addComponentType();								//add a new component type (name and id) to the componentTypes map
+		void addComponentType() {
+
+			//get the component type name
+			const char* componentTypeName = typeid(T).name();
+			assert(componentTypes.find(componentTypeName) == componentTypes.end() && "Component type already defined.");
+
+			//add the component type name and id tp the componentTypes map 
+			componentTypes.insert({ componentTypeName, componentTypesCount });
+
+			//increment the component types count to be assigned as the id value of the next defined component type
+			componentTypesCount++;
+
+		}								//add a new component type (name and id) to the componentTypes map
 
 		template<typename T>
-		ComponentType getComponentType();						//get the componentType (id) of a certain component type (T= component type name)
+		ComponentType getComponentType() {
+
+			//get the component type name
+			const char* componentTypeName = typeid(T).name();
+
+			assert(componentTypes.find(componentTypeName) != componentTypes.end() && "Component type doesn't currently exist.");
+
+			return componentTypes[componentTypeName];
+
+		}						//get the componentType (id) of a certain component type (T= component type name)
 
 		template<typename T>
-		void addComponentData(Entity entity, T componentdata);	//add entity component data for a specific component type in the right componentArray
+		void addComponentData(Entity entity, T componentdata) {
+
+			ComponentArray<T>* cArrPtr = getComponentArray<T>();
+			cArrPtr->addData(entity, componentdata);
+
+		}	//add entity component data for a specific component type in the right componentArray
 
 		template<typename T>
-		void removeComponentData(Entity entity);				//remove entity component data for a specific component type from the right componentArray
+		void removeComponentData(Entity entity) {
+
+			ComponentArray<T>* cArrPtr = getComponentArray<T>();
+			cArrPtr->removeData(entity);
+
+		}				//remove entity component data for a specific component type from the right componentArray
 
 		template<typename T>
-		T& getComponentData(Entity entity);						//get the component data of a specific component type for a given entity from the right componenetArray
+		T& getComponentData(Entity entity) {
 
-		void entityDestroyed(Entity entity);					//notify all componentArrays that the entity is destroyed to remove its records if they exist
+			ComponentArray<T>* cArrPtr = getComponentArray<T>();
+			return cArrPtr->getData(entity);
+
+		}						//get the component data of a specific component type for a given entity from the right componenetArray
+
+		void entityDestroyed(Entity entity) {
+
+			//iterate over componentArrays map and call entityDestroyed for all to delete the entity records from corresponding componentArrays
+			for (auto& it : componentArrays) it.second->entityDestroyed(entity);
+
+		}					//notify all componentArrays that the entity is destroyed to remove its records if they exist
 	};
+
+
+
+
+
 
 }
 #endif

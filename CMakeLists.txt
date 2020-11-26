@@ -48,9 +48,9 @@ set(COMMON_SOURCES
 
         assets/ECS/Entities/EntityManager.cpp
         assets/ECS/Components/ComponentManager.cpp
-        assets/ECS/Components/ComponentArray.cpp
+        #assets/ECS/Components/ComponentArray.cpp
         assets/ECS/Systems/SystemManager.cpp
-        assets/ECS/ECSManager.cpp
+        #assets/ECS/ECSManager.cpp
 
         
         assets/ECS/Systems/CameraSystem.cpp
@@ -59,6 +59,8 @@ set(COMMON_SOURCES
 
 # Define the directories in which to search for the included headers
 include_directories(
+        assets/ECS
+        assets/ECS/Systems
         source/common
         vendor/glfw/include
         vendor/glad/include
