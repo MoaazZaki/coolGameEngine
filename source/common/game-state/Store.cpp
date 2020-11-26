@@ -169,14 +169,14 @@ void famm::Store::startInit()
 
 
     // Shaders Creating & loading
-    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("quad.vert","smiley.frag"),std::make_pair("quad.vert","g.frag"),std::make_pair("quad.vert","heart.frag"),std::make_pair("quad.vert","pacman.frag") };
-    char* shaderName[4] = { "smiley","g","heart","pacman" };
+    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("transform.vert","tint.frag") };
+    char* shaderName[4] = { "myProgram" };
     for (int i = 0; i < namesOfShadersProgram.size(); i++)
     {
         tableOfShaderPrograms[shaderName[i]] = new ShaderProgram;
         tableOfShaderPrograms[shaderName[i]]->create();
-        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/phase1/"+namesOfShadersProgram[i].first, GL_VERTEX_SHADER);
-        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/phase1/" + namesOfShadersProgram[i].second, GL_FRAGMENT_SHADER);
+        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/"+namesOfShadersProgram[i].first, GL_VERTEX_SHADER);
+        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/" + namesOfShadersProgram[i].second, GL_FRAGMENT_SHADER);
         tableOfShaderPrograms[shaderName[i]]->link();
     }
 }

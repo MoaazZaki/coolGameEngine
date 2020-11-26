@@ -6,13 +6,11 @@
 #include <cassert>
 
 #include <glad/gl.h>
-
-#include "vertex-attributes.hpp"
-
-#include "mesh.hpp"
 #include "shader.hpp"
 #include "string.h"
 #include <vector>
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
 using namespace std;
 namespace famm {
 	//Material Class
@@ -21,30 +19,34 @@ namespace famm {
 		private:
 			ShaderProgram* s; // Pointer to the shader
 
-			vector<pair<string, float>>UniformScalar; // Vector of uniform values (scalar) 
-			vector<pair<string, float>>UniformVector2; // Vector of uniform vectors(2)
-			vector<pair<string, float>>UniformVector3; // Vector of uniform vector(3) 
-			
-			int ScalarN; // number of scalar uniform values
-			int Vector2N;  // number of ventor(2) uniform values
-			int Vector3N; // number of vector(3) uniform vales
+			vector<pair<char*, float>> UniformScalar; // Vector of uniform values (scalar) 
+			vector<pair<char*, glm::vec2>> UniformVector2; // Vector of uniform vectors(2)
+			vector<pair<char*, glm::vec3>> UniformVector3; // Vector of uniform vector(3) 
+	public:	
 
-			string p; //Path
-	public:
-		 void onintalizeShader() {};
+		Material(int ScalarN, int Vector2N, int Vector3N);
 
-		 void addToScalar(string name, float variable);
-		 void addToVector2(string name, float variable);
-		 void addToVector3(string name, float variable);
+		// void onintalizeShader() {};
 
+		void addToScalar(char* name, float variable);
+		void addToVector2(char* name, glm::vec2 variable);
+		void addToVector3(char* name, glm::vec3 variable);
 
-		 void onDrawShader() {};
-		 void onupdateshaderScalar() {};
-		 void  onupdateshaderVector2() {};
-		void  onupdateshaderVector3() {};
-		 void onDestroyShader() {};
+		void updateShaderScalar(vector<pair<char*, float>> array); //Update the whole or part of Uniform vector given vector 
+		void  updateShaderVector2(vector<pair<char*, glm::vec2>> array);
+		void  updateShaderVector3(vector<pair<char*, glm::vec3>> array);
 
+		void updateSingleShaderScalar(float value, int pos); //Update single value given value and position 
+		void  updateSingleShaderVector2(glm::vec2 value, int pos);
+		void  updateSingleShaderVector3(glm::vec3 value, int pos);
 
+		//void onDrawShader() {};
+		void onUpdateShaderScalar();
+		void  onUpdateShaderVector2();
+		void  onUpdateShaderVector3();
+		// void onDestroyShader() {};
+
+		ShaderProgram* getShaderProgram() { return s; }
 
 
 

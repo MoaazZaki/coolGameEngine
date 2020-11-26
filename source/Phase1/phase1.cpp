@@ -39,20 +39,28 @@ void famm::PhaseOneApplication::onDraw(double deltaTime)  {
 
          GLuint cursor_uniform_location;
         GLuint window_ratio_uniform_location;
-
-
-
-
    
         glUseProgram(*currentShader);
+        glBindVertexArray(vertex_array);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
+        glUseProgram(*myStore->getShaderPointer("pacman"));
+        glBindVertexArray(vertex_array);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
 
         cursor_uniform_location = glGetUniformLocation(*currentShader, "cursorPos");
         glUniform2f(cursor_uniform_location, cursorPos.x, cursorPos.y);
         window_ratio_uniform_location = glGetUniformLocation(*currentShader, "screenRatio");
         glUniform1f(window_ratio_uniform_location, windowRatio);
 
-        glBindVertexArray(vertex_array);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        cursor_uniform_location = glGetUniformLocation(*currentShader, "cursorPos");
+        glUniform2f(cursor_uniform_location, 0,0);
+        window_ratio_uniform_location = glGetUniformLocation(*currentShader, "screenRatio");
+        glUniform1f(window_ratio_uniform_location, windowRatio);
+
+        
 
         glBindVertexArray(0);
     }

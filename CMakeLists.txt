@@ -45,14 +45,13 @@ set(COMMON_SOURCES
         source/common/game-state/GameMenuState.cpp
         source/common/game-state/InGameMenuState.cpp
         source/common/DeviceManager.cpp
+        source/common/mesh/Material.cpp
 
         assets/ECS/Entities/EntityManager.cpp
-        assets/ECS/Components/ComponentManager.cpp
+        #assets/ECS/Components/ComponentManager.cpp
         #assets/ECS/Components/ComponentArray.cpp
         assets/ECS/Systems/SystemManager.cpp
-        #assets/ECS/ECSManager.cpp
-
-        
+        #assets/ECS/ECSManager.cpp        
         assets/ECS/Systems/CameraSystem.cpp
         assets/ECS/Systems/CameraControllerSystem.cpp
 )
