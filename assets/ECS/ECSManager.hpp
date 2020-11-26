@@ -17,36 +17,108 @@ namespace famm {
 
 	public:
 
-		ECSManager();							//constructor to initialize manager pointers
+		ECSManager() {
+
+			eManagerPtr = new EntityManager;
+			cManagerPtr = new ComponentManager;
+			sManagerPtr = new SystemManager;
+
+		}							//constructor to initialize manager pointers
 
 		//EntityManager Functions
-		Entity createEntity();
+		Entity createEntity() {
 
-		void destroyEntity(Entity entity);
+			return eManagerPtr->createEntity();
+
+		}
+
+		void destroyEntity(Entity entity) {
+
+			eManagerPtr->destroyEntity(entity);
+			cManagerPtr->entityDestroyed(entity);
+			sManagerPtr->entityDestroyed(entity);
+
+		}
 
 		//ComponentManager Functions
 		template<typename T>
-		void addComponentType();						
+		void addComponentType() {
+
+			cManagerPtr->addComponentType<T>();
+
+		}
 
 		template<typename T>
-		ComponentType getComponentType();					
+		ComponentType getComponentType() {
+
+			return cManagerPtr->getComponentType<T>();
+
+		}
 
 		template<typename T>
-		void addComponentData(Entity entity, T componentdata);	
+		void addComponentData(Entity entity, T componentdata) {
+
+			//add the component data to the entity
+			cManagerPtr->addComponentData<T>(entity, componentdata);
+
+			//update the entity signature 
+			Signature eSignature = eManagerPtr->getSignature(entity);
+			eSignature.set(cManagerPtr->getComponentType<T>(), true);
+			eManagerPtr->setSignature(entity, eSignature);
+
+			//inform systems of the change in entity signature
+			sManagerPtr->entitySignatureChanged(entity, eSignature);
+		}
 
 		template<typename T>
-		void removeComponentData(Entity entity);				
+		void removeComponentData(Entity entity) {
+
+			//remove the component data from the entity
+			cManagerPtr->removeComponentData<T>(entity);
+
+			//update the entity signature 
+			Signature eSignature = eManagerPtr->getSignature(entity);
+			eSignature.set(cManagerPtr->getComponentType<T>(), false);
+			eManagerPtr->setSignature(entity, eSignature);
+
+			//inform systems of the change in entity signature
+			sManagerPtr->entitySignatureChanged(entity, eSignature);
+
+		}
 
 		template<typename T>
-		T& getComponentData(Entity entity);
+		T& getComponentData(Entity entity) {
+
+			return cManagerPtr->getComponentData<T>(entity);
+
+		}
 
 		//SystemManager Functions
 		template<typename T>
-		T* addSystem();								
+		T* addSystem() {
+
+			return sManagerPtr->addSystem<T>();
+		}
 
 		template<typename T>
-		void setSystemSignature(Signature signature);
+		void setSystemSignature(Signature signature) {
+
+			sManagerPtr->setSignature<T>(signature);
+
+		}
 	};
+
+
+
+//------------------------Entity Functions-----------------------------//
+
+
+
+//------------------------Component Functions-----------------------------//
+
+//------------------------System Functions-----------------------------//
+
+
 
 }
 #endif

@@ -18,14 +18,53 @@ namespace famm {
 	public:
 
 		template<typename T>
-		T* addSystem();								//add a new system (name and pointer) to the systems map and return a pointer to the system
+		T* addSystem() {
+
+			//get the system name
+			const char* systemName = typeid(T).name();
+			assert(systems.find(componentTypeName) == system.end() && "System already defined.");
+
+			//create a pointer to the system, add the system name and pointer to the systems map, and return the system pointer
+			T* sPtr;
+			systems.insert({ systemName,sPtr });
+			return sPtr;
+
+		}								//add a new system (name and pointer) to the systems map and return a pointer to the system
 
 		template<typename T>
-		void setSignature(Signature signature);		//set the signature of a specific system
+		void setSignature(Signature signature) {
 
-		void entityDestroyed(Entity entity);		//notify all systems that an entity has been destroyed to remove it from their entities set if exists
+			//get the system name
+			const char* systemName = typeid(T).name();
+			assert(systems.find(componentTypeName) != system.end() && "System doesn't exist.");
 
-		void entitySignatureChanged(Entity entity, Signature newEntitySignature);	//notify all systems of the change in the entity signature and take the correct
+			//insert system name and signature in the systemSignatures map
+			systemSignatures.insert({ systemName,signature });
+
+		}		//set the signature of a specific system
+
+		void entityDestroyed(Entity entity) {
+
+			//iterate over the entitiesSet of all systems and erase the destroyed entity if exists
+			for (auto& it : systems) it.second->entitiesSet.erase(entity);
+
+		}		//notify all systems that an entity has been destroyed to remove it from their entities set if exists
+
+		void entitySignatureChanged(Entity entity, Signature newEntitySignature) {
+
+			//iterate over the entitiesSet of all systems 
+			for (auto& it : systems) {
+
+				//if the entity signature matches the system signature (has all components in system signature), add it to the system's entitiesSet
+				if ((newEntitySignature & systemSignatures[it.first]) == systemSignatures[it.first]) it.second->entitiesSet.insert(entity);
+
+				//if the entity's new signature mismatches the system's, remove it from the entitiesSet
+				else it.second->entitiesSet.erase(entity);
+
+
+			}
+
+		}	//notify all systems of the change in the entity signature and take the correct
 																				//action (add/remove/no change in entities set)
 
 	};
