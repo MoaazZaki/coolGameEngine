@@ -6,6 +6,8 @@
 #include <glm/vec3.hpp>
 #include "./mesh/mesh.hpp"
 #include "./mesh/Material.hpp"
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/euler_angles.hpp>
 
 namespace famm {
 	
@@ -16,12 +18,23 @@ namespace famm {
 		glm::vec3 rotation;		//representing Euler Angles
 		Entity parent;			//parent id
 
+		Transform(
+			const glm::vec3& position = { 0,0,0 },
+			const glm::vec3& rotation = { 0,0,0 },
+			const glm::vec3& scale = { 1,1,1 }
+		) : position(position), rotation(rotation), scale(scale) {}
+
+		glm::mat4 to_mat4() const {
+			return glm::translate(glm::mat4(1.0f), position) *
+				glm::yawPitchRoll(rotation.y, rotation.x, rotation.z) *
+				glm::scale(glm::mat4(1.0f), scale);
+		}
 	};
 
 	struct MeshRenderer {
 
-		Mesh* M;       // Pointer to the mesh Class
-		Material * mat; // pointer to the material class
+		Mesh* mesh;       // Pointer to the mesh Class
+		Material * material; // pointer to the material class
 	};
 
 	struct Camera {

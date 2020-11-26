@@ -168,17 +168,39 @@ void famm::Store::startInit()
     ImGui_ImplOpenGL3_Init("#version 330 core");
 
 
-    // Shaders Creating & loading
-    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("quad.vert","smiley.frag"),std::make_pair("quad.vert","g.frag"),std::make_pair("quad.vert","heart.frag"),std::make_pair("quad.vert","pacman.frag") };
-    char* shaderName[4] = { "smiley","g","heart","pacman" };
+    /// Shaders Creating & loading
+    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("transform.vert","tint.frag") };
+    char* shaderName[4] = { "myProgram" };
     for (int i = 0; i < namesOfShadersProgram.size(); i++)
     {
         tableOfShaderPrograms[shaderName[i]] = new ShaderProgram;
         tableOfShaderPrograms[shaderName[i]]->create();
-        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/phase1/"+namesOfShadersProgram[i].first, GL_VERTEX_SHADER);
-        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/phase1/" + namesOfShadersProgram[i].second, GL_FRAGMENT_SHADER);
+        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/"+namesOfShadersProgram[i].first, GL_VERTEX_SHADER);
+        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/" + namesOfShadersProgram[i].second, GL_FRAGMENT_SHADER);
         tableOfShaderPrograms[shaderName[i]]->link();
     }
+
+    /// Meshes Creating/Loading
+    char* MeshName[2] = { "model","triangle" };
+
+    //Triangle
+    tableOfMeshes[MeshName[0]] = new Mesh;
+    tableOfMeshes[MeshName[0]]->create({ famm::setup_buffer_accessors<famm::ColoredVertex> });
+    tableOfMeshes[MeshName[0]]->setVertexData<famm::ColoredVertex>(0, {
+                {{-0.5, -0.5, 0},{255,   0,   0, 255}},
+                {{ 0.5, -0.5, 0},{  0, 255,   0, 255}},
+                {{ 0.0,  0.5, 0},{  0,   0, 255, 255}}
+        }, GL_STATIC_DRAW);
+    tableOfMeshes[MeshName[0]]->setElementData<GLuint>({
+                                        0, 1, 2
+        }, GL_STATIC_DRAW);
+
+    //Model
+    tableOfMeshes[MeshName[1]] = new Mesh;
+    famm::mesh_utils::Cuboid(*tableOfMeshes[MeshName[1]], true);
+
+    /// Material Creating
+    tableOfMaterials["myProgram"] = new Material(0, 0, 0);
 }
 
 void famm::Store::startCleaning()

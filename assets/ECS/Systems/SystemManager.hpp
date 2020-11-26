@@ -17,6 +17,7 @@ namespace famm {
 
 	public:
 
+		//add a new system (name and pointer) to the systems map and return a pointer to the system
 		template<typename T>
 		T* addSystem() {
 
@@ -29,8 +30,9 @@ namespace famm {
 			systems.insert({ systemName,sPtr });
 			return sPtr;
 
-		}								//add a new system (name and pointer) to the systems map and return a pointer to the system
+		}								
 
+		//set the signature of a specific system
 		template<typename T>
 		void setSignature(Signature signature) {
 
@@ -41,15 +43,17 @@ namespace famm {
 			//insert system name and signature in the systemSignatures map
 			systemSignatures.insert({ systemName,signature });
 
-		}		//set the signature of a specific system
+		}		
 
+		//notify all systems that an entity has been destroyed to remove it from their entities set if exists
 		void entityDestroyed(Entity entity) {
 
 			//iterate over the entitiesSet of all systems and erase the destroyed entity if exists
 			for (auto& it : systems) it.second->entitiesSet.erase(entity);
 
-		}		//notify all systems that an entity has been destroyed to remove it from their entities set if exists
+		}		
 
+		//notify all systems of the change in the entity signature and take the correct action (add/remove/no change in entities set)
 		void entitySignatureChanged(Entity entity, Signature newEntitySignature) {
 
 			//iterate over the entitiesSet of all systems 
@@ -64,8 +68,7 @@ namespace famm {
 
 			}
 
-		}	//notify all systems of the change in the entity signature and take the correct
-																				//action (add/remove/no change in entities set)
+		}	
 
 	};
 

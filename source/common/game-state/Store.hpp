@@ -20,7 +20,11 @@
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
 #include "DeviceManager.hpp"
-
+#include <mesh/mesh.hpp>
+#include <mesh/Material.hpp>
+#include <mesh/mesh-utils.hpp>
+#include <mesh/common-vertex-types.hpp>
+#include <mesh/common-vertex-attributes.hpp>
 
 namespace famm {
 
@@ -31,6 +35,8 @@ namespace famm {
 		DeviceManager* deviceManager;
 		ImGuiIO io;
 		std::unordered_map<std::string, ShaderProgram*> tableOfShaderPrograms;
+		std::unordered_map<std::string, Mesh*> tableOfMeshes;
+		std::unordered_map<std::string, Material*> tableOfMaterials;
 
 	public:
 		Store(DeviceManager* deviceManager) {
@@ -49,6 +55,16 @@ namespace famm {
 		ShaderProgram* getShaderPointer(std::string name) {	
 			std::unordered_map<std::string, ShaderProgram*>::const_iterator shader = tableOfShaderPrograms.find(name);
 			return shader->second;
+		}
+
+		Mesh* getMeshPointer(std::string name) {
+			std::unordered_map<std::string, Mesh*>::const_iterator mesh = tableOfMeshes.find(name);
+			return mesh->second;
+		}
+
+		Material* getMaterialPointer(std::string name) {
+			std::unordered_map<std::string, Material*>::const_iterator material = tableOfMaterials.find(name);
+			return material->second;
 		}
 
 		void startCleaning();
