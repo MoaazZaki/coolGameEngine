@@ -17,15 +17,16 @@ namespace famm {
 
 	public:
 
+		//constructor to initialize manager pointers
 		ECSManager() {
 
 			eManagerPtr = new EntityManager;
 			cManagerPtr = new ComponentManager;
 			sManagerPtr = new SystemManager;
 
-		}							//constructor to initialize manager pointers
+		}							
 
-		//EntityManager Functions
+		//-------------------------Entity Functions------------------------//
 		Entity createEntity() {
 
 			return eManagerPtr->createEntity();
@@ -40,7 +41,7 @@ namespace famm {
 
 		}
 
-		//ComponentManager Functions
+		//-------------------------Component Functions------------------------//
 		template<typename T>
 		void addComponentType() {
 
@@ -93,7 +94,7 @@ namespace famm {
 
 		}
 
-		//SystemManager Functions
+		//-------------------------System Functions------------------------//
 		template<typename T>
 		T* addSystem() {
 
@@ -107,18 +108,6 @@ namespace famm {
 
 		}
 	};
-
-
-
-//------------------------Entity Functions-----------------------------//
-
-
-
-//------------------------Component Functions-----------------------------//
-
-//------------------------System Functions-----------------------------//
-
-
 
 }
 #endif
