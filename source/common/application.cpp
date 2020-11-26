@@ -318,6 +318,6 @@ int famm::Application::startCleaning() {
     // Call for cleaning up
     onDestroy();
 
-   
+    return 0;
 
 }
