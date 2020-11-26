@@ -11,7 +11,6 @@
 #include <glad/gl.h>
 
 #include "vertex-attributes.hpp"
-#include "Material.hpp"
 
 namespace famm {
 

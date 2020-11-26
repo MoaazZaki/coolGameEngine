@@ -195,5 +195,5 @@ void famm::Store::startCleaning()
     ImGui::DestroyContext();
 
 
-    return 0; // Good bye
+   
 }
