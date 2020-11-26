@@ -6,8 +6,8 @@ void famm::CameraSystem::setType(bool projectionType,  ECSManager* ECSmanager)
 {
     for (auto const& entity : entitiesSet)
     {
-       /* auto& camera = ECSmanager->getComponentData<Camera>(entity);
-        camera.projectionType = projectionType;*/
+        auto& camera = ECSmanager->getComponentData<famm::Camera>(entity);
+        camera.projectionType = projectionType;
     }
 }
 
@@ -15,7 +15,7 @@ void famm::CameraSystem::setOrthographicSize(float orthographic_height,  ECSMana
 {
     for (auto const& entity : entitiesSet)
     {
-        auto& camera = ECSmanager->getComponentData<Camera>(entity);
+        auto& camera = ECSmanager->getComponentData<famm::Camera>(entity);
         camera.orthographic_height = orthographic_height;
     }
 }
@@ -227,6 +227,7 @@ glm::mat4 famm::CameraSystem::getViewMatrix( ECSManager* ECSmanager) {
         return V;
     }
 }
+
 glm::vec3 famm::CameraSystem::Right( ECSManager* ECSmanager) {
     getViewMatrix(ECSmanager);
     return { V[0][0],V[1][0],V[2][0] };

@@ -1,6 +1,5 @@
 #include "CameraControllerSystem.hpp"
-#include "../ECSManager.hpp"
-#include "../Components/Components.hpp"
+
 
 
 void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceManager* deviceManager, double delta_time, CameraSystem* camsys)
@@ -11,7 +10,8 @@ void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceMana
 
         /*auto& transform = ECSmanager->getComponentData<Transform>(entity);*/
 
-        glm::vec3 front = camsys->Forward(ECSmanager), up = camsys->Up(ECSmanager), right = camsys->Right(ECSmanager);
+        //glm::vec3 front = camsys->Forward(ECSmanager), up = camsys->Up(ECSmanager), right = camsys->Right(ECSmanager);
+        glm::vec3 front = glm::vec3(0,0,0), up = glm::vec3(0, 0, 0), right = glm::vec3(0, 0, 0);
 
         if (deviceManager->pressedActionChecker(famm::ControlsActions::UP, famm::PressModes::IS_PRESSED))
         {

@@ -20,65 +20,65 @@ namespace famm {
 
 	public:
 
-		void famm::CameraSystem::setType(bool ProjectionType,  ECSManager* ECSmanager);
+		void setType(bool ProjectionType,  ECSManager* ECSmanager);
 
-        void famm::CameraSystem::setOrthographicSize(float orthographic_height,  ECSManager* ECSmanager);
+        void setOrthographicSize(float orthographic_height,  ECSManager* ECSmanager);
 
-        void famm::CameraSystem::setVerticalFieldOfView(float field_of_view_y,  ECSManager* ECSmanager);
+        void setVerticalFieldOfView(float field_of_view_y,  ECSManager* ECSmanager);
 
-        void famm::CameraSystem::setAspectRatio(float aspect_ratio,  ECSManager* ECSmanager);
+        void setAspectRatio(float aspect_ratio,  ECSManager* ECSmanager);
 
-        void famm::CameraSystem::setNearPlane(float near,  ECSManager* ECSmanager);
+        void setNearPlane(float near,  ECSManager* ECSmanager);
 
-        void famm::CameraSystem::setFarPlane(float far,  ECSManager* ECSmanager);
+        void setFarPlane(float far,  ECSManager* ECSmanager);
 
-        void famm::CameraSystem::setEyePosition(glm::vec3 eye,  ECSManager* ECSmanager);
+        void setEyePosition(glm::vec3 eye,  ECSManager* ECSmanager);
 
-        void famm::CameraSystem::setDirection(glm::vec3 direction,  ECSManager* ECSmanager);
+        void setDirection(glm::vec3 direction,  ECSManager* ECSmanager);
 
-        void famm::CameraSystem::setTarget(glm::vec3 target,  ECSManager* ECSmanager);
+        void setTarget(glm::vec3 target,  ECSManager* ECSmanager);
 
-        void famm::CameraSystem::setUp(glm::vec3 up,  ECSManager* ECSmanager);
+        void setUp(glm::vec3 up,  ECSManager* ECSmanager);
 
-        void famm::CameraSystem::setVericalFieldOFViewAngle(float vertical_field_of_view_angle,  ECSManager* ECSmanager);
+        void setVericalFieldOFViewAngle(float vertical_field_of_view_angle,  ECSManager* ECSmanager);
 
-        bool famm::CameraSystem::getType( ECSManager* ECSmanager);
+        bool getType( ECSManager* ECSmanager);
 
-        float famm::CameraSystem::getOrthographicSize( ECSManager* ECSmanager);
+        float getOrthographicSize( ECSManager* ECSmanager);
 
-        float famm::CameraSystem::getVerticalFieldOfView( ECSManager* ECSmanager);
+        float getVerticalFieldOfView( ECSManager* ECSmanager);
 
-        float famm::CameraSystem::getAspectRatio( ECSManager* ECSmanager);
+        float getAspectRatio( ECSManager* ECSmanager);
 
-        float famm::CameraSystem::getNearPlane( ECSManager* ECSmanager);
+        float getNearPlane( ECSManager* ECSmanager);
 
-        float famm::CameraSystem::getFarPlane( ECSManager* ECSmanager);
+        float getFarPlane( ECSManager* ECSmanager);
 
-        glm::vec3 famm::CameraSystem::getEyePosition( ECSManager* ECSmanager);
+        glm::vec3 getEyePosition( ECSManager* ECSmanager);
 
-        glm::vec3 famm::CameraSystem::getDirection( ECSManager* ECSmanager);
+        glm::vec3 getDirection( ECSManager* ECSmanager);
 
-        glm::vec3 famm::CameraSystem::getTarget( ECSManager* ECSmanager);
+        glm::vec3 getTarget( ECSManager* ECSmanager);
 
-        glm::vec3 famm::CameraSystem::getUp( ECSManager* ECSmanager);
+        glm::vec3 getUp( ECSManager* ECSmanager);
 
-        float famm::CameraSystem::getVericalFieldOFViewAngle( ECSManager* ECSmanager);
+        float getVericalFieldOFViewAngle( ECSManager* ECSmanager);
 
-        glm::mat4 famm::CameraSystem::getProjectionMatrix( ECSManager* ECSmanager);
+        glm::mat4 getProjectionMatrix( ECSManager* ECSmanager);
 
-        glm::mat4 famm::CameraSystem::getViewMatrix( ECSManager* ECSmanager);
+        glm::mat4 getViewMatrix( ECSManager* ECSmanager);
 
-        glm::vec3 famm::CameraSystem::Right( ECSManager* ECSmanager);
+        glm::vec3 Right( ECSManager* ECSmanager);
 
-        glm::vec3 famm::CameraSystem::Left( ECSManager* ECSmanager);
+        glm::vec3 Left( ECSManager* ECSmanager);
 
-        glm::vec3 famm::CameraSystem::Up( ECSManager* ECSmanager);
+        glm::vec3 Up( ECSManager* ECSmanager);
 
-        glm::vec3 famm::CameraSystem::Down( ECSManager* ECSmanager);
+        glm::vec3 Down( ECSManager* ECSmanager);
 
-        glm::vec3 famm::CameraSystem::Forward( ECSManager* ECSmanager);
+        glm::vec3 Forward( ECSManager* ECSmanager);
 
-        glm::vec3 famm::CameraSystem::Backward( ECSManager* ECSmanager);
+        glm::vec3 Backward( ECSManager* ECSmanager);
 	};
 
 }

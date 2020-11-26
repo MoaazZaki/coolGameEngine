@@ -20,7 +20,7 @@ namespace famm {
     private:
     public:
 
-        void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceManager* deviceManager, double delta_time, CameraSystem* camera);
+        void moveCamera(ECSManager* ECSmanager, DeviceManager* deviceManager, double delta_time, CameraSystem* camera);
     };
 
 }

@@ -45,11 +45,14 @@ set(COMMON_SOURCES
         source/common/game-state/GameMenuState.cpp
         source/common/game-state/InGameMenuState.cpp
         source/common/DeviceManager.cpp
+
         assets/ECS/Entities/EntityManager.cpp
-        assets/ECS/ECSManager.cpp
         assets/ECS/Components/ComponentManager.cpp
         assets/ECS/Components/ComponentArray.cpp
         assets/ECS/Systems/SystemManager.cpp
+        assets/ECS/ECSManager.cpp
+
+        
         assets/ECS/Systems/CameraSystem.cpp
         assets/ECS/Systems/CameraControllerSystem.cpp
 )
@@ -67,5 +70,5 @@ include_directories(
 # For each example, we add an executable target
 # Each target compiles one example source file and the common & vendor source files
 # Then we link GLFW with each target
-add_executable(MAIN source/Phase1/main.cpp ${COMMON_SOURCES} ${VENDOR_SOURCES} "assets/ECS/Systems/CameraControllerSystem.hpp" "assets/ECS/Systems/CameraControllerSystem.cpp")
+add_executable(MAIN source/Phase1/main.cpp ${COMMON_SOURCES} ${VENDOR_SOURCES})
 target_link_libraries(MAIN glfw)
