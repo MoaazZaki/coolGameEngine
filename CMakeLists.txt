@@ -65,6 +65,8 @@ include_directories(
         vendor/glm
         vendor/imgui
         vendor/utils
+        assets/ECS/Systems
+        assets/ECS
 )
 
 # For each example, we add an executable target
