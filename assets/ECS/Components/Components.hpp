@@ -44,7 +44,7 @@ namespace famm {
 		//glm::vec3 eye;
 		//glm::vec3 direction;
 		//glm::vec3 up;
-		//glm::vec3 target;
+		glm::vec3 target;
 		float near, far;       //distances from camera        
 		float aspect_ratio;    //used for calculating the position of the left and right plates
 		float vertical_field_of_view_angle;   //for perspective projection
@@ -58,6 +58,7 @@ namespace famm {
 		float yaw_sensitivity;
 		float pitch_sensitivity;
 		float fov_sensitivity;
+		float speedup_factor;
 		bool mouse_locked;
 	};
 }

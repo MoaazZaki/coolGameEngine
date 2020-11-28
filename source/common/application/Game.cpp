@@ -71,22 +71,23 @@ void famm::Game::onInitialize()
 
 	// Entity 6 (Camera)
 	camera = myManager.createEntity();
-	myManager.addComponentData<Transform>(camera, famm::Transform({ 10, 10, 10 }));
 	myManager.addComponentData<Camera>(camera, famm::Camera(
 		{
 			1,
+			{0,0,0},
 			0.01f,
 			100.0f,
-			1.0f,
+			16.0/9.0,
 			glm::radians(90.0f),
 			2.0f,
 			glm::radians(90.0f)
 		}));
-	
+	myManager.addComponentData<Transform>(camera, famm::Transform({ 10, 10, 10 }, { -10, -10, -10 }));
+
 
 	// Entity 7 (Camera controller)
 	cameraController = myManager.createEntity();
-	myManager.addComponentData<CameraController>(cameraController, famm::CameraController({ camera,{3.0f, 3.0f, 3.0f},0.01f,0.01f,glm::pi<float>() / 10,false}));
+	myManager.addComponentData<CameraController>(cameraController, famm::CameraController({ camera,{3.0f, 3.0f, 3.0f},0.01f,0.01f,glm::pi<float>() / 10,5.0f,false}));
 
 
 	glClearColor(0, 0, 0, 0);

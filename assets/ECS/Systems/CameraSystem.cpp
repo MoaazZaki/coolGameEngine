@@ -86,18 +86,19 @@ void famm::CameraSystem::setPitch(float pitch, ECSManager* ECSmanager)
 //    for (auto const& entity : entitiesSet)
 //    {
 //        auto& camera = ECSmanager->getComponentData<Camera>(entity);
-//        camera.direction = direction;
+//        auto& transform = ECSmanager->getComponentData<Transform>(entity);
+//        camera.direction = camera.target - transform.position;
 //    }
 //}
 
-//void famm::CameraSystem::setTarget(glm::vec3 target,  ECSManager* ECSmanager)
-//{
-//    for (auto const& entity : entitiesSet)
-//    {
-//        auto& camera = ECSmanager->getComponentData<Camera>(entity);
-//        camera.target = target;
-//    }
-//}
+void famm::CameraSystem::setTarget(glm::vec3 target,  ECSManager* ECSmanager)
+{
+    for (auto const& entity : entitiesSet)
+    {
+        auto& camera = ECSmanager->getComponentData<Camera>(entity);
+        camera.target = target;
+    }
+}
 
 //void famm::CameraSystem::setUp(glm::vec3 up,  ECSManager* ECSmanager)
 //{
@@ -184,20 +185,20 @@ float famm::CameraSystem::getFarPlane( ECSManager* ECSmanager)
 //{
 //    for (auto const& entity : entitiesSet)
 //    {
-//        auto& camera = ECSmanager->getComponentData<Camera>(entity);
-//        return camera.direction;
+//        auto& transform = ECSmanager->getComponentData<Transform>(entity);
+//        return transform.position;
 //    }
 //}
-//
-//glm::vec3 famm::CameraSystem::getTarget( ECSManager* ECSmanager)
-//{
-//    for (auto const& entity : entitiesSet)
-//    {
-//        auto& camera = ECSmanager->getComponentData<Camera>(entity);
-//        return camera.target;
-//    }
-//}
-//
+
+glm::vec3 famm::CameraSystem::getTarget( ECSManager* ECSmanager)
+{
+    for (auto const& entity : entitiesSet)
+    {
+        auto& camera = ECSmanager->getComponentData<Camera>(entity);
+        return camera.target;
+    }
+}
+
 //glm::vec3 famm::CameraSystem::getUp( ECSManager* ECSmanager)
 //{
 //    for (auto const& entity : entitiesSet)
@@ -239,7 +240,7 @@ glm::mat4 famm::CameraSystem::getProjectionMatrix( ECSManager* ECSmanager) {
     for (auto const& entity : entitiesSet)
     {
         auto& camera = ECSmanager->getComponentData<Camera>(entity);
-        camera.vertical_field_of_view_angle;
+        //camera.vertical_field_of_view_angle;
         if (camera.projectionType == 0) {
             float half_height = camera.orthographic_height * 0.5f;
             float half_width = camera.aspect_ratio * half_height;
@@ -259,10 +260,9 @@ glm::mat4 famm::CameraSystem::getViewMatrix( ECSManager* ECSmanager) {
         auto& camera = ECSmanager->getComponentData<Camera>(entity);
         auto& transform = ECSmanager->getComponentData<Transform>(entity);
         glm::vec3 y = { 0,1,0 };
-        glm::vec3 neg_z = { 0,0,-1 };
         glm::vec3 up = transform.position* y;
-        glm::vec3 direction = transform.position * neg_z;
-        V = glm::lookAt(transform.position, transform.position + direction, up);
+        //glm::vec3 direction = camera.target - transform.position;   
+        V = glm::lookAt(transform.position, transform.position + transform.rotation, up);
         return V;
     }
 }

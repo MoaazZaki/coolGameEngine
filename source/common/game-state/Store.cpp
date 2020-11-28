@@ -181,7 +181,7 @@ void famm::Store::startInit()
     }
 
     /// Meshes Creating/Loading
-    char* MeshName[2] = { "model","triangle" };
+    char* MeshName[2] = { "triangle","model" };
 
     //Triangle
     tableOfMeshes[MeshName[0]] = new Mesh;
