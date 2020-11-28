@@ -37,37 +37,16 @@ void famm::Game::onInitialize()
 	Entity object;
 	Entity camera;
 	Entity cameraController;
-	// Entity 0 
+
+	//Wolf Entity
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 0,-1,0 }, { 0,0,0 }, { 11,2,11 }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("wolf"),myStore->getMaterialPointer("myProgram") }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 20,5,10 }, { 0,0,0 }, { 2,2,2 }));
 
-
-	// Entity 1 
+	//Tree Entity
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ -4,1,-4 }, { 0,0,0 }, { 2,2,2 }));
-
-	// Entity 2
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 4,1,-4 }, { 0,0,0 }, { 2,2,2 }));
-
-	// Entity 3
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ -4,1,4 }, { 0,0,0 }, { 2,2,2 }));
-
-	// Entity 4
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 4,1,4 }, { 0,0,0 }, { 2,2,2 }));
-
-	// Entity 5 (Triangle)
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("triangle"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 0,1,0 }, { 0,0,0 }, { 2,2,2 }));
-
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("tree"),myStore->getMaterialPointer("myProgram") }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 2,2,2 }));
 
 	// Entity 6 (Camera)
 	camera = myManager.createEntity();

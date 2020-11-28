@@ -4,6 +4,7 @@
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD2
 #include <imgui_impl/imgui_impl_glfw.h>
 #include <imgui_impl/imgui_impl_opengl3.h>
+#include <mesh/mesh-utils.hpp>
 
 #if !defined(NDEBUG)
 // If NDEBUG (no debug) is not defined, enable OpenGL debug messages
@@ -181,23 +182,15 @@ void famm::Store::startInit()
     }
 
     /// Meshes Creating/Loading
-    char* MeshName[2] = { "triangle","model" };
+    char* MeshName[MAX_ENTITIES] = { "wolf","tree" };
 
-    //Triangle
+    //Wolf Mesh
     tableOfMeshes[MeshName[0]] = new Mesh;
-    tableOfMeshes[MeshName[0]]->create({ famm::setup_buffer_accessors<famm::ColoredVertex> });
-    tableOfMeshes[MeshName[0]]->setVertexData<famm::ColoredVertex>(0, {
-                {{-0.5, -0.5, 0},{255,   0,   0, 255}},
-                {{ 0.5, -0.5, 0},{  0, 255,   0, 255}},
-                {{ 0.0,  0.5, 0},{  0,   0, 255, 255}}
-        }, GL_STATIC_DRAW);
-    tableOfMeshes[MeshName[0]]->setElementData<GLuint>({
-                                        0, 1, 2
-        }, GL_STATIC_DRAW);
+    famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[0]], "assets/Models/Wolf.obj");
 
-    //Model
+    //Tree Mesh
     tableOfMeshes[MeshName[1]] = new Mesh;
-    famm::mesh_utils::Cuboid(*tableOfMeshes[MeshName[1]], true);
+    famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[1]], "assets/Models/Tree.obj");
 
     /// Material Creating
     tableOfMaterials["myProgram"] = new Material(getShaderPointer("myProgram"));
