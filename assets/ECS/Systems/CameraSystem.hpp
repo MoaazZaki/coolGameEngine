@@ -11,7 +11,7 @@
 
 namespace famm {
 
-	class CameraSystem : System
+	class CameraSystem : public System
 	{
 	private:
 

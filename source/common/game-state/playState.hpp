@@ -3,16 +3,16 @@
 
 
 #include <game-state/GameState.hpp>
-#include <../Phase1/phase1.hpp>
+#include <application/Game.hpp>
 
 namespace famm {
 
 	class PlayState : public famm::GameState {
-		famm::PhaseOneApplication* game;
+		famm::Game* game;
 		double last_frame_time;
 	public:
 		PlayState(DeviceManager* deviceManager, Store* myStore){
-			game = new famm::PhaseOneApplication(deviceManager, myStore);
+			game = new famm::Game(deviceManager, myStore);
 			onEnter();
 		}
 

@@ -39,7 +39,7 @@ namespace famm {
 
 	struct Camera {
 
-		Entity* containerEntity;
+		//Entity containerEntity;
 		bool projectionType;    //Projection type: 0 for Orthographic -- 1 for Perspective 
 		//glm::vec3 eye;
 		//glm::vec3 direction;
@@ -53,7 +53,7 @@ namespace famm {
 		float yaw, pitch;
 	};
 	struct CameraController {
-		Entity* containerEntity;
+		Entity controlledCamera;
 		glm::vec3 position_sensitivity;
 		float yaw_sensitivity;
 		float pitch_sensitivity;

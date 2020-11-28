@@ -10,11 +10,11 @@
 
 namespace famm {
 
-    class CameraControllerSystem : System
+    class CameraControllerSystem : public System
     {
     private:
     public:
-        void moveCamera(ECSManager* ECSmanager, DeviceManager* deviceManager, double delta_time, CameraSystem* camera);
+        void moveCamera(ECSManager* ECSmanager, DeviceManager* deviceManager, double delta_time, std::shared_ptr<CameraSystem> camera);
     };
 
 }

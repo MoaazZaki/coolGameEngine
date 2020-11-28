@@ -22,7 +22,6 @@ namespace famm {
 		ComponentArray() {
 
 			entriesCount = 0;
-
 		}									//constructor: set entriesCount to 0
 
 		void addData(Entity entity, T componentdata) {

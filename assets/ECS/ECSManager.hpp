@@ -11,20 +11,20 @@ namespace famm {
 	{
 	private:
 
-		EntityManager* eManagerPtr;				//entity manager pointer
-		ComponentManager* cManagerPtr;			//component manager pointer
-		SystemManager* sManagerPtr;				//system manager pointer
+		std::unique_ptr<EntityManager> eManagerPtr;				//entity manager pointer
+		std::unique_ptr<ComponentManager> cManagerPtr;			//component manager pointer
+		std::unique_ptr<SystemManager> sManagerPtr;				//system manager pointer
 
 	public:
 
 		//constructor to initialize manager pointers
 		ECSManager() {
 
-			eManagerPtr = new EntityManager;
-			cManagerPtr = new ComponentManager;
-			sManagerPtr = new SystemManager;
+			eManagerPtr = std::make_unique<EntityManager>();
+			cManagerPtr = std::make_unique<ComponentManager>() ;
+			sManagerPtr = std::make_unique<SystemManager>() ;
 
-		}							
+		}
 
 		//-------------------------Entity Functions------------------------//
 		Entity createEntity() {
@@ -96,7 +96,7 @@ namespace famm {
 
 		//-------------------------System Functions------------------------//
 		template<typename T>
-		T* addSystem() {
+		std::shared_ptr<T> addSystem() {
 
 			return sManagerPtr->addSystem<T>();
 		}

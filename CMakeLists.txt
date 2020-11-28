@@ -32,6 +32,7 @@ set(VENDOR_SOURCES ${GLAD_SOURCE} ${IMGUI_SOURCES})
 # A variable with all our source files that are common between executable targets (examples)
 set(COMMON_SOURCES
         source/common/application.cpp
+        source/common/application/Game.cpp
         source/common/application/GameMenu.cpp
         source/common/application/InGameMenu.cpp
         source/common/shader.cpp
@@ -52,8 +53,7 @@ set(COMMON_SOURCES
         #assets/ECS/Components/ComponentArray.cpp
         #assets/ECS/Systems/SystemManager.cpp
         #assets/ECS/ECSManager.cpp
-
-        
+        assets/ECS/Systems/RenderedSystem.cpp
         assets/ECS/Systems/CameraSystem.cpp
         assets/ECS/Systems/CameraControllerSystem.cpp
 )

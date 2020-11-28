@@ -50,32 +50,32 @@ namespace famm {
         //NOTE: It is inefficient to call glGetUniformLocation every frame
         //So it is usually a better option to either cache the location
         //or explicitly define the uniform location in the shader
-        void set(const std::string &uniform, GLfloat value) {
-            glUniform1f(getUniformLocation(uniform), value);
+        void set(GLuint location, GLfloat value) {
+            glUniform1f(location, value);
         }
 
-        void set(const std::string &uniform, GLint value) {
-            glUniform1i(getUniformLocation(uniform), value);
+        void set(GLuint location, GLint value) {
+            glUniform1i(location, value);
         }
 
-        void set(const std::string &uniform, GLboolean value) {
-            glUniform1i(getUniformLocation(uniform), value);
+        void set(GLuint location, GLboolean value) {
+            glUniform1i(location, value);
         }
 
-        void set(const std::string &uniform, glm::vec2 value) {
-            glUniform2f(getUniformLocation(uniform), value.x, value.y);
+        void set(GLuint location, glm::vec2 value) {
+            glUniform2f(location, value.x, value.y);
         }
 
-        void set(const std::string &uniform, glm::vec3 value) {
-            glUniform3f(getUniformLocation(uniform), value.x, value.y, value.z);
+        void set(GLuint location, glm::vec3 value) {
+            glUniform3f(location, value.x, value.y, value.z);
         }
 
-        void set(const std::string &uniform, glm::vec4 value) {
-            glUniform4f(getUniformLocation(uniform), value.x, value.y, value.z, value.w);
+        void set(GLuint location, glm::vec4 value) {
+            glUniform4f(location, value.x, value.y, value.z, value.w);
         }
 
-        void set(const std::string &uniform, glm::mat4 value, GLboolean transpose = false)  {
-            glUniformMatrix4fv(getUniformLocation(uniform), 1, transpose, glm::value_ptr(value));
+        void set(GLuint location, glm::mat4 value, GLboolean transpose = false)  {
+            glUniformMatrix4fv(location, 1, transpose, glm::value_ptr(value));
         }
 
 

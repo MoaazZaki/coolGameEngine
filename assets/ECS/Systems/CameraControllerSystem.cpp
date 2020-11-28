@@ -2,16 +2,37 @@
 
 
 
-void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceManager* deviceManager, double delta_time, CameraSystem* camsys)
+void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceManager* deviceManager, double delta_time, std::shared_ptr<CameraSystem> camsys)
 {
     for (auto const& entity : entitiesSet)
     {
-        auto& camera = ECSmanager->getComponentData<Camera>(entity);
+        
         auto& cameraController = ECSmanager->getComponentData<CameraController>(entity);
-        auto& transform = ECSmanager->getComponentData<Transform>(entity);
+        auto& camera = ECSmanager->getComponentData<Camera>(cameraController.controlledCamera);
+        auto& transform = ECSmanager->getComponentData<Transform>(cameraController.controlledCamera);
 
-        //glm::vec3 front = camsys->Forward(ECSmanager), up = camsys->Up(ECSmanager), right = camsys->Right(ECSmanager);
-        glm::vec3 front = glm::vec3(0,0,0), up = glm::vec3(0, 0, 0), right = glm::vec3(0, 0, 0);
+
+
+        if (deviceManager->pressedActionChecker(famm::ControlsActions::MOUSE_LEFT, famm::PressModes::IS_PRESSED) && !cameraController.mouse_locked)
+        {
+            deviceManager->getMouse().lockMouse(deviceManager->getWindow());
+            cameraController.mouse_locked = true;
+        }
+        else if (!deviceManager->pressedActionChecker(famm::ControlsActions::MOUSE_LEFT, famm::PressModes::IS_PRESSED) && cameraController.mouse_locked)
+        {
+            deviceManager->getMouse().unlockMouse(deviceManager->getWindow());
+            cameraController.mouse_locked = false;
+        }
+
+        if (deviceManager->pressedActionChecker(famm::ControlsActions::MOUSE_LEFT, famm::PressModes::IS_PRESSED))
+        {
+            glm::vec2 delta = deviceManager->getMouse().getMouseDelta();
+            camera.pitch -= delta.y * cameraController.pitch_sensitivity;
+            camera.yaw -= delta.x * cameraController.yaw_sensitivity;
+        }
+
+        glm::vec3 front = camsys->Forward(ECSmanager), up = camsys->Up(ECSmanager), right = camsys->Right(ECSmanager);
+
 
         if (deviceManager->pressedActionChecker(famm::ControlsActions::UP, famm::PressModes::IS_PRESSED))
             transform.position += front * ((float)delta_time * cameraController.position_sensitivity.z);
@@ -25,23 +46,5 @@ void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceMana
             transform.position += front * ((float)delta_time * cameraController.position_sensitivity.x);
         else if (deviceManager->pressedActionChecker(famm::ControlsActions::CAMERA_DOWN, famm::PressModes::IS_PRESSED))
             transform.position -= front * ((float)delta_time * cameraController.position_sensitivity.x);
-
-        if (deviceManager->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && !cameraController.mouse_locked) 
-        {
-            deviceManager->getMouse().lockMouse(deviceManager->getWindow());
-            cameraController.mouse_locked = true;
-        }
-        else if (!deviceManager->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && cameraController.mouse_locked) 
-        {
-            deviceManager->getMouse().unlockMouse(deviceManager->getWindow());
-            cameraController.mouse_locked = false;
-        }
-
-        if (deviceManager->getMouse().isPressed(GLFW_MOUSE_BUTTON_1))
-        {
-            glm::vec2 delta = deviceManager->getMouse().getMouseDelta();
-            camera.pitch -= delta.y * cameraController.pitch_sensitivity;
-            camera.yaw -= delta.x * cameraController.yaw_sensitivity;
-        }
     }
 }

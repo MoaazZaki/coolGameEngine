@@ -1,13 +1,18 @@
 #include "RenderedSystem.hpp"
 
-void famm::RendererSystem::drawEnities(ECSManager* myManager)
+void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<CameraSystem> myCameraSystem)
 {
     for (auto const& entity : entitiesSet)
     {
-        auto& myRendererComponent = ECSmanager->getComponentData<famm::MeshRenderer>(entity);
+        auto& myRendererComponent = myManager->getComponentData<famm::MeshRenderer>(entity);
+        auto& myTransformComponent = myManager->getComponentData<famm::Transform>(entity);
 
-        glUseProgram(*myRendererComponent.material->getShaderProgram());
-        myRendererComponent.mesh.draw();
+        ShaderProgram* currentProgram = myRendererComponent.material->getShaderProgram();
+        glUseProgram(*currentProgram);
+        currentProgram->set(1, glm::vec4(1, 1, 1, 1));
+        currentProgram->set(0, myCameraSystem->getProjectionMatrix(myManager) * myCameraSystem->getViewMatrix(myManager) * myTransformComponent.to_mat4()); //Uniform position is always 0
+
+        myRendererComponent.mesh->draw();
     }
 }
 
@@ -15,9 +20,8 @@ void famm::RendererSystem::updateEntites(ECSManager* myManager)
 {
     for (auto const& entity : entitiesSet)
     {
-        auto& myRendererComponent = ECSmanager->getComponentData<famm::MeshRenderer>(entity);
-        myRendererComponent.material->onUpdateShaderScalar();
-        myRendererComponent.material->onUpdateShaderVector2();
-        myRendererComponent.material->onUpdateShaderVector3();
+        auto& myRendererComponent = myManager->getComponentData<famm::MeshRenderer>(entity);
+        //TODO: UPDATE UNIFORMS EXCEPT POSITION
+        
     }
 }

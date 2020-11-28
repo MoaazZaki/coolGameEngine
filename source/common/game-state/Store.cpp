@@ -200,7 +200,7 @@ void famm::Store::startInit()
     famm::mesh_utils::Cuboid(*tableOfMeshes[MeshName[1]], true);
 
     /// Material Creating
-    tableOfMaterials["myProgram"] = new Material(0, 0, 0);
+    tableOfMaterials["myProgram"] = new Material(getShaderPointer("myProgram"));
 }
 
 void famm::Store::startCleaning()

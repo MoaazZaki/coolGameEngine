@@ -13,19 +13,19 @@ namespace famm {
 	private:
 
 		std::unordered_map<const char*, ComponentType> componentTypes;				//map storing the name and id of each component type
-		std::unordered_map<const char*, ComponentArrayInterface*> componentArrays;	//map storing the name of every component type and a pointer to its componentarray
+		std::unordered_map<const char*, std::shared_ptr<ComponentArrayInterface>> componentArrays;	//map storing the name of every component type and a pointer to its componentarray
 		ComponentType componentTypesCount;											//for assigning ids for newly created component types
 
 		//helper function to return a pointer to the componentarray of a certain component type
 		template<typename T>
-		ComponentArray<T>* getComponentArray() {
+		std::shared_ptr<ComponentArray<T>> getComponentArray() {
 
 			//get the component type name
 			const char* componentTypeName = typeid(T).name();
 			assert(componentTypes.find(componentTypeName) != componentTypes.end() && "Component type doesn't currently exist.");
 
 			//get a pointer to the componentArray of the desired component type
-			return (ComponentArray<T>*) componentArrays[componentTypeName];
+			return std::static_pointer_cast<ComponentArray<T>>(componentArrays[componentTypeName]);
 
 		}									
 
@@ -42,10 +42,13 @@ namespace famm {
 
 			//get the component type name
 			const char* componentTypeName = typeid(T).name();
-			assert(componentTypes.find(componentTypeName) == componentTypes.end() && "Component type already defined.");
+			//assert(componentTypes.find(componentTypeName) == componentTypes.end() && "Component type already defined.");
 
 			//add the component type name and id tp the componentTypes map 
 			componentTypes.insert({ componentTypeName, componentTypesCount });
+
+			//create a pointer to the component array type and add it to the component arrays map
+			componentArrays.insert({componentTypeName, std::make_shared<ComponentArray<T>>()});
 
 			//increment the component types count to be assigned as the id value of the next defined component type
 			componentTypesCount++;
@@ -69,7 +72,7 @@ namespace famm {
 		template<typename T>
 		void addComponentData(Entity entity, T componentdata) {
 
-			ComponentArray<T>* cArrPtr = getComponentArray<T>();
+			std::shared_ptr<ComponentArray<T>> cArrPtr = getComponentArray<T>();
 			cArrPtr->addData(entity, componentdata);
 
 		}	
@@ -78,7 +81,7 @@ namespace famm {
 		template<typename T>
 		void removeComponentData(Entity entity) {
 
-			ComponentArray<T>* cArrPtr = getComponentArray<T>();
+			std::shared_ptr<ComponentArray<T>> cArrPtr = getComponentArray<T>();
 			cArrPtr->removeData(entity);
 
 		}				
@@ -87,7 +90,7 @@ namespace famm {
 		template<typename T>
 		T& getComponentData(Entity entity) {
 
-			ComponentArray<T>* cArrPtr = getComponentArray<T>();
+			std::shared_ptr<ComponentArray<T>> cArrPtr = getComponentArray<T>();
 			return cArrPtr->getData(entity);
 
 		}						

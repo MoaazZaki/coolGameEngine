@@ -10,60 +10,71 @@ void famm::Game::onInitialize()
 
 	// Creating systems
 	auto rendererSystem = myManager.addSystem<famm::RendererSystem>();
+	mySystems.push_back(rendererSystem);
 	auto cameraSystem = myManager.addSystem<famm::CameraSystem>();
-	auto cameraControllerSystem = myManager.addSystem<famm::CameraControllerSystem>();
-
+	mySystems.push_back(cameraSystem);
+	auto cameraControllerSystem = myManager.addSystem<famm::CameraControllerSystem>();\
+	mySystems.push_back(cameraControllerSystem);
+	
 	// Setting signatures
 	famm::Signature signature;
 	signature.set(myManager.getComponentType<famm::MeshRenderer>());
 	signature.set(myManager.getComponentType<famm::Transform>());
-	myManager.setSystemSignature<rendererSystem>(signature);
+	myManager.setSystemSignature<RendererSystem>(signature);
 
 	signature.reset();
 	signature.set(myManager.getComponentType<famm::Camera>());
-	myManager.setSystemSignature<cameraSystem>(signature);
+	signature.set(myManager.getComponentType<famm::Transform>());
+	myManager.setSystemSignature<CameraSystem>(signature);
 
 	signature.reset();
 	signature.set(myManager.getComponentType<famm::CameraController>());
-	myManager.setSystemSignature<cameraControllerSystem>(signature);
+	myManager.setSystemSignature<CameraControllerSystem>(signature);
 
 	
 	// Creting our cool word
-	world = std::vector<Entity>(MAX_ENTITIES);
-
+	//world = std::vector<Entity>(MAX_ENTITIES);
+	Entity object;
+	Entity camera;
+	Entity cameraController;
 	// Entity 0 
-	myManager.addComponentData<MeshRenderer>(world[0], famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(world[0], famm::Transform({ 0,-1,0 }, { 0,0,0 }, { 11,2,11 }));
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 0,-1,0 }, { 0,0,0 }, { 11,2,11 }));
+
 
 	// Entity 1 
-	myManager.addComponentData<MeshRenderer>(world[1], famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(world[1], famm::Transform({ -4,1,-4 }, { 0,0,0 }, { 2,2,2 }));
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ -4,1,-4 }, { 0,0,0 }, { 2,2,2 }));
 
 	// Entity 2
-	myManager.addComponentData<MeshRenderer>(world[2], famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(world[2], famm::Transform({ 4,1,-4 }, { 0,0,0 }, { 2,2,2 }));
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 4,1,-4 }, { 0,0,0 }, { 2,2,2 }));
 
 	// Entity 3
-	myManager.addComponentData<MeshRenderer>(world[3], famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(world[3], famm::Transform({ -4,1,4 }, { 0,0,0 }, { 2,2,2 }));
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ -4,1,4 }, { 0,0,0 }, { 2,2,2 }));
 
 	// Entity 4
-	myManager.addComponentData<MeshRenderer>(world[4], famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(world[4], famm::Transform({ 4,1,4 }, { 0,0,0 }, { 2,2,2 }));
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("model"),myStore->getMaterialPointer("myProgram") }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 4,1,4 }, { 0,0,0 }, { 2,2,2 }));
 
 	// Entity 5 (Triangle)
-	myManager.addComponentData<MeshRenderer>(world[5], famm::MeshRenderer({ myStore->getMeshPointer("triangle"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(world[5], famm::Transform({ 0,1,0 }, { 0,0,0 }, { 2,2,2 }));
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("triangle"),myStore->getMaterialPointer("myProgram") }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 0,1,0 }, { 0,0,0 }, { 2,2,2 }));
 
 
 	// Entity 6 (Camera)
-	myManager.addComponentData<Camera>(world[6], famm::Camera(
+	camera = myManager.createEntity();
+	myManager.addComponentData<Transform>(camera, famm::Transform({ 10, 10, 10 }));
+	myManager.addComponentData<Camera>(camera, famm::Camera(
 		{
-			0,
 			1,
-			{0,0,0},
-			{0,0,0},
-			{0,0,0},
 			0.01f,
 			100.0f,
 			1.0f,
@@ -71,11 +82,28 @@ void famm::Game::onInitialize()
 			2.0f,
 			glm::radians(90.0f)
 		}));
-	cameraSystem->setEyePosition({ 10, 10, 10 });
-	cameraSystem->setTarget({ 0, 0, 0 });
-	cameraSystem->setUp({ 0, 1, 0 });
+	
 
 	// Entity 7 (Camera controller)
-	myManager.addComponentData<CameraController>(world[7], famm::CameraController({ 0,{3.0f,3.0f,3.0f} }));
-	//cameraControllerSystem->moveCamera();
+	cameraController = myManager.createEntity();
+	myManager.addComponentData<CameraController>(cameraController, famm::CameraController({ camera,{3.0f, 3.0f, 3.0f},0.01f,0.01f,glm::pi<float>() / 10,false}));
+
+
+	glClearColor(0, 0, 0, 0);
 }
+
+
+void famm::Game::onDraw(double deltaTime) {
+	std::shared_ptr<RendererSystem> RS = std::static_pointer_cast<RendererSystem>(mySystems[0]);
+	std::shared_ptr <CameraSystem> CS = std::static_pointer_cast<CameraSystem>(mySystems[1]);
+	std::shared_ptr<CameraControllerSystem> CCS = std::static_pointer_cast<CameraControllerSystem>(mySystems[2]);
+
+	CCS->moveCamera(&myManager, deviceManager, deltaTime, CS);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	RS->drawEnities(&myManager, CS);
+}
+
+
+void famm::Game::onDestroy() {}

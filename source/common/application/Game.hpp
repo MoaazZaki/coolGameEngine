@@ -15,20 +15,27 @@ namespace famm {
 		ECSManager myManager;
 
 		std::vector<Entity> world;
+
+		std::vector<std::shared_ptr<System>> mySystems;
+
+		bool isPaused;
+
 	public:
-		Game(DeviceManager* deviceManager, Store* myStore) : Application(deviceManager, myStore) { isPaused = false; isTerminated = false; }
+		Game(DeviceManager* deviceManager, Store* myStore) : Application(deviceManager, myStore) { isPaused = false;}
 
 		void onInitialize() override;
 		void onDraw(double deltaTime) override;
 		void onDestroy() override;
 		//void onImmediateGui(ImGuiIO* io) override;
 
-		void onPause();
-		void onResume();
+		void onPause() { isPaused = true; }
+		void onResume() { isPaused = false; }
 
-		bool statePaused() override;
-		bool stateTerminated() override;
+		//bool statePaused() override;
+		//bool stateTerminated() override;
 
 
 	};
 }
+
+#endif
