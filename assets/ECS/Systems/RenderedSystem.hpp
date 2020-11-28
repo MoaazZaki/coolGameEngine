@@ -18,6 +18,8 @@ namespace famm {
         void drawEnities(ECSManager* myManager, std::shared_ptr<CameraSystem> myCameraSystem);
 
         void updateEntites(ECSManager* myManager);
+
+        void cleanEntities(ECSManager* myManager);
     };
 
 }

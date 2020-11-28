@@ -18,7 +18,7 @@ namespace famm {
 
 		std::vector<std::shared_ptr<System>> mySystems;
 
-		bool isPaused;
+		bool isPaused = false;
 
 	public:
 		Game(DeviceManager* deviceManager, Store* myStore) : Application(deviceManager, myStore) { isPaused = false;}
@@ -31,9 +31,7 @@ namespace famm {
 		void onPause() { isPaused = true; }
 		void onResume() { isPaused = false; }
 
-		//bool statePaused() override;
-		//bool stateTerminated() override;
-
+		bool statePaused() override { return isPaused; }
 
 	};
 }

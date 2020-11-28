@@ -99,12 +99,19 @@ void famm::Game::onDraw(double deltaTime) {
 	std::shared_ptr <CameraSystem> CS = std::static_pointer_cast<CameraSystem>(mySystems[1]);
 	std::shared_ptr<CameraControllerSystem> CCS = std::static_pointer_cast<CameraControllerSystem>(mySystems[2]);
 
-	CCS->moveCamera(&myManager, deviceManager, deltaTime, CS);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	if (!isPaused)
+	{
+		CCS->moveCamera(&myManager, deviceManager, deltaTime, CS);
+		RS->drawEnities(&myManager, CS);
+	}
+	if ((deviceManager->pressedActionChecker(famm::ControlsActions::MENU, famm::PressModes::JUST_PRESSED) && !isPaused)) onPause();
 
-	RS->drawEnities(&myManager, CS);
 }
 
 
-void famm::Game::onDestroy() {}
+void famm::Game::onDestroy() {
+	std::shared_ptr<RendererSystem> RS = std::static_pointer_cast<RendererSystem>(mySystems[0]);
+	RS->cleanEntities(&myManager);
+}

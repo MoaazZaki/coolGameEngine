@@ -13,6 +13,7 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
         currentProgram->set(0, myCameraSystem->getProjectionMatrix(myManager) * myCameraSystem->getViewMatrix(myManager) * myTransformComponent.to_mat4()); //Uniform position is always 0
 
         myRendererComponent.mesh->draw();
+
     }
 }
 
@@ -23,5 +24,15 @@ void famm::RendererSystem::updateEntites(ECSManager* myManager)
         auto& myRendererComponent = myManager->getComponentData<famm::MeshRenderer>(entity);
         //TODO: UPDATE UNIFORMS EXCEPT POSITION
         
+    }
+}
+
+void famm::RendererSystem::cleanEntities(ECSManager* myManager)
+{
+    for (auto const& entity : entitiesSet)
+    {
+        auto& myRendererComponent = myManager->getComponentData<famm::MeshRenderer>(entity);
+
+        myRendererComponent.mesh->destroy();
     }
 }
