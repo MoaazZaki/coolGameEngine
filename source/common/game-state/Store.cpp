@@ -170,12 +170,8 @@ void famm::Store::startInit()
 
 
     /// Shaders Creating & loading
-    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("transform.vert","tint.frag"),
-                                                                               std::make_pair("transform.vert","land.frag"),
-                                                                               std::make_pair("transform.vert","wolf.frag"),
-                                                                               std::make_pair("transform.vert","tree.frag")
-                                                                             };
-    char* shaderName[4] = { "myProgram","landProgram","wolfProgram","treeProgram" };
+    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("transform.vert","tint.frag")};
+    char* shaderName[4] = { "myProgram" };
     for (int i = 0; i < namesOfShadersProgram.size(); i++)
     {
         tableOfShaderPrograms[shaderName[i]] = new ShaderProgram;
@@ -202,9 +198,7 @@ void famm::Store::startInit()
 
     /// Material Creating
     tableOfMaterials["myProgram"] = new Material(getShaderPointer("myProgram"));
-    tableOfMaterials["landProgram"] = new Material(getShaderPointer("landProgram"));
-    tableOfMaterials["wolfProgram"] = new Material(getShaderPointer("wolfProgram"));
-    tableOfMaterials["treeProgram"] = new Material(getShaderPointer("treeProgram"));
+
 }
 
 void famm::Store::startCleaning()
