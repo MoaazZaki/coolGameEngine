@@ -38,15 +38,25 @@ void famm::Game::onInitialize()
 	Entity camera;
 	Entity cameraController;
 
+	//Land Entity
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("land"),myStore->getMaterialPointer("landProgram") }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 1000,1000,1000 }));
+	world.push_back(object);
 	//Wolf Entity
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("wolf"),myStore->getMaterialPointer("myProgram") }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("wolf"),myStore->getMaterialPointer("wolfProgram") }));
 	myManager.addComponentData<Transform>(object, famm::Transform({ 20,5,10 }, { 0,0,0 }, { 2,2,2 }));
 	world.push_back(object);
-	//Tree Entity
+	//Tree 1 Entity
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("tree"),myStore->getMaterialPointer("myProgram") }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("tree"),myStore->getMaterialPointer("treeProgram") }));
 	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 2,2,2 }));
+	world.push_back(object);
+	//Tree 2 Entity
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("tree"),myStore->getMaterialPointer("treeProgram") }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 40,3,-10 }, { 0,0,0 }, { 2,2,2 }));
 	world.push_back(object);
 	// Entity 6 (Camera)
 	camera = myManager.createEntity();
@@ -69,7 +79,7 @@ void famm::Game::onInitialize()
 	myManager.addComponentData<CameraController>(cameraController, famm::CameraController({ camera,{3.0f, 3.0f, 3.0f},0.01f,0.01f,glm::pi<float>() / 10,5.0f,false}));
 
 
-	glClearColor(0, 0, 0, 0);
+	glClearColor(0.768, 0.964, 0.992, 0);
 }
 
 
@@ -135,7 +145,7 @@ void famm::Game::onImmediateGui(ImGuiIO* io)
 
 		//std::optional<std::string> model("wolf");
 		//std::vector<std::string> models = {"wolf","tree"};
-		std::vector<std::string> models = {"wolf","tree"};
+		std::vector<std::string> models = {"wolf","tree","land"};
 		static int item_current_idx = 0;
 		if (ImGui::BeginCombo("Models", models[item_current_idx].c_str()))
 		{

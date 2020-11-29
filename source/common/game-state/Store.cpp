@@ -170,8 +170,12 @@ void famm::Store::startInit()
 
 
     /// Shaders Creating & loading
-    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("transform.vert","tint.frag") };
-    char* shaderName[4] = { "myProgram" };
+    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("transform.vert","tint.frag"),
+                                                                               std::make_pair("transform.vert","land.frag"),
+                                                                               std::make_pair("transform.vert","wolf.frag"),
+                                                                               std::make_pair("transform.vert","tree.frag")
+                                                                             };
+    char* shaderName[4] = { "myProgram","landProgram","wolfProgram","treeProgram" };
     for (int i = 0; i < namesOfShadersProgram.size(); i++)
     {
         tableOfShaderPrograms[shaderName[i]] = new ShaderProgram;
@@ -182,7 +186,7 @@ void famm::Store::startInit()
     }
 
     /// Meshes Creating/Loading
-    char* MeshName[MAX_ENTITIES] = { "wolf","tree" };
+    char* MeshName[MAX_ENTITIES] = { "wolf","tree","land" };
 
     //Wolf Mesh
     tableOfMeshes[MeshName[0]] = new Mesh;
@@ -192,8 +196,15 @@ void famm::Store::startInit()
     tableOfMeshes[MeshName[1]] = new Mesh;
     famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[1]], "assets/Models/Tree.obj");
 
+    //Land Mesh
+    tableOfMeshes[MeshName[2]] = new Mesh;
+    famm::mesh_utils::Plane(*tableOfMeshes[MeshName[2]], { 1, 1 }, false, { 0, 0, 0 }, { 1, 1 }, { 0, 0 }, { 100, 100 });
+
     /// Material Creating
     tableOfMaterials["myProgram"] = new Material(getShaderPointer("myProgram"));
+    tableOfMaterials["landProgram"] = new Material(getShaderPointer("landProgram"));
+    tableOfMaterials["wolfProgram"] = new Material(getShaderPointer("wolfProgram"));
+    tableOfMaterials["treeProgram"] = new Material(getShaderPointer("treeProgram"));
 }
 
 void famm::Store::startCleaning()
