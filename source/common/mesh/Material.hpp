@@ -21,6 +21,7 @@ namespace famm {
 			std::unordered_map<GLuint, glm::vec4> UniformVector4; // Vector of uniform vector(4)
 			std::unordered_map<GLuint, glm::mat4> UniformMatrix4; // Vector of uniform vector(4)
 
+			std::unordered_map<std::string, GLuint> locationMap;
 	public:	
 
 		Material(ShaderProgram* shader);
@@ -37,11 +38,11 @@ namespace famm {
 		//void  updateShaderVector2(vector<pair<GLuint, glm::vec2>> array2, int check);
 		//void  updateShaderVector3(vector<pair<GLuint, glm::vec3>> array3, int check);
 
-		void updateSingleShaderScalar(float value, GLuint location); //Update single value given value and position 
-		void  updateSingleShaderVector2(glm::vec2 value, GLuint location);
-		void  updateSingleShaderVector3(glm::vec3 value, GLuint location);
-		void  updateSingleShaderVector4(glm::vec4 value, GLuint location);
-		void  updateSingleShaderMatrix4(glm::mat4 value, GLuint location);
+		void updateSingleShaderScalar(float value, std::string name); //Update single value given value and position 
+		void  updateSingleShaderVector2(glm::vec2 value, std::string name);
+		void  updateSingleShaderVector3(glm::vec3 value, std::string name);
+		void  updateSingleShaderVector4(glm::vec4 value, std::string name);
+		void  updateSingleShaderMatrix4(glm::mat4 value, std::string name);
 		//void onDrawShader() {};
 		//void onUpdateShaderScalar();
 		//void  onUpdateShaderVector2();

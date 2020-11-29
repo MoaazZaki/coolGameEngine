@@ -38,28 +38,29 @@ void famm::Game::onInitialize()
 
 	//World Entity (root of scene)
 	worldEntity = myManager.createEntity();
-	myManager.addComponentData<Transform>(worldEntity, famm::Transform({ 0,0,0 }, { 0,0,0 }, { 1,1,1 }));
+	myManager.addComponentData<Transform>(worldEntity, famm::Transform({ 0,0,0 }, { 0,0,0 }, { 1,1,1 },MAX_ENTITIES+1));
 	world.push_back(worldEntity);
 
 	//Land Entity
 	object = myManager.createEntity();
 	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("land"),myStore->getMaterialPointer("landProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 1000,1000,1000 }));
-	world.push_back(object);
-	//Wolf Entity
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("wolf"),myStore->getMaterialPointer("wolfProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 20,5,10 }, { 0,0,0 }, { 2,2,2 }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 1000,1000,1000 }, worldEntity));
 	world.push_back(object);
 	//Tree 1 Entity
 	object = myManager.createEntity();
 	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("tree"),myStore->getMaterialPointer("treeProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 2,2,2 }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 2,2,2 }, worldEntity));
 	world.push_back(object);
 	//Tree 2 Entity
 	object = myManager.createEntity();
 	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("tree"),myStore->getMaterialPointer("treeProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 40,3,-10 }, { 0,0,0 }, { 2,2,2 }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 40,3,-10 }, { 0,0,0 }, { 2,2,2 }, worldEntity));
+	world.push_back(object);
+	//Wolf Entity
+	Entity wolfParent = object;
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("wolf"),myStore->getMaterialPointer("wolfProgram") }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ -7.8,0,9 }, { 0,-0.9,0 }, { 2,2,2 }, wolfParent));
 	world.push_back(object);
 
 	//Camera Entity

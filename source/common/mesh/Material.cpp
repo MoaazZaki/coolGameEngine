@@ -96,56 +96,66 @@ famm::Material::Material(ShaderProgram* shader){
 //Update single value given value for a given  position 
 
 
-void famm::Material::updateSingleShaderScalar(float value, GLuint location)
+void famm::Material::updateSingleShaderScalar(float value, std::string name)
 {
-	UniformScalar[location] = value;
+	UniformScalar[locationMap[name]] = value;
 }
 
-void famm::Material::updateSingleShaderVector2(glm::vec2 value, GLuint location)
+void famm::Material::updateSingleShaderVector2(glm::vec2 value, std::string name)
 {
-	UniformVector2[location] = value;
+	UniformVector2[locationMap[name]] = value;
 }
 
-void famm::Material::updateSingleShaderVector3(glm::vec3 value, GLuint location)
+void famm::Material::updateSingleShaderVector3(glm::vec3 value, std::string name)
 {
-	UniformVector3[location] = value;
+	UniformVector3[locationMap[name]] = value;
 }
 
-void  famm::Material::updateSingleShaderVector4(glm::vec4 value, GLuint location)
+void  famm::Material::updateSingleShaderVector4(glm::vec4 value, std::string name)
 {
-	UniformVector4[location] = value;
+	UniformVector4[locationMap[name]] = value;
 }
 
-void  famm::Material::updateSingleShaderMatrix4(glm::mat4 value, GLuint location)
+void  famm::Material::updateSingleShaderMatrix4(glm::mat4 value, std::string name)
 {
-	UniformMatrix4[location] = value;
+	UniformMatrix4[locationMap[name]] = value;
 }
 
 
 // filling the scalar vector
 void famm::Material::addToScalar(std::string name, float variable)
 {
-	UniformScalar[s->getUniformLocation(name)]= variable;
+	GLuint location = s->getUniformLocation(name);
+	locationMap[name] = location;
+	UniformScalar[location]= variable;
 }
 // filling vector(2) vector
 void famm::Material::addToVector2(std::string name, glm::vec2 variable)
 {
-	UniformVector2[s->getUniformLocation(name)] = variable;
+	GLuint location = s->getUniformLocation(name);
+	locationMap[name] = location;
+	UniformVector2[location] = variable;
 }
 // filling vector(3) vector
 void famm::Material::addToVector3(std::string name, glm::vec3 variable)
 {
-	UniformVector3[s->getUniformLocation(name)] = variable;
+	GLuint location = s->getUniformLocation(name);
+	locationMap[name] = location;
+	UniformVector3[location] = variable;
 }
 
 void famm::Material::addToVector4(std::string name, glm::vec4 variable)
 {
-	UniformVector4[s->getUniformLocation(name)] = variable;
+	GLuint location = s->getUniformLocation(name);
+	locationMap[name] = location;
+	UniformVector4[location] = variable;
 }
 
 void famm::Material::addToMatrix4(std::string name, glm::mat4 variable)
 {
-	UniformMatrix4[s->getUniformLocation(name)] = variable;
+	GLuint location = s->getUniformLocation(name);
+	locationMap[name] = location;
+	UniformMatrix4[location] = variable;
 }
 
 
