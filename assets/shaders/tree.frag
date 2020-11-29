@@ -9,5 +9,5 @@ out vec4 frag_color;
 
 void main() {
     // We use a uniform and a varying together to be able to have a unique color for each object while sharing the same vertex data.
-    frag_color = tint * vec4(0.039, 0.341, 0.019,0);
+    frag_color = tint * vec4(0.023, 0.227, 0.011,0);
 }
