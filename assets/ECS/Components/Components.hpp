@@ -34,8 +34,9 @@ namespace famm {
 
 	struct MeshRenderer {
 
-		Mesh* mesh;       // Pointer to the mesh Class
-		Material * material; // pointer to the material class
+		Mesh* mesh;							// Pointer to the mesh Class
+		Material * material;				// pointer to the material class
+		glm::vec4 tint = { 1,1,1,1 };		//tint color
 	};
 
 	struct Camera {

@@ -20,7 +20,7 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
 
         ShaderProgram* currentProgram = myRendererComponent.material->getShaderProgram();
         glUseProgram(*currentProgram);
-        currentProgram->set(1, glm::vec4(1, 1, 1, 1));
+        currentProgram->set(1, myRendererComponent.tint);
         currentProgram->set(0, myCameraSystem->getProjectionMatrix(myManager) * myCameraSystem->getViewMatrix(myManager) * generalTransformationMatrix); //Uniform position is always 0
         
         myRendererComponent.mesh->draw();
