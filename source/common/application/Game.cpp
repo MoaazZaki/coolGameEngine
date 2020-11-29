@@ -31,24 +31,27 @@ void famm::Game::onInitialize()
 	signature.set(myManager.getComponentType<famm::CameraController>());
 	myManager.setSystemSignature<CameraControllerSystem>(signature);
 
-	
-	// Creting our cool word
-	//world = std::vector<Entity>(MAX_ENTITIES);
+	Entity worldEntity;
 	Entity object;
 	Entity camera;
 	Entity cameraController;
 
+	//World Entity (root of scene)
+	worldEntity = myManager.createEntity();
+	myManager.addComponentData<Transform>(worldEntity, famm::Transform({0,0,0}, { 0,0,0 }, { 1,1,1 }));
+	world.push_back(worldEntity);
 	//Wolf Entity
 	object = myManager.createEntity();
 	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("wolf"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 20,5,10 }, { 0,0,0 }, { 2,2,2 }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 20,5,10 }, { 0,0,0 }, { 2,2,2 }, worldEntity));
 	world.push_back(object);
 	//Tree Entity
 	object = myManager.createEntity();
 	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("tree"),myStore->getMaterialPointer("myProgram") }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 2,2,2 }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 2,2,2 }, worldEntity));
 	world.push_back(object);
-	// Entity 6 (Camera)
+
+	//Camera Entity
 	camera = myManager.createEntity();
 	myManager.addComponentData<Camera>(camera, famm::Camera(
 		{
@@ -64,7 +67,7 @@ void famm::Game::onInitialize()
 	myManager.addComponentData<Transform>(camera, famm::Transform({ 10, 10, 10 }, { -10, -10, -10 }));
 
 
-	// Entity 7 (Camera controller)
+	//Camera controller Entity 
 	cameraController = myManager.createEntity();
 	myManager.addComponentData<CameraController>(cameraController, famm::CameraController({ camera,{3.0f, 3.0f, 3.0f},0.01f,0.01f,glm::pi<float>() / 10,5.0f,false}));
 
