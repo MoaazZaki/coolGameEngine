@@ -7,7 +7,7 @@
 
 #include <RenderedSystem.hpp>
 #include <CameraControllerSystem.hpp>
-
+#include <imgui-utils/utils.hpp>
 
 namespace famm {
 	class Game : public famm::Application {
@@ -20,13 +20,14 @@ namespace famm {
 
 		bool isPaused = false;
 
+		bool developementMode = false;
 	public:
 		Game(DeviceManager* deviceManager, Store* myStore) : Application(deviceManager, myStore) { isPaused = false;}
 
 		void onInitialize() override;
 		void onDraw(double deltaTime) override;
 		void onDestroy() override;
-		//void onImmediateGui(ImGuiIO* io) override;
+		void onImmediateGui(ImGuiIO* io) override;
 
 		void onPause() { isPaused = true; }
 		void onResume() { isPaused = false; }

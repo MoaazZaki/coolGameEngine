@@ -255,12 +255,14 @@ int famm::Application::startLoop(double &last_frame_time) {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    onImmediateGui(io); // Call to run any required Immediate GUI.
-
     // If ImGui is using the mouse or keyboard, then we don't want the captured events to affect our keyboard and mouse objects.
     // For example, if you're focusing on an input and writing "W", the keyboard object shouldn't record this event.
     deviceManager->getKeyboard().setEnabled(!io->WantCaptureKeyboard, deviceManager->getWindow()); /// TODO: EDIT LATER
     deviceManager->getMouse().setEnabled(!io->WantCaptureMouse, deviceManager->getWindow());
+
+    onImmediateGui(io); // Call to run any required Immediate GUI.
+
+     
 
     // Render the ImGui commands we called (this doesn't actually draw to the screen yet.
     ImGui::Render();
@@ -270,6 +272,7 @@ int famm::Application::startLoop(double &last_frame_time) {
     auto frame_buffer_size = deviceManager->getFrameBufferSize();
     glViewport(0, 0, frame_buffer_size.x, frame_buffer_size.y);
 
+   
     // Get the current time (the time at which we are starting the current frame).
     double current_frame_time = glfwGetTime();
 

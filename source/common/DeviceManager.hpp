@@ -17,7 +17,7 @@ namespace famm {
 
 	enum class PressModes {IS_PRESSED,JUST_PRESSED,JUST_RELEASED};
 	enum class CallbacksModes { KEY_EVENT, CURSOR_MOVE_EVENT, MOUSE_BUTTON_EVENT,SCROLL_EVENT};
-	enum class ControlsActions {MOUSE_LEFT,UP,DOWN,RIGHT,LEFT,SPRINT,CAMERA_UP,CAMERA_DOWN,SCREEN_SHOT,MENU};
+	enum class ControlsActions {MOUSE_LEFT,UP,DOWN,RIGHT,LEFT,SPRINT,CAMERA_UP,CAMERA_DOWN,SCREEN_SHOT,MENU,DEV};
 
 	struct WindowSettings {
 		const char* title;
@@ -37,7 +37,7 @@ namespace famm {
 		std::uint16_t cameraDown;
 		std::uint16_t screenShot;
 		std::uint16_t menu;
-		
+		std::uint16_t dev;
 		int sensitivity;
 	};
 
@@ -86,11 +86,11 @@ namespace famm {
 		// Class Getters.
 		/// </summary>
 		GLFWwindow* getWindow() { return window; }
-		[[nodiscard]] const GLFWwindow* getWindow() const { return window; }
+		//[[nodiscard]] const GLFWwindow* getWindow() const { return window; }
 		Keyboard& getKeyboard() { return keyboard; }
-		[[nodiscard]] const Keyboard& getKeyboard() const { return keyboard; }
+		//[[nodiscard]] const Keyboard& getKeyboard() const { return keyboard; }
 		Mouse& getMouse() { return mouse; }
-		[[nodiscard]] const Mouse& getMouse() const { return mouse; }
+		//[[nodiscard]] const Mouse& getMouse() const { return mouse; }
 
 
 		// Get the size of the frame buffer of the window in pixels.

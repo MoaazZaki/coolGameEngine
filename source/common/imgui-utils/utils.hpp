@@ -183,26 +183,26 @@ namespace famm {
             item_gui(index, *it);
 
             ImGui::PushStyleColor(ImGuiCol_Button, {0.65,0.15,0.25,1});
-            if(ImGui::Button("DELETE", ImVec2(third_button_width, 0)))
+            if(ImGui::Button("DELETE", ImVec2(full_button_width, 0)))
                 item_to_delete = index;
             ImGui::PopStyleColor();
-            ImGui::SameLine();
-            bool up_enabled = index > starting_index;
-            if (!up_enabled)
-                ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-            if(ImGui::Button("UP", ImVec2(third_button_width, 0)) && up_enabled)
-                items_to_swap = { prev, it };
-            if (!up_enabled)
-                ImGui::PopStyleVar();
-            ImGui::SameLine();
-            bool down_enabled = index < last;
-            if (!down_enabled)
-                ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-            if(ImGui::Button("DOWN", ImVec2(third_button_width, 0)) && down_enabled)
-                items_to_swap = { it, it + 1 };
-            if (!down_enabled)
-                ImGui::PopStyleVar();
-            ImGui::Separator();
+            //ImGui::SameLine();
+            //bool up_enabled = index > starting_index;
+            //if (!up_enabled)
+            //    ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+            //if(ImGui::Button("UP", ImVec2(third_button_width, 0)) && up_enabled)
+            //    items_to_swap = { prev, it };
+            //if (!up_enabled)
+            //    ImGui::PopStyleVar();
+            //ImGui::SameLine();
+            //bool down_enabled = index < last;
+            //if (!down_enabled)
+            //    ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+            //if(ImGui::Button("DOWN", ImVec2(third_button_width, 0)) && down_enabled)
+            //    items_to_swap = { it, it + 1 };
+            //if (!down_enabled)
+            //    ImGui::PopStyleVar();
+            //ImGui::Separator();
             ImGui::PopID();
         }
         ImGui::PushStyleColor(ImGuiCol_Button, {0.25,0.65,0.15,1});
@@ -214,12 +214,12 @@ namespace famm {
             item_add(item_to_add.value());
         else if(item_to_delete.has_value())
             item_delete(item_to_delete.value());
-        else if(items_to_swap.has_value()){
-            auto [it1, it2] = items_to_swap.value();
-            auto temp = *it1;
-            *it1 = *it2;
-            *it2 = temp;
-        }
+        //else if(items_to_swap.has_value()){
+        //    auto [it1, it2] = items_to_swap.value();
+        //    auto temp = *it1;
+        //    *it1 = *it2;
+        //    *it2 = temp;
+        //}
 
     }
 

@@ -24,6 +24,8 @@ void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceMana
             cameraController.mouse_locked = false;
         }
 
+
+
         if (deviceManager->mouseActionChecker(famm::ControlsActions::MOUSE_LEFT, famm::PressModes::IS_PRESSED))
         {
             glm::vec2 delta = deviceManager->getMouse().getMouseDelta();

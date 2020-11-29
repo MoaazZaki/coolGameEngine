@@ -4,7 +4,7 @@
 
 famm::DeviceManager::DeviceManager() {
     windowSettings = { "PHASE1",{1920,1080},false ,true };
-    controlSettings = { GLFW_MOUSE_BUTTON_1,GLFW_KEY_W , GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_A,GLFW_KEY_LEFT_SHIFT,GLFW_KEY_Q,GLFW_KEY_E, GLFW_KEY_F12,GLFW_KEY_ESCAPE,5};
+    controlSettings = { GLFW_MOUSE_BUTTON_1,GLFW_KEY_W , GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_A,GLFW_KEY_LEFT_SHIFT,GLFW_KEY_Q,GLFW_KEY_E, GLFW_KEY_F12,GLFW_KEY_ESCAPE,GLFW_KEY_F1,5};
 }
 
 void famm::DeviceManager::setupCallbacks(CallbacksModes mode, int param1, int param2, int param3=0, int param4=0) {
@@ -187,6 +187,9 @@ std::uint16_t famm::DeviceManager::getCorrespondingKey(ControlsActions action) {
         break;
     case famm::ControlsActions::MENU:
         return controlSettings.menu;
+        break;
+    case famm::ControlsActions::DEV:
+        return controlSettings.dev;
         break;
     }
 }
