@@ -6,11 +6,12 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
     {
         auto& myRendererComponent = myManager->getComponentData<famm::MeshRenderer>(entity);
         auto& myTransformComponent = myManager->getComponentData<famm::Transform>(entity);
+        auto& myParentTransformComponent = myManager->getComponentData<famm::Transform>(myTransformComponent.parent);
 
         ShaderProgram* currentProgram = myRendererComponent.material->getShaderProgram();
         glUseProgram(*currentProgram);
         currentProgram->set(1, glm::vec4(1, 1, 1, 1));
-        currentProgram->set(0, myCameraSystem->getProjectionMatrix(myManager) * myCameraSystem->getViewMatrix(myManager) * myTransformComponent.to_mat4()); //Uniform position is always 0
+        currentProgram->set(0, myCameraSystem->getProjectionMatrix(myManager) * myCameraSystem->getViewMatrix(myManager) * myParentTransformComponent.to_mat4() *myTransformComponent.to_mat4()); //Uniform position is always 0
 
         myRendererComponent.mesh->draw();
 
