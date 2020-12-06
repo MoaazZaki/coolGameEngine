@@ -19,11 +19,13 @@ namespace famm {
 
 	public:
 
+		//constructor: set entriesCount to 0
 		ComponentArray() {
 
 			entriesCount = 0;
-		}									//constructor: set entriesCount to 0
+		}									
 
+		//insert component data of entity in the componentarray
 		void addData(Entity entity, T componentdata) {
 
 			assert(entityIndexMap.find(entity) == entityIndexMap.end() && "Entity already has component data in the component array");
@@ -38,8 +40,9 @@ namespace famm {
 			//increment current entries count
 			entriesCount++;
 
-		}		//insert component data of entity in the componentarray
+		}		
 
+		//remove component data of entity from the componentarray
 		void removeData(Entity entity) {
 
 			assert(entityIndexMap.find(entity) != entityIndexMap.end() && "Entity already doesn't have component data in the component array");
@@ -62,22 +65,24 @@ namespace famm {
 			//decrement the number of current entries
 			entriesCount--;
 
-		}						//remove component data of entity from the componentarray
+		}						
 
+		//get the component data of a specific entity
 		T& getData(Entity entity) {
 
 			assert(entityIndexMap.find(entity) != entityIndexMap.end() && "Entity already doesn't have component data in the component array");
 
 			return componentArray[entityIndexMap[entity]];
 
-		}							//get the component data of a specific entity
+		}							
 
+		//remove destroyed entity data from the componentarray
 		void entityDestroyed(Entity entity) override {
 
 			//check if the entity has data in the current type of componentArray. If so, remove its data
 			if (entityIndexMap.find(entity) != entityIndexMap.end()) removeData(entity);
 
-		}		//remove destroyed entity data from the componentarray
+		}		
 
 	};
 

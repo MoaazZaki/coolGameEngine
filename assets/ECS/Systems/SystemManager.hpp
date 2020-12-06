@@ -28,10 +28,9 @@ namespace famm {
 
 			//create a pointer to the system, add the system name and pointer to the systems map, and return the system pointer
 			auto sPtr = std::make_shared<T>();
-		    //std::shared_ptr<T> sPtr = std::make_shared<T>();
-			//T* sPtr = new T;
 			systems.insert({ systemName,sPtr });
 			return sPtr;
+
 		}								
 
 		//set the signature of a specific system
