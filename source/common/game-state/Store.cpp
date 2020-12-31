@@ -188,16 +188,16 @@ void famm::Store::loadAssets()
     }
 
     /// Meshes Creating/Loading
-    char* MeshName[3] = { "wolf","tree","land" };
+    char* MeshName[3] = { "Suzanne","cube","land" };
 
     //Wolf Mesh
     tableOfMeshes[MeshName[0]] = new Mesh;
     famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[0]], "assets/models/Suzanne/Suzanne.obj");
-    //famm::mesh_utils::Cuboid(*(tableOfMeshes[MeshName[0]]));
+    
 
-    //Tree Mesh
-    //tableOfMeshes[MeshName[1]] = new Mesh;
-    //famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[1]], "assets/Models/Tree.obj");
+    ////Cube Mesh
+    tableOfMeshes[MeshName[1]] = new Mesh;
+    famm::mesh_utils::Cuboid(*(tableOfMeshes[MeshName[1]]));
 
     //Land Mesh
     tableOfMeshes[MeshName[2]] = new Mesh;
@@ -281,20 +281,23 @@ void famm::Store::loadAssets()
     tableOfMaterials["land"] = landMaterial;
 
     // Wolf
-    Material* wolfMaterial = new Material(getShaderPointer("myProgram"));
+    Material* suzanneMaterial = new Material(getShaderPointer("myProgram"));
 
-    wolfMaterial->addProperty("material.albedo_tint", {1,1,1});
-    wolfMaterial->addProperty("material.specular_tint", { 1,1,1 });
-    wolfMaterial->addProperty("material.roughness_range", { 0.0,1.0});
-    wolfMaterial->addProperty("material.emissive_tint", { 1,1,1 });
+    suzanneMaterial->addProperty("material.albedo_tint", {1,1,1});
+    suzanneMaterial->addProperty("material.specular_tint", { 1,1,1 });
+    suzanneMaterial->addProperty("material.roughness_range", { 0.0,1.0});
+    suzanneMaterial->addProperty("material.emissive_tint", { 1,1,1 });
 
 
-    wolfMaterial->addTextureSampler(asphaltAlbedo, mySampler);
-    wolfMaterial->addTextureSampler(asphaltSpecular, mySampler);
-    wolfMaterial->addTextureSampler(whiteTexture, mySampler);
-    wolfMaterial->addTextureSampler(asphaltRoughness, mySampler);
-    wolfMaterial->addTextureSampler(asphaltEmissive, mySampler);
-    tableOfMaterials["wolf"] = wolfMaterial;
+    suzanneMaterial->addTextureSampler(asphaltAlbedo, mySampler);
+    suzanneMaterial->addTextureSampler(asphaltSpecular, mySampler);
+    suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
+    suzanneMaterial->addTextureSampler(asphaltRoughness, mySampler);
+    suzanneMaterial->addTextureSampler(asphaltEmissive, mySampler);
+    tableOfMaterials["Suzanne"] = suzanneMaterial;
+
+
+
 
 }
 

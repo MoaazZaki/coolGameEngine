@@ -16,6 +16,8 @@ namespace famm {
 
 		std::vector<Entity> world;
 
+		std::vector<Entity> lightArray;
+
 		std::vector<std::shared_ptr<System>> mySystems;
 
 		bool isPaused = false;
@@ -27,6 +29,10 @@ namespace famm {
 		void onInitialize() override;
 		void onDraw(double deltaTime) override;
 		void onDestroy() override;
+
+		void lightGui(ImGuiIO* io);
+		void transformationGui(ImGuiIO* io);
+		void newModelGui(ImGuiIO* io);
 		void onImmediateGui(ImGuiIO* io) override;
 
 		void onPause() { isPaused = true; }
