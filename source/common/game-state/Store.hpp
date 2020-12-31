@@ -25,7 +25,8 @@
 #include <mesh/mesh-utils.hpp>
 #include <mesh/common-vertex-types.hpp>
 #include <mesh/common-vertex-attributes.hpp>
-
+#include <Texture2D.hpp>
+#include <Sampler.hpp>
 namespace famm {
 
 	class Store
@@ -37,7 +38,8 @@ namespace famm {
 		std::unordered_map<std::string, ShaderProgram*> tableOfShaderPrograms;
 		std::unordered_map<std::string, Mesh*> tableOfMeshes;
 		std::unordered_map<std::string, Material*> tableOfMaterials;
-
+		std::unordered_map<std::string, Texture2D*> tableOfTextures;
+		std::unordered_map<std::string, Sampler*> tableOfSampelers;
 	public:
 		Store(DeviceManager* deviceManager) {
 			this->deviceManager = deviceManager;
@@ -46,6 +48,8 @@ namespace famm {
 		
 
 		void startInit();
+
+		void loadAssets();
 
 		void configureOpenGL();                             // This function sets OpenGL Window Hints in GLFW.
 		//void setupCallbacks(GLFWwindow* window);
@@ -67,7 +71,19 @@ namespace famm {
 			return material->second;
 		}
 
+		Texture2D* getTexturePointer(std::string name) {
+			std::unordered_map<std::string, Texture2D*>::const_iterator material = tableOfTextures.find(name);
+			return material->second;
+		}
+
+		Sampler* getSamplerPointer(std::string name) {
+			std::unordered_map<std::string, Sampler*>::const_iterator material = tableOfSampelers.find(name);
+			return material->second;
+		}
+
 		void startCleaning();
+
+
 	};
 
 

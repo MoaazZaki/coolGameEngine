@@ -10,7 +10,13 @@
 #include <glm/gtx/euler_angles.hpp>
 
 namespace famm {
-	
+
+	enum class LightType {
+		DIRECTIONAL,
+		POINT,
+		SPOT
+	};
+
 	struct Transform {
 
 		glm::vec3 position;		//for translation
@@ -23,7 +29,7 @@ namespace famm {
 			const glm::vec3& rotation = { 0,0,0 },
 			const glm::vec3& scale = { 1,1,1 },
 			Entity parent = 0
-		) : position(position), rotation(rotation), scale(scale),parent(parent) {}
+		) : position(position), rotation(rotation), scale(scale), parent(parent) {}
 
 		glm::mat4 to_mat4() const {
 			return glm::translate(glm::mat4(1.0f), position) *
@@ -35,7 +41,7 @@ namespace famm {
 	struct MeshRenderer {
 
 		Mesh* mesh;							// Pointer to the mesh Class
-		Material * material;				// pointer to the material class
+		Material* material;				// pointer to the material class
 		glm::vec4 tint = { 1,1,1,1 };		//tint color
 	};
 
@@ -43,9 +49,6 @@ namespace famm {
 
 		//Entity containerEntity;
 		bool projectionType;    //Projection type: 0 for Orthographic -- 1 for Perspective 
-		//glm::vec3 eye;
-		//glm::vec3 direction;
-		//glm::vec3 up;
 		glm::vec3 target;
 		float near, far;       //distances from camera        
 		float aspect_ratio;    //used for calculating the position of the left and right plates
@@ -63,5 +66,41 @@ namespace famm {
 		float speedup_factor;
 		bool mouse_locked;
 	};
+	struct RenderState {
+		//Culling
+		bool cullingEnabled = true;
+		GLuint cullingFrontFace = GL_CCW;
+		GLuint cullingFaceToCull = GL_BACK;
+		//Blending
+		bool blendingEnabled = false; //To check for transparency 
+		GLuint blendEquation = GL_FUNC_ADD;
+		GLuint blendSourceFactor = GL_SRC_ALPHA;
+		GLuint blendDestFactor = GL_ONE_MINUS_SRC_ALPHA;
+		glm::vec4 blendColor = { 1.0f,1.0f,1.0f,1.0f };
+		//Depth testing
+		bool depthEnabled = true;
+		GLuint depthFunction = GL_LEQUAL;
+		bool transparentDepthEnabled = true; //Write or not
+		//Alpha testing
+		bool alphaTestingEnabled = true;
+		float alphaTestingThreshold = 0.0;
+		bool alphaToCoverageEnabled = false;
+	};
+
+	struct Light {
+		bool enabled;
+		//directional,spotlight,point
+		LightType type;
+		glm::vec3 color;
+
+		//point&spotlight
+		float constantAttenuation=0.0;
+		float LinearAttenuation = 0.0;
+		float QuadraticAttenuation = 0.0;
+		//spotlight
+		float InnerSpotAngle = 0.0;
+		float OuterSpotAngle = 0.0;
+	};
 }
+
 #endif

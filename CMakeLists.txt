@@ -47,6 +47,9 @@ set(COMMON_SOURCES
         source/common/game-state/InGameMenuState.cpp
         source/common/DeviceManager.cpp
         source/common/mesh/Material.cpp
+        source/common/Texture2D.cpp
+        source/common/Sampler.cpp
+
 
         assets/ECS/Entities/EntityManager.cpp
         #assets/ECS/Components/ComponentManager.cpp

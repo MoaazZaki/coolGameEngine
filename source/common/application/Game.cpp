@@ -7,19 +7,24 @@ void famm::Game::onInitialize()
 	myManager.addComponentType<famm::Transform>();
 	myManager.addComponentType<famm::Camera>();
 	myManager.addComponentType<famm::CameraController>();
+	myManager.addComponentType<famm::RenderState>();
+	myManager.addComponentType<famm::Light>();
 
 	// Creating systems
-	auto rendererSystem = myManager.addSystem<famm::RendererSystem>();
+	auto& rendererSystem = myManager.addSystem<famm::RendererSystem>();
 	mySystems.push_back(rendererSystem);
-	auto cameraSystem = myManager.addSystem<famm::CameraSystem>();
+	auto& cameraSystem = myManager.addSystem<famm::CameraSystem>();
 	mySystems.push_back(cameraSystem);
-	auto cameraControllerSystem = myManager.addSystem<famm::CameraControllerSystem>();
+	auto& cameraControllerSystem = myManager.addSystem<famm::CameraControllerSystem>();
 	mySystems.push_back(cameraControllerSystem);
-	
+	auto& lightSystem = myManager.addSystem<famm::LightSystem>();
+	mySystems.push_back(lightSystem);
+
 	// Setting signatures
 	famm::Signature signature;
 	signature.set(myManager.getComponentType<famm::MeshRenderer>());
 	signature.set(myManager.getComponentType<famm::Transform>());
+	signature.set(myManager.getComponentType<famm::RenderState>());
 	myManager.setSystemSignature<RendererSystem>(signature);
 
 	signature.reset();
@@ -31,10 +36,18 @@ void famm::Game::onInitialize()
 	signature.set(myManager.getComponentType<famm::CameraController>());
 	myManager.setSystemSignature<CameraControllerSystem>(signature);
 
+	signature.reset();
+	signature.set(myManager.getComponentType<famm::Light>());
+	signature.set(myManager.getComponentType<famm::Transform>());
+	myManager.setSystemSignature<LightSystem>(signature);
+
 	Entity worldEntity;
 	Entity object;
 	Entity camera;
 	Entity cameraController;
+
+	//Creating Default render state
+	RenderState defaultState;
 
 	//World Entity (root of scene)
 	worldEntity = myManager.createEntity();
@@ -43,27 +56,29 @@ void famm::Game::onInitialize()
 
 	//Land Entity
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("land"),myStore->getMaterialPointer("myProgram"), {0.901, 0.670, 0.419,0} }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("land"),myStore->getMaterialPointer("land"), {0.901, 0.670, 0.419,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 1000,1000,1000 }, worldEntity));
+	myManager.addComponentData<RenderState>(object, defaultState);
 	world.push_back(object);
 
 	//Tree 1 Entity
-	object = myManager.createEntity();
+	/*object = myManager.createEntity();
 	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("tree"),myStore->getMaterialPointer("myProgram") ,{0.023, 0.227, 0.011,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 2,2,2 }, worldEntity));
-	world.push_back(object);
+	world.push_back(object);*/
 
 	//Tree 2 Entity
-	object = myManager.createEntity();
+	/*object = myManager.createEntity();
 	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("tree"),myStore->getMaterialPointer("myProgram"),{0.023, 0.227, 0.011,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({ 40,3,-10 }, { 0,0,0 }, { 2,2,2 }, worldEntity));
-	world.push_back(object);
+	world.push_back(object);*/
 
 	//Wolf Entity
-	Entity wolfParent = object;			//making Tree 2 the parent of the wolf
+	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("wolf"),myStore->getMaterialPointer("myProgram"),{0.4, 0.352, 0.301,0} }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ -7.8,0,9 }, { 0,-0.9,0 }, { 2,2,2 }, wolfParent));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("wolf"),myStore->getMaterialPointer("wolf"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<Transform>(object, famm::Transform({15.3,9.6,7.7 }, { 0,-0.9,0 }, { 2,2,2 }, worldEntity));
+	myManager.addComponentData<RenderState>(object, defaultState);
 	world.push_back(object);
 
 	//Camera Entity
@@ -86,8 +101,12 @@ void famm::Game::onInitialize()
 	cameraController = myManager.createEntity();
 	myManager.addComponentData<CameraController>(cameraController, famm::CameraController({ camera,{3.0f, 3.0f, 3.0f},0.01f,0.01f,glm::pi<float>() / 10,5.0f,false}));
 
+	////Light Entity
+	//Entity defaultLight = myManager.createEntity();
+	//myManager.addComponentData<Light>(defaultLight, famm::Light({ true,famm::LightType::DIRECTIONAL,{1.0,1.0,1.0},0,0,0,0,0 }));
+	//myManager.addComponentData<Transform>(defaultLight, famm::Transform({ 0, 0, 0 }, { -1, -1, -1 }));
 
-	glClearColor(0.768, 0.964, 0.992, 0);
+	glClearColor(0, 0, 0, 0);
 }
 
 
@@ -95,13 +114,14 @@ void famm::Game::onDraw(double deltaTime) {
 	std::shared_ptr<RendererSystem> RS = std::static_pointer_cast<RendererSystem>(mySystems[0]);
 	std::shared_ptr <CameraSystem> CS = std::static_pointer_cast<CameraSystem>(mySystems[1]);
 	std::shared_ptr<CameraControllerSystem> CCS = std::static_pointer_cast<CameraControllerSystem>(mySystems[2]);
+	std::shared_ptr<LightSystem> LS = std::static_pointer_cast<LightSystem>(mySystems[3]);
 
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	if (!isPaused)
 	{
 		CCS->moveCamera(&myManager, deviceManager, deltaTime, CS);
-		RS->drawEnities(&myManager, CS);
+		RS->drawEnities(&myManager, CS,LS);
 	}
 	if ((deviceManager->pressedActionChecker(famm::ControlsActions::MENU, famm::PressModes::JUST_PRESSED) && !isPaused)) onPause();
 	if ((deviceManager->pressedActionChecker(famm::ControlsActions::DEV, famm::PressModes::JUST_PRESSED) && !isPaused)) developementMode = !developementMode;
@@ -185,9 +205,11 @@ void famm::Game::onImmediateGui(ImGuiIO* io)
 			},
 			[&](size_t index) { 
 				Entity object;
+				RenderState defaultState;
 				object = myManager.createEntity();
-				myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer(models[item_current_idx].c_str()),myStore->getMaterialPointer("myProgram") }));
+				myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer(models[item_current_idx].c_str()),myStore->getMaterialPointer(models[item_current_idx].c_str()) }));
 				myManager.addComponentData<Transform>(object, famm::Transform(translation,rotation,scale));
+				myManager.addComponentData<RenderState>(object, defaultState);
 				world.insert(std::begin(world) + index, object);
 			},
 			[&](size_t index) { 

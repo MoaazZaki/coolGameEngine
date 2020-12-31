@@ -169,35 +169,132 @@ void famm::Store::startInit()
     ImGui_ImplOpenGL3_Init("#version 330 core");
 
 
+    loadAssets();
+
+}
+
+void famm::Store::loadAssets()
+{
     /// Shaders Creating & loading
-    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("transform.vert","tint.frag")};
+    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("light_transform.vert","light_array.frag") };
     char* shaderName[4] = { "myProgram" };
     for (int i = 0; i < namesOfShadersProgram.size(); i++)
     {
         tableOfShaderPrograms[shaderName[i]] = new ShaderProgram;
         tableOfShaderPrograms[shaderName[i]]->create();
-        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/"+namesOfShadersProgram[i].first, GL_VERTEX_SHADER);
+        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/" + namesOfShadersProgram[i].first, GL_VERTEX_SHADER);
         tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/" + namesOfShadersProgram[i].second, GL_FRAGMENT_SHADER);
         tableOfShaderPrograms[shaderName[i]]->link();
     }
 
     /// Meshes Creating/Loading
-    char* MeshName[MAX_ENTITIES] = { "wolf","tree","land" };
+    char* MeshName[3] = { "wolf","tree","land" };
 
     //Wolf Mesh
     tableOfMeshes[MeshName[0]] = new Mesh;
-    famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[0]], "assets/Models/Wolf.obj");
+    famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[0]], "assets/models/Suzanne/Suzanne.obj");
+    //famm::mesh_utils::Cuboid(*(tableOfMeshes[MeshName[0]]));
 
     //Tree Mesh
-    tableOfMeshes[MeshName[1]] = new Mesh;
-    famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[1]], "assets/Models/Tree.obj");
+    //tableOfMeshes[MeshName[1]] = new Mesh;
+    //famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[1]], "assets/Models/Tree.obj");
 
     //Land Mesh
     tableOfMeshes[MeshName[2]] = new Mesh;
     famm::mesh_utils::Plane(*tableOfMeshes[MeshName[2]], { 1, 1 }, false, { 0, 0, 0 }, { 1, 1 }, { 0, 0 }, { 100, 100 });
 
+
+
+    /// Textures Loading
+    //White
+    Texture2D* whiteTexture = new Texture2D;
+    whiteTexture->create();
+    whiteTexture->loadTexture({ 255, 255, 255, 255 });
+    tableOfTextures["white"] = whiteTexture;
+
+    //Black
+    Texture2D* blackTexture = new Texture2D;
+    blackTexture->create();
+    blackTexture->loadTexture({ 0, 0, 0, 255 });
+    tableOfTextures["black"] = blackTexture;
+
+    //checkerboard_albedo
+    Texture2D* cbAlbedoTexture = new Texture2D;
+    cbAlbedoTexture->create();
+    cbAlbedoTexture->loadTexture({ 256,256 }, { 128,128 }, { 255, 255, 255, 255 }, { 16, 16, 16, 255 });
+    tableOfTextures["checkerboard_albedo"] = cbAlbedoTexture;
+    //checkerboard_specular
+    Texture2D* cbSpeculatTexture = new Texture2D;
+    cbSpeculatTexture->create();
+    cbSpeculatTexture->loadTexture({ 256,256 }, { 128,128 }, { 0, 0, 0, 255 }, { 255, 255, 255, 255 });
+    tableOfTextures["checkerboard_specular"] = cbSpeculatTexture;
+    //checkerboard_roughness
+    Texture2D* cbRoughnessTexture = new Texture2D;
+    cbRoughnessTexture->create();
+    cbRoughnessTexture->loadTexture({ 256,256 }, { 128,128 }, { 255, 255, 255, 255 }, { 64, 64, 64, 255 });
+    tableOfTextures["checkerboard_roughness"] = cbRoughnessTexture;
+
+    //asphalt_albedo
+    Texture2D* asphaltAlbedo = new Texture2D;
+    asphaltAlbedo->create();
+    asphaltAlbedo->loadTexture("assets/images/common/materials/asphalt/albedo.jpg");
+    tableOfTextures["asphalt_albedo"] = asphaltAlbedo;
+
+    //asphalt_specular
+    Texture2D* asphaltSpecular = new Texture2D;
+    asphaltSpecular->create();
+    asphaltSpecular->loadTexture("assets/images/common/materials/asphalt/specular.jpg");
+    tableOfTextures["asphalt_specular"] = asphaltSpecular;
+
+    //asphalt_roughness
+    Texture2D* asphaltRoughness = new Texture2D;
+    asphaltRoughness->create();
+    asphaltRoughness->loadTexture("assets/images/common/materials/asphalt/roughness.jpg", true, false); // greyscale
+    tableOfTextures["asphalt_roughness"] = asphaltRoughness;
+
+    //asphalt_emissive
+    Texture2D* asphaltEmissive = new Texture2D;
+    asphaltEmissive->create();
+    asphaltEmissive->loadTexture("assets/images/common/materials/asphalt/emissive.jpg");
+    tableOfTextures["asphalt_emissive"] = asphaltEmissive;
+
+    /// Sampler creating
+    Sampler* mySampler = new Sampler;
+    mySampler->create();
+    mySampler->setSamplerParameters();
+    tableOfSampelers["default"] = mySampler;
+
     /// Material Creating
-    tableOfMaterials["myProgram"] = new Material(getShaderPointer("myProgram"));
+    // Land
+    Material* landMaterial = new Material(getShaderPointer("myProgram"));
+
+    landMaterial->addProperty("material.albedo_tint", { 1,1,1 });
+    landMaterial->addProperty("material.specular_tint", { 1,1,1 });
+    landMaterial->addProperty("material.roughness_range", { 0.0,1.0 });
+    landMaterial->addProperty("material.emissive_tint", { 1,1,1 });
+
+    landMaterial->addTextureSampler(cbAlbedoTexture, mySampler);
+    landMaterial->addTextureSampler(whiteTexture, mySampler);
+    landMaterial->addTextureSampler(whiteTexture, mySampler);
+    landMaterial->addTextureSampler(cbRoughnessTexture, mySampler);
+    landMaterial->addTextureSampler(asphaltSpecular, mySampler);
+    tableOfMaterials["land"] = landMaterial;
+
+    // Wolf
+    Material* wolfMaterial = new Material(getShaderPointer("myProgram"));
+
+    wolfMaterial->addProperty("material.albedo_tint", {1,1,1});
+    wolfMaterial->addProperty("material.specular_tint", { 1,1,1 });
+    wolfMaterial->addProperty("material.roughness_range", { 0.0,1.0});
+    wolfMaterial->addProperty("material.emissive_tint", { 1,1,1 });
+
+
+    wolfMaterial->addTextureSampler(asphaltAlbedo, mySampler);
+    wolfMaterial->addTextureSampler(asphaltSpecular, mySampler);
+    wolfMaterial->addTextureSampler(whiteTexture, mySampler);
+    wolfMaterial->addTextureSampler(asphaltRoughness, mySampler);
+    wolfMaterial->addTextureSampler(asphaltEmissive, mySampler);
+    tableOfMaterials["wolf"] = wolfMaterial;
 
 }
 
@@ -208,7 +305,24 @@ void famm::Store::startCleaning()
         it.second->destroy();
         delete it.second;
     }
-
+    for (auto& it : tableOfMeshes)
+    {
+        it.second->destroy();
+        delete it.second;
+    }
+    for (auto& it : tableOfMaterials)
+    {
+        it.second->destroy();
+        delete it.second;
+    }
+    for (auto& it : tableOfTextures)
+    {
+        it.second->destroy();
+    }
+    for (auto& it : tableOfSampelers)
+    {
+        it.second->destroy();
+    }
     // Shutdown ImGui & destroy the context
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

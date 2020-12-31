@@ -2,7 +2,7 @@
 #define SHADER_HPP
 
 #include <string>
-#include <map>
+#include <unordered_map>
 
 #include <glad/gl.h>
 #include <glm/glm.hpp>
@@ -15,7 +15,7 @@ namespace famm {
     private:
         //Shader Program Handle
         GLuint program;
-        std::map<std::string, GLuint> uniform_location_cache;
+        std::unordered_map<std::string, GLuint> uniform_location_cache;
 
     public:
         void create();

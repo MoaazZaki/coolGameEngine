@@ -8,6 +8,7 @@
 #include "../Components/Components.hpp"
 #include "../ECSManager.hpp"
 #include "../Systems/CameraSystem.hpp"
+#include "../Systems/LightSystem.hpp"
 
 namespace famm {
 
@@ -15,9 +16,9 @@ namespace famm {
     {
     private:
     public:
-        void drawEnities(ECSManager* myManager, std::shared_ptr<CameraSystem> myCameraSystem);
+        void drawEnities(ECSManager* myManager, std::shared_ptr<CameraSystem> myCameraSystem, std::shared_ptr<LightSystem> myLightSystem);
 
-        void updateEntites(ECSManager* myManager);
+        //void updateEntites(ECSManager* myManager);
 
         void cleanEntities(ECSManager* myManager);
     };

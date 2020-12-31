@@ -7,53 +7,90 @@
 #include <unordered_map>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
-
+#include<Texture2D.hpp>
+#include<Sampler.hpp>
 namespace famm {
 	//Material Class
 	class Material {
 		 
 		private:
 			ShaderProgram* s; // Pointer to the shader
-
+			
 			std::unordered_map<GLuint, float> UniformScalar; // Vector of uniform values (scalar) 
 			std::unordered_map<GLuint, glm::vec2> UniformVector2; // Vector of uniform vectors(2)
 			std::unordered_map<GLuint, glm::vec3> UniformVector3; // Vector of uniform vector(3) 
 			std::unordered_map<GLuint, glm::vec4> UniformVector4; // Vector of uniform vector(4)
 			std::unordered_map<GLuint, glm::mat4> UniformMatrix4; // Vector of uniform vector(4)
+			std::unordered_map<std::string,GLuint> locationMap;
+			
+			std::vector<std::pair<Texture2D*, Sampler*>> materialTextures;
 
-			std::unordered_map<std::string, GLuint> locationMap;
 	public:	
 
 		Material(ShaderProgram* shader);
 
 		// void onintalizeShader() {};
 
-		void addToScalar(std::string name, float variable);
-		void addToVector2(std::string name, glm::vec2 variable);
-		void addToVector3(std::string name, glm::vec3 variable);
-		void addToVector4(std::string name, glm::vec4 variable);
-		void addToMatrix4(std::string name, glm::mat4 variable);
+		void addProperty(std::string name, float variable);
+		void addProperty(std::string name, glm::vec2 variable);
+		void addProperty(std::string name, glm::vec3 variable);
+		void addProperty(std::string name, glm::vec4 variable);
+		void addProperty(std::string name, glm::mat4 variable);
 
-		//void updateShaderScalar(vector<pair<GLuint, float>> array1,int check); //Update the whole or part of Uniform vector given vector 
-		//void  updateShaderVector2(vector<pair<GLuint, glm::vec2>> array2, int check);
-		//void  updateShaderVector3(vector<pair<GLuint, glm::vec3>> array3, int check);
+		void updateProperty(std::string name,float value); //Update single value given value and position 
+		void  updateProperty(std::string name,glm::vec2 value);
+		void  updateProperty(std::string name,glm::vec3 value);
+		void  updateProperty(std::string name,glm::vec4 value);
+		void  updateProperty(std::string name,glm::mat4 value);
+		
+		void addTextureSampler(Texture2D* texture, Sampler* sampler);
 
-		void updateSingleShaderScalar(float value, std::string name); //Update single value given value and position 
-		void  updateSingleShaderVector2(glm::vec2 value, std::string name);
-		void  updateSingleShaderVector3(glm::vec3 value, std::string name);
-		void  updateSingleShaderVector4(glm::vec4 value, std::string name);
-		void  updateSingleShaderMatrix4(glm::mat4 value, std::string name);
-		//void onDrawShader() {};
-		//void onUpdateShaderScalar();
-		//void  onUpdateShaderVector2();
-		//void  onUpdateShaderVector3();
-		// void onDestroyShader() {};
 
 		ShaderProgram* getShaderProgram() { return s; }
+		std::vector<std::pair<Texture2D*, Sampler*>>& getMaterials() { return materialTextures; }
 
+		GLuint getLocation(std::string name) {
+			std::unordered_map<std::string, GLuint>::const_iterator location = locationMap.find(name);
+			return location->second;
+		}
+		float getScalar(GLuint location) {
+			std::unordered_map<GLuint,float>::const_iterator value = UniformScalar.find(location);
+			return value->second;
+		}
+		glm::vec2 getVec2(GLuint location) {
+			std::unordered_map<GLuint, glm::vec2>::const_iterator value = UniformVector2.find(location);
+			return value->second;
+		}
+		glm::vec3 getVec3(GLuint location) {
+			std::unordered_map<GLuint, glm::vec3>::const_iterator value = UniformVector3.find(location);
+			return value->second;
+		}
+		glm::vec4 getVec4(GLuint location) {
+			std::unordered_map<GLuint, glm::vec4>::const_iterator value = UniformVector4.find(location);
+			return value->second;
+		}
+		glm::mat4 getMat4(GLuint location) {
+			std::unordered_map<GLuint, glm::mat4>::const_iterator value = UniformMatrix4.find(location);
+			return value->second;
+		}
 
+		void destroy()
+		{
+			UniformScalar.clear();
+			UniformVector2.clear();
+			UniformVector3.clear();
+			UniformVector4.clear();
+			UniformMatrix4.clear();
+			locationMap.clear();
+			materialTextures.clear();
 
+		}
 
+		//Delete copy constructor and assignment operation
+		//This is important for Class that follow the RAII pattern since we destroy the underlying OpenGL object in deconstruction
+		//So if we copied the object, one of them can destroy the object(s) while the other still thinks they are valid.
+		Material(Material const&) = delete;
+		Material& operator=(Material const&) = delete;
 	};
 
 }

@@ -2,14 +2,14 @@
 #define SYSTEM_H
 
 #include <data-types.h>
-#include <set>
+#include <unordered_set>
 namespace famm {
 
 	class System
 	{
 	public:
 
-		std::set<Entity> entitiesSet;		//set of entities that the system works on
+		std::unordered_set<Entity> entitiesSet;		//set of entities that the system works on
 
 	};
 
