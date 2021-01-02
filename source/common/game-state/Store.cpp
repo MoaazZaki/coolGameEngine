@@ -212,8 +212,8 @@ void famm::Store::loadAssets()
     //famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[4]], "assets/models/Food/Food.obj");
 
     ////Eiffel Tower Mesh
-    tableOfMeshes[MeshName[4]] = new Mesh;
-    famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[4]], "assets/models/EiffelTower/EiffelTower.obj");
+    //tableOfMeshes[MeshName[4]] = new Mesh;
+    //famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[4]], "assets/models/EiffelTower/EiffelTower.obj");
 
 
     /// Textures Loading
@@ -365,19 +365,19 @@ void famm::Store::loadAssets()
 
 
     // EiffelTower
-    Material* EiffelTower = new Material(getShaderPointer("lightSupport"));
+    //Material* EiffelTower = new Material(getShaderPointer("lightSupport"));
 
-    EiffelTower->addProperty("material.albedo_tint", { 1,1,1 });
-    EiffelTower->addProperty("material.specular_tint", { 1,1,1 });
-    EiffelTower->addProperty("material.roughness_range", { 0.0,1.0 });
-    EiffelTower->addProperty("material.emissive_tint", { 1,1,1 });
+    //EiffelTower->addProperty("material.albedo_tint", { 1,1,1 });
+    //EiffelTower->addProperty("material.specular_tint", { 1,1,1 });
+    //EiffelTower->addProperty("material.roughness_range", { 0.0,1.0 });
+    //EiffelTower->addProperty("material.emissive_tint", { 1,1,1 });
 
-    EiffelTower->addTextureSampler(whiteTexture, mySampler);
-    EiffelTower->addTextureSampler(whiteTexture, mySampler);
-    EiffelTower->addTextureSampler(whiteTexture, mySampler);
-    EiffelTower->addTextureSampler(whiteTexture, mySampler);
-    EiffelTower->addTextureSampler(whiteTexture, mySampler);
-    tableOfMaterials["EiffelTower"] = EiffelTower;
+    //EiffelTower->addTextureSampler(whiteTexture, mySampler);
+    //EiffelTower->addTextureSampler(whiteTexture, mySampler);
+    //EiffelTower->addTextureSampler(whiteTexture, mySampler);
+    //EiffelTower->addTextureSampler(whiteTexture, mySampler);
+    //EiffelTower->addTextureSampler(whiteTexture, mySampler);
+    //tableOfMaterials["EiffelTower"] = EiffelTower;
 
 
 
