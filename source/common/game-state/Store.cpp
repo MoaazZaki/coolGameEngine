@@ -188,7 +188,7 @@ void famm::Store::loadAssets()
     }
 
     /// Meshes Creating/Loading
-    char* MeshName[3] = { "Suzanne","cube","land" };
+    char* MeshName[4] = { "Suzanne","cube","land", "sphere" };
 
     //Wolf Mesh
     tableOfMeshes[MeshName[0]] = new Mesh;
@@ -202,6 +202,10 @@ void famm::Store::loadAssets()
     //Land Mesh
     tableOfMeshes[MeshName[2]] = new Mesh;
     famm::mesh_utils::Plane(*tableOfMeshes[MeshName[2]], { 1, 1 }, false, { 0, 0, 0 }, { 1, 1 }, { 0, 0 }, { 100, 100 });
+
+    ////Sphere Mesh
+    tableOfMeshes[MeshName[3]] = new Mesh;
+    famm::mesh_utils::Sphere(*(tableOfMeshes[MeshName[3]]));
 
 
 
@@ -257,6 +261,58 @@ void famm::Store::loadAssets()
     asphaltEmissive->create();
     asphaltEmissive->loadTexture("assets/images/common/materials/asphalt/emissive.jpg");
     tableOfTextures["asphalt_emissive"] = asphaltEmissive;
+    
+
+    ///////////////////////////////////////////////////////////////////////
+    //////////////////////////BLENDING TRIALS//////////////////////////////
+    //////////////////////////////////////////////////////////////////////
+
+    //disco ball_roughness
+    Texture2D* ballRoughness = new Texture2D;
+    ballRoughness->create();
+    ballRoughness->loadTexture("assets/images/common/materials/discoball/roughness.png", true, false);
+    tableOfTextures["ball_roughness"] = ballRoughness;
+
+    //discoball_normal
+    Texture2D* ballNormal = new Texture2D;
+    ballNormal->create();
+    ballNormal->loadTexture("assets/images/common/materials/discoball/normal.png");
+    tableOfTextures["ball_normal"] = ballNormal;
+
+    //discoball_emissive
+    Texture2D* ballEmissive = new Texture2D;
+    ballEmissive->create();
+    ballEmissive->loadTexture("assets/images/common/materials/discoball/emissive.png"); // greyscale
+    tableOfTextures["discoball_emissive"] = ballEmissive;
+
+    //diacoball_metalness
+    Texture2D* ballMetalness = new Texture2D;
+    ballMetalness->create();
+    ballMetalness->loadTexture("assets/images/common/materials/discoball/metalness.png");
+    tableOfTextures["discoball_metalness"] = ballMetalness;
+
+    //discoball_color
+    Texture2D* ballDisplacement = new Texture2D;
+    ballDisplacement->create();
+    ballDisplacement->loadTexture("assets/images/common/materials/discoball/displacement.png");
+    tableOfTextures["discoball_displacement"] = ballDisplacement;
+
+    //discoball_color
+    Texture2D* ballColor = new Texture2D;
+    ballColor->create();
+    ballColor->loadTexture("assets/images/common/materials/discoball/color.png");
+    tableOfTextures["discoball_color"] = ballColor;
+
+    ///////////////////////////////////////////////////////////////////////
+    //////////////////////////BLENDING TRIALS//////////////////////////////
+    //////////////////////////////////////////////////////////////////////
+
+    //sprinkles
+    Texture2D* glass = new Texture2D;
+    glass->create();
+    glass->loadTexture("assets/images/common/glass-panels.png");
+    tableOfTextures["glass"] = glass;
+
 
     /// Sampler creating
     Sampler* mySampler = new Sampler;
@@ -280,6 +336,22 @@ void famm::Store::loadAssets()
     landMaterial->addTextureSampler(asphaltSpecular, mySampler);
     tableOfMaterials["land"] = landMaterial;
 
+
+    // Suzzz
+    Material* realSuzanne = new Material(getShaderPointer("myProgram"));
+    realSuzanne->addProperty("material.albedo_tint", { 1,1,1 });
+    realSuzanne->addProperty("material.specular_tint", { 1,1,1 });
+    realSuzanne->addProperty("material.roughness_range", { 0.0,1.0 });
+    realSuzanne->addProperty("material.emissive_tint", { 1,1,1 });
+
+    realSuzanne->addTextureSampler(asphaltAlbedo, mySampler);
+    realSuzanne->addTextureSampler(asphaltSpecular, mySampler);
+    realSuzanne->addTextureSampler(whiteTexture, mySampler);
+    realSuzanne->addTextureSampler(asphaltRoughness, mySampler);
+    realSuzanne->addTextureSampler(asphaltEmissive, mySampler);
+    tableOfMaterials["Suzanne2"] = realSuzanne;
+
+
     // Wolf
     Material* suzanneMaterial = new Material(getShaderPointer("myProgram"));
 
@@ -289,11 +361,32 @@ void famm::Store::loadAssets()
     suzanneMaterial->addProperty("material.emissive_tint", { 1,1,1 });
 
 
-    suzanneMaterial->addTextureSampler(asphaltAlbedo, mySampler);
+    /*suzanneMaterial->addTextureSampler(asphaltAlbedo, mySampler);
     suzanneMaterial->addTextureSampler(asphaltSpecular, mySampler);
     suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
     suzanneMaterial->addTextureSampler(asphaltRoughness, mySampler);
     suzanneMaterial->addTextureSampler(asphaltEmissive, mySampler);
+    tableOfMaterials["Suzanne"] = suzanneMaterial;*/
+
+    /*suzanneMaterial->addTextureSampler(ballRoughness, mySampler);
+    suzanneMaterial->addTextureSampler(ballEmissive, mySampler);
+    suzanneMaterial->addTextureSampler(ballNormal, mySampler);
+    suzanneMaterial->addTextureSampler(ballMetalness, mySampler);
+    suzanneMaterial->addTextureSampler(ballColor, mySampler);
+    suzanneMaterial->addTextureSampler(ballDisplacement, mySampler);
+    tableOfMaterials["Suzanne"] = suzanneMaterial;*/
+
+
+
+    
+    suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
+    suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
+    
+    //suzanneMaterial->addTextureSampler(ballDisplacement, mySampler);
+    suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
+    
+    suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
+    suzanneMaterial->addTextureSampler(glass, mySampler);
     tableOfMaterials["Suzanne"] = suzanneMaterial;
 
 

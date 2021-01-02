@@ -64,8 +64,18 @@ void famm::Game::onInitialize()
 	//Wolf Entity
 	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("Suzanne"),myStore->getMaterialPointer("Suzanne"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("Suzanne"),{0.4, 0.352, 0.301,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({15.3,9.6,7.7 }, { 0,-0.9,0 }, { 2,2,2 }, worldEntity));
+	myManager.addComponentData<RenderState>(object, defaultState);
+	world.push_back(object);
+
+
+	////////////////////////////////
+	//Wolf Entity
+	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("Suzanne"),myStore->getMaterialPointer("Suzanne2"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 15.3,9.6,7.7 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
 	myManager.addComponentData<RenderState>(object, defaultState);
 	world.push_back(object);
 
