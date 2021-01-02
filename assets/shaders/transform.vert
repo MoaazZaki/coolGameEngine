@@ -1,20 +1,27 @@
 #version 330 core
 #extension GL_ARB_explicit_uniform_location : require
 
-// The attributes
 layout(location = 0) in vec3 position;
 layout(location = 1) in vec4 color;
+// Now we are recieving a new attribute "Texture Coordinate" (tex_coord).
+// This attribute will define where the vertex lies in the texture space
+layout(location = 2) in vec2 tex_coord;
 
-// A transformation matrix sent as a Uniform
-layout (location = 0) uniform mat4 transform;
+layout(location = 0) uniform mat4 transform;
 
-// The varying
-out vec4 vertex_color;
+// Since we are now sending multiple Varyings, it would be nice to pack them together in what is called an "Interface Block".
+// "Varyings" is just a name for the block (we can choose any name as long as it is the same in the fragment shader).
+// "vsout" is an instance name (we can make an array of the same block and pick any name we want).
+// instance names can be different in the fragment shader and the blocks will still match and link together.
+// Interface blocks are nice for organization.
+out Varyings {
+    vec4 color;
+    vec2 tex_coord;
+} vsout;
 
 void main() {
-    // To apply the transformation, we just multiply
     gl_Position = transform * vec4(position, 1.0);
-    vertex_color = color;
+    vsout.color = color;
+    // The fragment shader will use the texture coordinates so we pass them to it.
+    vsout.tex_coord = tex_coord;
 }
-
-// NOTE: Since "transform" is allowed to modify "w", we can create a matrix that applies perspective projection which is a key factor of realistic 3D visuals.

@@ -66,6 +66,7 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
         auto& myTransformComponent = myManager->getComponentData<famm::Transform>(entity);
         auto& myRenderStateComponent = myManager->getComponentData<famm::RenderState>(entity);
 
+        std::vector<std::pair<Texture2D*, Sampler*>>& samplers2D = myRendererComponent.material->getMaterials();
         // Setup Material:
 
             /// (a) Use shader program
@@ -73,31 +74,49 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
             glUseProgram(*currentProgram);
 
             /// (b) Send transform and camera variables to shader uniforms 
-            currentProgram->set(0, transformations[entity]); //Uniform object_to_world is always 0
-            currentProgram->set(1, glm::inverse(transformations[entity]), true); //Uniform object_to_world_inv_transpose is always 1
-            currentProgram->set(2, cameraVP); //Uniform view_projection is always 2
-            currentProgram->set(3, cameraPos); //Uniform camera_position is always 3
-        
+            if(samplers2D.size() > 1)
+            { 
+                currentProgram->set(0, transformations[entity]); //Uniform object_to_world is always 0
+                currentProgram->set(1, glm::inverse(transformations[entity]), true); //Uniform object_to_world_inv_transpose is always 1
+                currentProgram->set(2, cameraVP); //Uniform view_projection is always 2
+                currentProgram->set(3, cameraPos); //Uniform camera_position is always 3
+            }
+            else
+            {
+                currentProgram->set(0, cameraVP * transformations[entity]); //Uniform object_to_world is always 0
+            }
             /// (c) Send material variables to shader uniforms
-            GLuint currentLocation = myRendererComponent.material->getLocation("material.albedo_tint");
-            currentProgram->set(currentLocation, myRendererComponent.material->getVec3(currentLocation));
+            if (samplers2D.size() > 1)
+            {
+                GLuint currentLocation = myRendererComponent.material->getLocation("material.albedo_tint");
+                currentProgram->set(currentLocation, myRendererComponent.material->getVec3(currentLocation));
 
-            currentLocation = myRendererComponent.material->getLocation("material.specular_tint");
-            currentProgram->set(currentLocation, myRendererComponent.material->getVec3(currentLocation));
+                currentLocation = myRendererComponent.material->getLocation("material.specular_tint");
+                currentProgram->set(currentLocation, myRendererComponent.material->getVec3(currentLocation));
 
-            currentLocation = myRendererComponent.material->getLocation("material.roughness_range");
-            currentProgram->set(currentLocation, myRendererComponent.material->getVec2(currentLocation));
+                currentLocation = myRendererComponent.material->getLocation("material.roughness_range");
+                currentProgram->set(currentLocation, myRendererComponent.material->getVec2(currentLocation));
 
-            currentLocation = myRendererComponent.material->getLocation("material.emissive_tint");
-            currentProgram->set(currentLocation, myRendererComponent.material->getVec3(currentLocation));
+                currentLocation = myRendererComponent.material->getLocation("material.emissive_tint");
+                currentProgram->set(currentLocation, myRendererComponent.material->getVec3(currentLocation));
+            }
 
             GLuint texture_unit = 0;
             std::string materialSetter[5] = { "material.albedo_map","material.specular_map","material.ambient_occlusion_map","material.roughness_map","material.emissive_map" };
-            for (auto const& [tex,samp] : myRendererComponent.material->getMaterials())
+            if (samplers2D.size() > 1)
+            for (auto const& [tex,samp] : samplers2D)
             {
                 samp->bindSampler(texture_unit);
                 tex->bindTexture(texture_unit);
                 currentProgram->set(currentProgram->getUniformLocation(materialSetter[texture_unit]),(int)texture_unit);
+                texture_unit++;
+            }
+            else
+            for (auto const& [tex, samp] : samplers2D)
+            {
+                samp->bindSampler(texture_unit);
+                tex->bindTexture(texture_unit);
+                currentProgram->set(currentProgram->getUniformLocation("sampler"), (int)texture_unit);
                 texture_unit++;
             }
 
@@ -141,6 +160,7 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
                 light_index++;
                 if (light_index >= myLightSystem->MAX_LIGHT_COUNT) break;
             }
+            
             currentProgram->set(4, light_index); //Uniform light_count is always 4
 
             /// (e) Use the render state to set openGL state

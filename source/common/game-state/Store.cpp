@@ -176,8 +176,8 @@ void famm::Store::startInit()
 void famm::Store::loadAssets()
 {
     /// Shaders Creating & loading
-    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("light_transform.vert","light_array.frag") };
-    char* shaderName[4] = { "myProgram" };
+    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("light_transform.vert","light_array.frag"),std::make_pair("transform.vert","texture.frag") };
+    char* shaderName[4] = { "lightSupport","textureProgram" };
     for (int i = 0; i < namesOfShadersProgram.size(); i++)
     {
         tableOfShaderPrograms[shaderName[i]] = new ShaderProgram;
@@ -322,7 +322,7 @@ void famm::Store::loadAssets()
 
     /// Material Creating
     // Land
-    Material* landMaterial = new Material(getShaderPointer("myProgram"));
+    Material* landMaterial = new Material(getShaderPointer("lightSupport"));
 
     landMaterial->addProperty("material.albedo_tint", { 1,1,1 });
     landMaterial->addProperty("material.specular_tint", { 1,1,1 });
@@ -338,7 +338,7 @@ void famm::Store::loadAssets()
 
 
     // Suzzz
-    Material* realSuzanne = new Material(getShaderPointer("myProgram"));
+    Material* realSuzanne = new Material(getShaderPointer("lightSupport"));
     realSuzanne->addProperty("material.albedo_tint", { 1,1,1 });
     realSuzanne->addProperty("material.specular_tint", { 1,1,1 });
     realSuzanne->addProperty("material.roughness_range", { 0.0,1.0 });
@@ -353,7 +353,7 @@ void famm::Store::loadAssets()
 
 
     // Wolf
-    Material* suzanneMaterial = new Material(getShaderPointer("myProgram"));
+    Material* suzanneMaterial = new Material(getShaderPointer("textureProgram"));
 
     suzanneMaterial->addProperty("material.albedo_tint", {1,1,1});
     suzanneMaterial->addProperty("material.specular_tint", { 1,1,1 });
@@ -379,13 +379,13 @@ void famm::Store::loadAssets()
 
 
     
-    suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
-    suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
-    
-    //suzanneMaterial->addTextureSampler(ballDisplacement, mySampler);
-    suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
-    
-    suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
+    //suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
+    //suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
+    //
+    ////suzanneMaterial->addTextureSampler(ballDisplacement, mySampler);
+    //suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
+    //
+    //suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
     suzanneMaterial->addTextureSampler(glass, mySampler);
     tableOfMaterials["Suzanne"] = suzanneMaterial;
 
