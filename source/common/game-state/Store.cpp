@@ -188,7 +188,7 @@ void famm::Store::loadAssets()
     }
 
     /// Meshes Creating/Loading
-    char* MeshName[4] = { "Suzanne","cube","land", "sphere" };
+    char* MeshName[5] = { "Suzanne","cube","land", "sphere", "EiffelTower"};
 
     //Wolf Mesh
     tableOfMeshes[MeshName[0]] = new Mesh;
@@ -207,6 +207,13 @@ void famm::Store::loadAssets()
     tableOfMeshes[MeshName[3]] = new Mesh;
     famm::mesh_utils::Sphere(*(tableOfMeshes[MeshName[3]]));
 
+    //////food Mesh
+    //tableOfMeshes[MeshName[4]] = new Mesh;
+    //famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[4]], "assets/models/Food/Food.obj");
+
+    ////Eiffel Tower Mesh
+    tableOfMeshes[MeshName[4]] = new Mesh;
+    famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[4]], "assets/models/EiffelTower/EiffelTower.obj");
 
 
     /// Textures Loading
@@ -261,13 +268,8 @@ void famm::Store::loadAssets()
     asphaltEmissive->create();
     asphaltEmissive->loadTexture("assets/images/common/materials/asphalt/emissive.jpg");
     tableOfTextures["asphalt_emissive"] = asphaltEmissive;
-    
 
-    ///////////////////////////////////////////////////////////////////////
-    //////////////////////////BLENDING TRIALS//////////////////////////////
-    //////////////////////////////////////////////////////////////////////
-
-    //disco ball_roughness
+    //discoball_roughness
     Texture2D* ballRoughness = new Texture2D;
     ballRoughness->create();
     ballRoughness->loadTexture("assets/images/common/materials/discoball/roughness.png", true, false);
@@ -285,7 +287,7 @@ void famm::Store::loadAssets()
     ballEmissive->loadTexture("assets/images/common/materials/discoball/emissive.png"); // greyscale
     tableOfTextures["discoball_emissive"] = ballEmissive;
 
-    //diacoball_metalness
+    //discoball_metalness
     Texture2D* ballMetalness = new Texture2D;
     ballMetalness->create();
     ballMetalness->loadTexture("assets/images/common/materials/discoball/metalness.png");
@@ -303,15 +305,23 @@ void famm::Store::loadAssets()
     ballColor->loadTexture("assets/images/common/materials/discoball/color.png");
     tableOfTextures["discoball_color"] = ballColor;
 
-    ///////////////////////////////////////////////////////////////////////
-    //////////////////////////BLENDING TRIALS//////////////////////////////
-    //////////////////////////////////////////////////////////////////////
-
-    //sprinkles
+    //glass
     Texture2D* glass = new Texture2D;
     glass->create();
     glass->loadTexture("assets/images/common/glass-panels.png");
     tableOfTextures["glass"] = glass;
+
+    //glitter
+    Texture2D* glitter = new Texture2D;
+    glitter->create();
+    glitter->loadTexture("assets/images/common/glitter.jpg");
+    tableOfTextures["glitter"] = glitter;
+
+    //sprinkles
+    Texture2D* sprinkles = new Texture2D;
+    sprinkles->create();
+    sprinkles->loadTexture("assets/images/common/sprinkles.jpg");
+    tableOfTextures["sprinkles"] = sprinkles;
 
 
     /// Sampler creating
@@ -321,6 +331,7 @@ void famm::Store::loadAssets()
     tableOfSampelers["default"] = mySampler;
 
     /// Material Creating
+    
     // Land
     Material* landMaterial = new Material(getShaderPointer("lightSupport"));
 
@@ -337,60 +348,49 @@ void famm::Store::loadAssets()
     tableOfMaterials["land"] = landMaterial;
 
 
-    // Suzzz
-    Material* realSuzanne = new Material(getShaderPointer("lightSupport"));
-    realSuzanne->addProperty("material.albedo_tint", { 1,1,1 });
-    realSuzanne->addProperty("material.specular_tint", { 1,1,1 });
-    realSuzanne->addProperty("material.roughness_range", { 0.0,1.0 });
-    realSuzanne->addProperty("material.emissive_tint", { 1,1,1 });
+    // Suzanne
+    Material* Suzanne = new Material(getShaderPointer("lightSupport"));
 
-    realSuzanne->addTextureSampler(asphaltAlbedo, mySampler);
-    realSuzanne->addTextureSampler(asphaltSpecular, mySampler);
-    realSuzanne->addTextureSampler(whiteTexture, mySampler);
-    realSuzanne->addTextureSampler(asphaltRoughness, mySampler);
-    realSuzanne->addTextureSampler(asphaltEmissive, mySampler);
-    tableOfMaterials["Suzanne2"] = realSuzanne;
+    Suzanne->addProperty("material.albedo_tint", { 1,1,1 });
+    Suzanne->addProperty("material.specular_tint", { 1,1,1 });
+    Suzanne->addProperty("material.roughness_range", { 0.0,1.0 });
+    Suzanne->addProperty("material.emissive_tint", { 1,1,1 });
 
-
-    // Wolf
-    Material* suzanneMaterial = new Material(getShaderPointer("textureProgram"));
-
-    suzanneMaterial->addProperty("material.albedo_tint", {1,1,1});
-    suzanneMaterial->addProperty("material.specular_tint", { 1,1,1 });
-    suzanneMaterial->addProperty("material.roughness_range", { 0.0,1.0});
-    suzanneMaterial->addProperty("material.emissive_tint", { 1,1,1 });
+    Suzanne->addTextureSampler(asphaltAlbedo, mySampler);
+    Suzanne->addTextureSampler(asphaltSpecular, mySampler);
+    Suzanne->addTextureSampler(whiteTexture, mySampler);
+    Suzanne->addTextureSampler(asphaltRoughness, mySampler);
+    Suzanne->addTextureSampler(asphaltEmissive, mySampler);
+    tableOfMaterials["Suzanne"] = Suzanne;
 
 
-    /*suzanneMaterial->addTextureSampler(asphaltAlbedo, mySampler);
-    suzanneMaterial->addTextureSampler(asphaltSpecular, mySampler);
-    suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
-    suzanneMaterial->addTextureSampler(asphaltRoughness, mySampler);
-    suzanneMaterial->addTextureSampler(asphaltEmissive, mySampler);
-    tableOfMaterials["Suzanne"] = suzanneMaterial;*/
+    // EiffelTower
+    Material* EiffelTower = new Material(getShaderPointer("lightSupport"));
 
-    /*suzanneMaterial->addTextureSampler(ballRoughness, mySampler);
-    suzanneMaterial->addTextureSampler(ballEmissive, mySampler);
-    suzanneMaterial->addTextureSampler(ballNormal, mySampler);
-    suzanneMaterial->addTextureSampler(ballMetalness, mySampler);
-    suzanneMaterial->addTextureSampler(ballColor, mySampler);
-    suzanneMaterial->addTextureSampler(ballDisplacement, mySampler);
-    tableOfMaterials["Suzanne"] = suzanneMaterial;*/
+    EiffelTower->addProperty("material.albedo_tint", { 1,1,1 });
+    EiffelTower->addProperty("material.specular_tint", { 1,1,1 });
+    EiffelTower->addProperty("material.roughness_range", { 0.0,1.0 });
+    EiffelTower->addProperty("material.emissive_tint", { 1,1,1 });
+
+    EiffelTower->addTextureSampler(whiteTexture, mySampler);
+    EiffelTower->addTextureSampler(whiteTexture, mySampler);
+    EiffelTower->addTextureSampler(whiteTexture, mySampler);
+    EiffelTower->addTextureSampler(whiteTexture, mySampler);
+    EiffelTower->addTextureSampler(whiteTexture, mySampler);
+    tableOfMaterials["EiffelTower"] = EiffelTower;
 
 
 
-    
-    //suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
-    //suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
-    //
-    ////suzanneMaterial->addTextureSampler(ballDisplacement, mySampler);
-    //suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
-    //
-    //suzanneMaterial->addTextureSampler(whiteTexture, mySampler);
-    suzanneMaterial->addTextureSampler(glass, mySampler);
-    tableOfMaterials["Suzanne"] = suzanneMaterial;
+    // Sphere
+    Material* sphere = new Material(getShaderPointer("textureProgram"));
 
+    sphere->addProperty("material.albedo_tint", {1,1,1});
+    sphere->addProperty("material.specular_tint", { 1,1,1 });
+    sphere->addProperty("material.roughness_range", { 0.0,1.0});
+    sphere->addProperty("material.emissive_tint", { 1,1,1 });
 
-
+    sphere->addTextureSampler(glass, mySampler);
+    tableOfMaterials["Sphere"] = sphere;
 
 }
 
