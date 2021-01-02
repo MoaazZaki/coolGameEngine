@@ -1,6 +1,6 @@
 #include "RenderedSystem.hpp"
 
-bool sortBySecond(const std::pair<int, int>& a,const std::pair<int, int>& b)
+bool sortBySecond(const std::pair<famm::Entity, float>& a,const std::pair<famm::Entity, float>& b)
 {
     return (a.second > b.second);
 }
@@ -86,7 +86,7 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
                 currentProgram->set(0, cameraVP * transformations[entity]); //Uniform object_to_world is always 0
             }
             /// (c) Send material variables to shader uniforms
-            if (samplers2D.size() > 1)
+            if (samplers2D.size() > 1) //IF light supported
             {
                 GLuint currentLocation = myRendererComponent.material->getLocation("material.albedo_tint");
                 currentProgram->set(currentLocation, myRendererComponent.material->getVec3(currentLocation));
@@ -99,33 +99,28 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
 
                 currentLocation = myRendererComponent.material->getLocation("material.emissive_tint");
                 currentProgram->set(currentLocation, myRendererComponent.material->getVec3(currentLocation));
-            }
+            
 
-            GLuint texture_unit = 0;
-            std::string materialSetter[5] = { "material.albedo_map","material.specular_map","material.ambient_occlusion_map","material.roughness_map","material.emissive_map" };
-            if (samplers2D.size() > 1)
-            for (auto const& [tex,samp] : samplers2D)
-            {
-                samp->bindSampler(texture_unit);
-                tex->bindTexture(texture_unit);
-                currentProgram->set(currentProgram->getUniformLocation(materialSetter[texture_unit]),(int)texture_unit);
-                texture_unit++;
+                GLuint texture_unit = 0;
+                std::string materialSetter[5] = { "material.albedo_map","material.specular_map","material.ambient_occlusion_map","material.roughness_map","material.emissive_map" };
+
+                for (auto const& [tex,samp] : samplers2D)
+                {
+                    samp->bindSampler(texture_unit);
+                    tex->bindTexture(texture_unit);
+                    currentProgram->set(currentProgram->getUniformLocation(materialSetter[texture_unit]),(int)texture_unit);
+                    texture_unit++;
+                }
             }
             else
-            for (auto const& [tex, samp] : samplers2D)
-            {
-                samp->bindSampler(texture_unit);
-                tex->bindTexture(texture_unit);
-                currentProgram->set(currentProgram->getUniformLocation("sampler"), (int)texture_unit);
-                texture_unit++;
-            }
+                for (auto const& [tex, samp] : samplers2D)
+                {
+                    samp->bindSampler(0);
+                    tex->bindTexture(0);
+                    currentProgram->set(currentProgram->getUniformLocation("sampler"), 0);
+                }
 
             /// (d) Send lights to shader uniforms
-            
-            currentProgram->set(currentProgram->getUniformLocation("sky_light.top_color"), glm::vec3(0.0f));//(64/255.0, 77/ 255.0,128 / 255.0));
-            currentProgram->set(currentProgram->getUniformLocation("sky_light.middle_color"), glm::vec3(0.0f));//(89/ 255.0, 89/ 255.0, 102/ 255.0));
-            currentProgram->set(currentProgram->getUniformLocation("sky_light.bottom_color"), glm::vec3(0.0f));//(64/ 255.0,64 / 255.0,64 / 255.0));
-
             int light_index = 0;
             for (auto const&  light: myLightSystem->entitiesSet)
             {
@@ -161,7 +156,17 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
                 if (light_index >= myLightSystem->MAX_LIGHT_COUNT) break;
             }
             
-            currentProgram->set(4, light_index); //Uniform light_count is always 4
+            if (samplers2D.size() > 1) //IF light supported
+            {
+                currentProgram->set(currentProgram->getUniformLocation("sky_light.top_color"), glm::vec3(0.0f));//(64/255.0, 77/ 255.0,128 / 255.0));
+                currentProgram->set(currentProgram->getUniformLocation("sky_light.middle_color"), glm::vec3(0.0f));//(89/ 255.0, 89/ 255.0, 102/ 255.0));
+                currentProgram->set(currentProgram->getUniformLocation("sky_light.bottom_color"), glm::vec3(0.0f));//(64/ 255.0,64 / 255.0,64 / 255.0));
+                currentProgram->set(4, light_index); //Uniform light_count is always 4
+
+                if (myRenderStateComponent.alphaTestingEnabled)
+                    currentProgram->set(5, myRenderStateComponent.alphaTestingThreshold); //Uniform alpha_threshold is always 5
+            }
+            
 
             /// (e) Use the render state to set openGL state
             if (myRenderStateComponent.blendingEnabled) glEnable(GL_BLEND);
@@ -184,7 +189,6 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
             if (myRenderStateComponent.alphaToCoverageEnabled) glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
             else glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
 
-            if (myRenderStateComponent.alphaTestingEnabled) currentProgram->set(5, myRenderStateComponent.alphaTestingThreshold); //Uniform alpha_threshold is always 5
 
 
         // (2) Draw the entity using its attached mesh renderer component
