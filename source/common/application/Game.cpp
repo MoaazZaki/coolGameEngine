@@ -89,6 +89,13 @@ void famm::Game::onInitialize()
 	myManager.addComponentData<RenderState>(object, transparentState);
 	world.push_back(object);
 
+	//Eiffel Tower Entity
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("EiffelTower"),myStore->getMaterialPointer("EiffelTower"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 15.3,9.6,7.7 }, { 0,-0.9,0 }, { 20,10,10 }, worldEntity));
+	myManager.addComponentData<RenderState>(object, defaultState);
+	world.push_back(object);
+
 	//Camera Entity
 	camera = myManager.createEntity();
 	myManager.addComponentData<Camera>(camera, famm::Camera(
