@@ -65,13 +65,20 @@ void famm::Game::onInitialize()
 	//Wolf Entity
 	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
 	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("anotherSphere"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 5,9.7,4 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
+	myManager.addComponentData<RenderState>(object, transparentState);
+	world.push_back(object);
+
+
+	//Wolf Entity
+	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
+	object = myManager.createEntity();
 	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("Sphere"),{0.4, 0.352, 0.301,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({35.6,9.7,4 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
 	myManager.addComponentData<RenderState>(object, transparentState);
 	world.push_back(object);
 
-
-	////////////////////////////////
 	//Wolf Entity
 	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
 	object = myManager.createEntity();
@@ -80,21 +87,21 @@ void famm::Game::onInitialize()
 	myManager.addComponentData<RenderState>(object, defaultState);
 	world.push_back(object);
 
-	////////////////////////////////
 	//Wolf Entity
 	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("Suzanne"),myStore->getMaterialPointer("Sphere"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("Suzanne"),myStore->getMaterialPointer("anotherSuzanne"),{0.4, 0.352, 0.301,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({ 74.2,11.2,1 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
 	myManager.addComponentData<RenderState>(object, transparentState);
 	world.push_back(object);
 
-	//Eiffel Tower Entity
-	//object = myManager.createEntity();
-	//myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("EiffelTower"),myStore->getMaterialPointer("EiffelTower"),{0.4, 0.352, 0.301,0} }));
-	//myManager.addComponentData<Transform>(object, famm::Transform({ 15.3,9.6,7.7 }, { 0,-0.9,0 }, { 20,10,10 }, worldEntity));
-	//myManager.addComponentData<RenderState>(object, defaultState);
-	//world.push_back(object);
+	//Banana Entity
+	object = myManager.createEntity();
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("Banana"),myStore->getMaterialPointer("BananaPeel"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 120,13,25 }, { 0,-0.9,0 }, { 3,3,3 }, worldEntity));
+	myManager.addComponentData<RenderState>(object, transparentState);
+	world.push_back(object);
+
 
 	//Camera Entity
 	camera = myManager.createEntity();

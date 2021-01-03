@@ -188,7 +188,7 @@ void famm::Store::loadAssets()
     }
 
     /// Meshes Creating/Loading
-    char* MeshName[5] = { "Suzanne","cube","land", "sphere", "EiffelTower"};
+    char* MeshName[5] = { "Suzanne","cube","land", "sphere", "Banana"};
 
     //Wolf Mesh
     tableOfMeshes[MeshName[0]] = new Mesh;
@@ -207,9 +207,9 @@ void famm::Store::loadAssets()
     tableOfMeshes[MeshName[3]] = new Mesh;
     famm::mesh_utils::Sphere(*(tableOfMeshes[MeshName[3]]));
 
-    //////food Mesh
-    //tableOfMeshes[MeshName[4]] = new Mesh;
-    //famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[4]], "assets/models/Food/Food.obj");
+    ////food Mesh
+    tableOfMeshes[MeshName[4]] = new Mesh;
+    famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[4]], "assets/models/Banana/Banana.obj");
 
     ////Eiffel Tower Mesh
     //tableOfMeshes[MeshName[4]] = new Mesh;
@@ -228,6 +228,12 @@ void famm::Store::loadAssets()
     blackTexture->create();
     blackTexture->loadTexture({ 0, 0, 0, 255 });
     tableOfTextures["black"] = blackTexture;
+
+    //Yellow
+    Texture2D* yellowTexture = new Texture2D;
+    yellowTexture->create();
+    yellowTexture->loadTexture({ 255, 255, 0, 255 });
+    tableOfTextures["yellow"] = yellowTexture;
 
     //checkerboard_albedo
     Texture2D* cbAlbedoTexture = new Texture2D;
@@ -323,8 +329,21 @@ void famm::Store::loadAssets()
     sprinkles->loadTexture("assets/images/common/sprinkles.jpg");
     tableOfTextures["sprinkles"] = sprinkles;
 
+    //moon
+    Texture2D* moon = new Texture2D;
+    moon->create();
+    moon->loadTexture("assets/images/common/moon.jpg");
+    tableOfTextures["moon"] = moon;
+
+    //moon
+    Texture2D* BananaPeel = new Texture2D;
+    BananaPeel->create();
+    BananaPeel->loadTexture("assets/images/common/BananaPeel.jpg");
+    tableOfTextures["BananaPeel"] = BananaPeel;
+
 
     /// Sampler creating
+    //default sampler
     Sampler* mySampler = new Sampler;
     mySampler->create();
     mySampler->setSamplerParameters();
@@ -363,34 +382,50 @@ void famm::Store::loadAssets()
     Suzanne->addTextureSampler(asphaltEmissive, mySampler);
     tableOfMaterials["Suzanne"] = Suzanne;
 
+    // Banana
+    Material* Banana = new Material(getShaderPointer("lightSupport"));
 
-    // EiffelTower
-    //Material* EiffelTower = new Material(getShaderPointer("lightSupport"));
+    Banana->addProperty("material.albedo_tint", { 1,1,1 });
+    Banana->addProperty("material.specular_tint", { 1,1,1 });
+    Banana->addProperty("material.roughness_range", { 0.0,1.0 });
+    Banana->addProperty("material.emissive_tint", { 1,1,1 });
 
-    //EiffelTower->addProperty("material.albedo_tint", { 1,1,1 });
-    //EiffelTower->addProperty("material.specular_tint", { 1,1,1 });
-    //EiffelTower->addProperty("material.roughness_range", { 0.0,1.0 });
-    //EiffelTower->addProperty("material.emissive_tint", { 1,1,1 });
-
-    //EiffelTower->addTextureSampler(whiteTexture, mySampler);
-    //EiffelTower->addTextureSampler(whiteTexture, mySampler);
-    //EiffelTower->addTextureSampler(whiteTexture, mySampler);
-    //EiffelTower->addTextureSampler(whiteTexture, mySampler);
-    //EiffelTower->addTextureSampler(whiteTexture, mySampler);
-    //tableOfMaterials["EiffelTower"] = EiffelTower;
-
-
+    Banana->addTextureSampler(yellowTexture, mySampler);
+    Banana->addTextureSampler(yellowTexture, mySampler);
+    Banana->addTextureSampler(yellowTexture, mySampler);
+    Banana->addTextureSampler(yellowTexture, mySampler);
+    Banana->addTextureSampler(yellowTexture, mySampler);
+    tableOfMaterials["Banana"] = Banana;
 
     // Sphere
-    Material* sphere = new Material(getShaderPointer("textureProgram"));
+    Material* sphere = new Material(getShaderPointer("lightSupport"));
 
     sphere->addProperty("material.albedo_tint", {1,1,1});
     sphere->addProperty("material.specular_tint", { 1,1,1 });
     sphere->addProperty("material.roughness_range", { 0.0,1.0});
     sphere->addProperty("material.emissive_tint", { 1,1,1 });
 
-    sphere->addTextureSampler(glass, mySampler);
+    sphere->addTextureSampler(blackTexture, mySampler);
+    sphere->addTextureSampler(blackTexture, mySampler);
+    sphere->addTextureSampler(whiteTexture, mySampler);
+    sphere->addTextureSampler(whiteTexture, mySampler);
+    sphere->addTextureSampler(moon, mySampler);
     tableOfMaterials["Sphere"] = sphere;
+
+    // Sphere for blending
+    Material* anotherSphere = new Material(getShaderPointer("textureProgram"));
+    anotherSphere->addTextureSampler(glass, mySampler);
+    tableOfMaterials["anotherSphere"] = anotherSphere;
+
+    // Suzanne for blending
+    Material* anotherSuzanne = new Material(getShaderPointer("textureProgram"));
+    anotherSuzanne->addTextureSampler(glass, mySampler);
+    tableOfMaterials["anotherSuzanne"] = anotherSuzanne;
+
+    // Suzanne for blending
+    Material* banana = new Material(getShaderPointer("textureProgram"));
+    banana->addTextureSampler(BananaPeel, mySampler);
+    tableOfMaterials["BananaPeel"] = banana;
 
 }
 
