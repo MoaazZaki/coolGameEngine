@@ -360,10 +360,10 @@ void famm::Store::loadAssets()
     landMaterial->addProperty("material.emissive_tint", { 1,1,1 });
 
     landMaterial->addTextureSampler(cbAlbedoTexture, mySampler);
-    landMaterial->addTextureSampler(whiteTexture, mySampler);
+    landMaterial->addTextureSampler(cbSpeculatTexture, mySampler);
     landMaterial->addTextureSampler(whiteTexture, mySampler);
     landMaterial->addTextureSampler(cbRoughnessTexture, mySampler);
-    landMaterial->addTextureSampler(asphaltSpecular, mySampler);
+    landMaterial->addTextureSampler(blackTexture, mySampler);
     tableOfMaterials["land"] = landMaterial;
 
 

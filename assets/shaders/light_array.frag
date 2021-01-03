@@ -49,7 +49,9 @@ void main() {
     vec3 normal = normalize(fsin.normal);
     vec3 view = normalize(fsin.view);
 
-    vec3 ambient = sampled.ambient * 0.2;
+    vec3 ambient = sampled.ambient * (normal.y > 0 ?
+        mix(sky_light.middle_color, sky_light.top_color, normal.y) :
+        mix(sky_light.middle_color, sky_light.bottom_color, -normal.y));
 
     vec3 accumulated_light = sampled.emissive + ambient;
 

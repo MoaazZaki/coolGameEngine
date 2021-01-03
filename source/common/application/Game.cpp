@@ -75,8 +75,8 @@ void famm::Game::onInitialize()
 	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
 	object = myManager.createEntity();
 	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("Sphere"),{0.4, 0.352, 0.301,0} }));
-	myManager.addComponentData<Transform>(object, famm::Transform({35.6,9.7,4 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
-	myManager.addComponentData<RenderState>(object, transparentState);
+	myManager.addComponentData<Transform>(object, famm::Transform({34.9,76,20 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
+	myManager.addComponentData<RenderState>(object, defaultState);
 	world.push_back(object);
 
 	//Wolf Entity
@@ -98,8 +98,8 @@ void famm::Game::onInitialize()
 	//Banana Entity
 	object = myManager.createEntity();
 	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("Banana"),myStore->getMaterialPointer("BananaPeel"),{0.4, 0.352, 0.301,0} }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 120,13,25 }, { 0,-0.9,0 }, { 3,3,3 }, worldEntity));
-	myManager.addComponentData<RenderState>(object, transparentState);
+	myManager.addComponentData<Transform>(object, famm::Transform({ 58.3,3.5,0.3 }, { 1.42,0.32,1.06 }, { 0.5,0.5,0.5 }, worldEntity));
+	myManager.addComponentData<RenderState>(object, defaultState);
 	world.push_back(object);
 
 
@@ -125,10 +125,10 @@ void famm::Game::onInitialize()
 
 	////Light Entity
 	Entity defaultLight = myManager.createEntity();
-	myManager.addComponentData<Light>(defaultLight, famm::Light({ true,famm::LightType::DIRECTIONAL,{1.0,0.7,0.2},0,0,0,0,0 }));
+	myManager.addComponentData<Light>(defaultLight, famm::Light({ true,famm::LightType::DIRECTIONAL,{0.2274,0.2196,0.2118},0,0,0,0,0 }));
 	myManager.addComponentData<Transform>(defaultLight, famm::Transform({ 0, 0, 0 }, { -1.5, -15, -2.6 }));
 	lightArray.push_back(defaultLight); // TODO: REMOVE THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-	glClearColor(0, 0, 0, 0);
+	glClearColor(0, 0, 0, 0); 
 }
 
 
