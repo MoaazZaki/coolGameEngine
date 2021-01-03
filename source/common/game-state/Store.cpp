@@ -251,6 +251,24 @@ void famm::Store::loadAssets()
     cbRoughnessTexture->loadTexture({ 256,256 }, { 128,128 }, { 255, 255, 255, 255 }, { 64, 64, 64, 255 });
     tableOfTextures["checkerboard_roughness"] = cbRoughnessTexture;
 
+    //metal_albedo
+    Texture2D* metalAlbedo = new Texture2D;
+    metalAlbedo->create();
+    metalAlbedo->loadTexture("assets/images/common/materials/metal/albedo.jpg");
+    tableOfTextures["metal_albedo"] = metalAlbedo;
+
+    //metal_specular
+    Texture2D* metalSpecular = new Texture2D;
+    metalSpecular->create();
+    metalSpecular->loadTexture("assets/images/common/materials/metal/specular.jpg");
+    tableOfTextures["metal_specular"] = metalSpecular;
+
+    //metal_roughness
+    Texture2D* metalRoughness = new Texture2D;
+    metalRoughness->create();
+    metalRoughness->loadTexture("assets/images/common/materials/metal/roughness.jpg");
+    tableOfTextures["metal_roughness"] = metalRoughness;
+
     //asphalt_albedo
     Texture2D* asphaltAlbedo = new Texture2D;
     asphaltAlbedo->create();
@@ -411,6 +429,21 @@ void famm::Store::loadAssets()
     sphere->addTextureSampler(whiteTexture, mySampler);
     sphere->addTextureSampler(moon, mySampler);
     tableOfMaterials["Sphere"] = sphere;
+
+    // Sphere2
+    Material* metal = new Material(getShaderPointer("lightSupport"));
+
+    metal->addProperty("material.albedo_tint", { 1,1,1 });
+    metal->addProperty("material.specular_tint", { 1,1,1 });
+    metal->addProperty("material.roughness_range", { 0.0,1.0 });
+    metal->addProperty("material.emissive_tint", { 1,1,1 });
+
+    metal->addTextureSampler(metalAlbedo, mySampler);
+    metal->addTextureSampler(metalSpecular, mySampler);
+    metal->addTextureSampler(whiteTexture, mySampler);
+    metal->addTextureSampler(metalRoughness, mySampler);
+    metal->addTextureSampler(blackTexture, mySampler);
+    tableOfMaterials["Metal"] = metal;
 
     // Sphere for blending
     Material* anotherSphere = new Material(getShaderPointer("textureProgram"));
