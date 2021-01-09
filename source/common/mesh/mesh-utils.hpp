@@ -30,7 +30,7 @@ namespace famm::mesh_utils {
                const glm::vec3& center={0, 0, 0},
                const glm::vec2& size={1, 1},
                const glm::vec2& texture_offset = {0, 0},
-               const glm::vec2& texture_tiling = {1, 1});
+               const glm::vec2& texture_tiling = {100, 100});
 
 }
 

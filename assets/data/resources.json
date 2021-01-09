@@ -1,0 +1,370 @@
+{
+  "shaders": [
+    {
+      "name": "light",
+      "vertex": "assets/shaders/light_transform.vert",
+      "fragment": "assets/shaders/light_array.frag"
+    },
+    {
+      "name":"blend",
+      "vertex": "assets/shaders/transform.vert",
+      "fragment": "assets/shaders/texture.frag"
+    }
+  ],
+  "meshes": [
+    {
+      "type": "utils",
+      "name": "cuboid"
+    },
+    {
+      "type": "utils",
+      "name": "sphere"
+    },
+    {
+      "type": "utils",
+      "name": "plane"
+    },
+    {
+      "type": "file",
+      "name": "suzanne",
+      "path": "assets/models/Suzanne/Suzanne.obj"
+    },
+    {
+      "type": "file",
+      "name": "banana",
+      "path": "assets/models/Banana/Banana.obj"
+    }
+  ],
+  "textures": [
+    {
+      "type": "file",
+      "name": "moon",
+      "path": "assets/images/common/moon.jpg"
+    },
+    {
+      "type": "file",
+      "name": "glass",
+      "path": "assets/images/common/glass-panels.png"
+    },
+    {
+      "type": "color",
+      "name": "black",
+      "data": { "z": [ 0, 0, 0, 255 ] }
+    },
+    {
+      "type": "color",
+      "name": "white",
+      "data": { "z" :[ 255, 255, 255, 255 ] }
+    },
+    {
+      "type": "file",
+      "name": "banana",
+      "path": "assets/images/common/BananaPeel.jpg"
+    },
+    {
+      "type": "checkboard",
+      "name": "checkboard_albedo",
+      "data": {
+        "x":[ 256, 256 ],
+        "y":[ 128, 128 ],
+        "z":[ 255, 255, 255, 255 ],
+        "w":[ 16, 16, 16, 255 ]
+      }
+
+    },
+    {
+      "type": "checkboard",
+      "name": "checkboard_specular",
+      "data": {
+        "x": [ 256, 256 ],
+        "y": [ 128, 128 ],
+        "z": [ 0, 0, 0, 255 ],
+        "w": [ 255, 255, 255, 255 ]
+      }
+
+    },
+    {
+      "type": "checkboard",
+      "name": "checkboard_roughness",
+      "data": {
+        "x": [ 256, 256 ],
+        "y": [ 128, 128 ],
+        "z": [ 255, 255, 255, 255 ],
+        "w": [ 64, 64, 64, 255 ]
+      }
+
+    },
+    {
+      "type": "file",
+      "name": "metal_albedo",
+      "path": "assets/images/common/materials/metal/albedo.jpg"
+    },
+    {
+      "type": "file",
+      "name": "metal_specular",
+      "path": "assets/images/common/materials/metal/specular.jpg"
+    },
+    {
+      "type": "file",
+      "name": "metal_roughness",
+      "path": "assets/images/common/materials/metal/roughness.jpg"
+    },
+    {
+      "type": "file",
+      "name": "asphalt_albedo",
+      "path": "assets/images/common/materials/asphalt/albedo.jpg"
+    },
+    {
+      "type": "file",
+      "name": "asphalt_specular",
+      "path": "assets/images/common/materials/asphalt/specular.jpg"
+    },
+    {
+      "type": "file",
+      "name": "asphalt_roughness",
+      "colored": 0,
+      "path": "assets/images/common/materials/asphalt/roughness.jpg"
+    },
+    {
+      "type": "file",
+      "name": "asphalt_emissive",
+      "path": "assets/images/common/materials/asphalt/emissive.jpg"
+    }
+  ],
+  "samplers": [
+    {
+      "name": "default"
+    },
+    {
+      "name": "non-default",
+      "mag": 0,
+      "min": 1,
+      "wrap_s": 3,
+      "wrap_t": 3,
+      "border": [ 1, 1, 1, 1 ],
+      "anisotropy": 1.0
+    }
+  ],
+  "materials": [
+    {
+      "type": "light",
+      "name": "checkboard",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type" : "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type" : "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "vec2": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type" : "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "checkboard_albedo",
+          "sampler": "default"
+        },
+        {
+          "texture": "checkboard_specular",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "checkboard_roughness",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "asphalt",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type" : "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type" : "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type" : "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "asphalt_albedo",
+          "sampler": "default"
+        },
+        {
+          "texture": "asphalt_specular",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "asphalt_roughness",
+          "sampler": "default"
+        },
+        {
+          "texture": "asphalt_emissive",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "metal",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type" : "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type" : "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type" : "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "metal_albedo",
+          "sampler": "default"
+        },
+        {
+          "texture": "metal_specular",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "metal_roughness",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "moon",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type" : "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type" : "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type" : "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type" : "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "moon",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "blend",
+      "name": "glass",
+      "shader": "blend",
+      "properties": [],
+      "textureSampler": [
+        {
+          "texture": "glass",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "blend",
+      "name": "banana",
+      "shader": "blend",
+      "properties": [],
+      "textureSampler": [
+        {
+          "texture": "banana",
+          "sampler": "default"
+        }
+      ]
+    }
+  ]
+}

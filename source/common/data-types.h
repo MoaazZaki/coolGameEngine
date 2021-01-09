@@ -3,7 +3,8 @@
 
 #include <glm/glm.hpp>
 #include <bitset>
-
+#include <vector>
+#include <glad/gl.h>
 
 
 namespace famm {
@@ -24,6 +25,7 @@ namespace famm {
     typedef  std::bitset<MAX_COMPONENTS> Signature;     //the signature on an entity/system is a bit set having the size of all components 
                                                         //(1 in bits corresponding to components that the entity/system has)
 
+    
     
 
 }

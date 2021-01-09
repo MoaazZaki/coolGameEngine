@@ -7,7 +7,6 @@
 #include <imgui.h>
 
 
-
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -16,6 +15,8 @@
 #include <unordered_map>
 #include <vector>
 #include <shader.hpp>
+#include <fstream>
+#include <json/json.hpp>
 
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
@@ -27,7 +28,21 @@
 #include <mesh/common-vertex-attributes.hpp>
 #include <Texture2D.hpp>
 #include <Sampler.hpp>
+
+#include <data-types.h>
+
+namespace glm {
+	template<length_t L, typename T, qualifier Q>
+	void from_json(const nlohmann::json& j, vec<L, T, Q>& v) {
+		for (length_t index = 0; index < L; ++index)
+			v[index] = j[index].get<T>();
+	}
+}
+
+
 namespace famm {
+
+
 
 	class Store
 	{
@@ -89,4 +104,16 @@ namespace famm {
 
 
 }
+
+
+
+//namespace glm {
+//	template<length_t L, typename T, qualifier Q>
+//	void from_json(const nlohmann::json& j, vec<L, T, Q>& v) {
+//		for (length_t index = 0; index < L; ++index)
+//			v[index] = j[index].get<T>();
+//	}
+//}
+
+
 #endif

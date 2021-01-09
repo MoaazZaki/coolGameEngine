@@ -57,7 +57,7 @@ void famm::Game::onInitialize()
 
 	//Land Entity
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("land"),myStore->getMaterialPointer("land"), {0.901, 0.670, 0.419,0} }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("plane"),myStore->getMaterialPointer("checkboard"), {0.901, 0.670, 0.419,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 1000,1000,1000 }, worldEntity));
 	myManager.addComponentData<RenderState>(object, defaultState);
 	world.push_back(object);
@@ -65,7 +65,7 @@ void famm::Game::onInitialize()
 	//Wolf Entity
 	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("anotherSphere"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("glass"),{0.4, 0.352, 0.301,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({ 5,9.7,4 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
 	myManager.addComponentData<RenderState>(object, transparentState);
 	world.push_back(object);
@@ -73,15 +73,15 @@ void famm::Game::onInitialize()
 	//Wolf Entity
 	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("Metal"),{0.4, 0.352, 0.301,0} }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 18.9,9.6,27 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("metal"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<Transform>(object, famm::Transform({ 14.3,5.2,26.7 }, { 0,-0.9,0 }, { 5,5,5 }, worldEntity));
 	myManager.addComponentData<RenderState>(object, defaultState);
 	world.push_back(object);
 
 	//Wolf Entity
 	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("Sphere"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("moon"),{0.4, 0.352, 0.301,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({34.9,76,20 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
 	myManager.addComponentData<RenderState>(object, defaultState);
 	world.push_back(object);
@@ -89,7 +89,7 @@ void famm::Game::onInitialize()
 	//Wolf Entity
 	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("Suzanne"),myStore->getMaterialPointer("Suzanne"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("suzanne"),myStore->getMaterialPointer("asphalt"),{0.4, 0.352, 0.301,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({ 92.4,9.6,-8.8 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
 	myManager.addComponentData<RenderState>(object, defaultState);
 	world.push_back(object);
@@ -97,14 +97,14 @@ void famm::Game::onInitialize()
 	//Wolf Entity
 	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("Suzanne"),myStore->getMaterialPointer("anotherSuzanne"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("suzanne"),myStore->getMaterialPointer("glass"),{0.4, 0.352, 0.301,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({ 74.2,11.2,1 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
 	myManager.addComponentData<RenderState>(object, transparentState);
 	world.push_back(object);
 
 	//Banana Entity
 	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("Banana"),myStore->getMaterialPointer("BananaPeel"),{0.4, 0.352, 0.301,0} }));
+	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("banana"),myStore->getMaterialPointer("banana"),{0.4, 0.352, 0.301,0} }));
 	myManager.addComponentData<Transform>(object, famm::Transform({ 58.3,3.5,0.3 }, { 1.42,0.32,1.06 }, { 0.5,0.5,0.5 }, worldEntity));
 	myManager.addComponentData<RenderState>(object, defaultState);
 	world.push_back(object);
@@ -134,8 +134,15 @@ void famm::Game::onInitialize()
 	Entity defaultLight = myManager.createEntity();
 	myManager.addComponentData<Light>(defaultLight, famm::Light({ true,famm::LightType::DIRECTIONAL,{0.2274,0.2196,0.2118},0,0,0,0,0 }));
 	myManager.addComponentData<Transform>(defaultLight, famm::Transform({ 0, 0, 0 }, { -1.5, -15, -2.6 }));
-	lightArray.push_back(defaultLight); // TODO: REMOVE THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-	glClearColor(0, 0, 0, 0); 
+	lightArray.push_back(defaultLight); 
+
+	////Light Entity
+	defaultLight = myManager.createEntity();
+	myManager.addComponentData<Light>(defaultLight, famm::Light({ true,famm::LightType::POINT,{232/255.0, 92/ 255.0, 92/ 255.0},0.3,0.3,0.1,0,0 }));
+	myManager.addComponentData<Transform>(defaultLight, famm::Transform({ 16.7, 3.3, 24.2 }, { 0,0,0 }));
+	lightArray.push_back(defaultLight);
+
+	glClearColor(7/255.0,12/255.0, 41/ 255.0, 1);
 }
 
 
@@ -314,7 +321,7 @@ void famm::Game::newModelGui(ImGuiIO* io)
 	float speed = 0;
 
 
-	std::vector<std::string> models = { "Suzanne","cube","land" };
+	std::vector<std::string> models = { "suzanne","cuboid" };
 	static int item_current_idx = 0;
 	if (ImGui::BeginCombo("Models", models[item_current_idx].c_str()))
 	{

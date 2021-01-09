@@ -173,292 +173,296 @@ void famm::Store::startInit()
 
 }
 
+////////////// JSON UTILS ///////////////////
+// JSON Types
+enum magSampler { MAG_NEAREST, MAG_LINEAR };
+int mapMagSampler(magSampler m)
+{
+    switch (m)
+    {
+    case magSampler::MAG_NEAREST:
+        return GL_NEAREST;
+        break;
+    case magSampler::MAG_LINEAR:
+        return GL_LINEAR;
+        break;
+
+    }
+}
+enum minSampler { MIN_NEAREST, MIN_LINEAR, MIN_NEAREST_MIPMAP_NEAREST, MIN_LINEAR_MIPMAP_NEAREST, MIN_NEAREST_MIPMAP_LINEAR, MIN_LINEAR_MIPMAP_LINEAR };
+int mapMinSampler(minSampler m) {
+    switch (m)
+    {
+    case minSampler::MIN_NEAREST:
+        return GL_NEAREST;
+        break;
+    case minSampler::MIN_LINEAR:
+        return GL_LINEAR;
+        break;
+    case minSampler::MIN_NEAREST_MIPMAP_NEAREST:
+        return GL_NEAREST_MIPMAP_NEAREST;
+        break;
+    case minSampler::MIN_LINEAR_MIPMAP_NEAREST:
+        return GL_LINEAR_MIPMAP_NEAREST;
+        break;
+    case minSampler::MIN_NEAREST_MIPMAP_LINEAR:
+        return GL_NEAREST_MIPMAP_LINEAR;
+        break;
+    case minSampler::MIN_LINEAR_MIPMAP_LINEAR:
+        return GL_LINEAR_MIPMAP_LINEAR;
+        break;
+    }
+}
+enum wrapSampler { WRAP_CLAMP_TO_EDGE, WRAP_CLAMP_TO_BORDER, WRAP_REPEAT, WRAP_MIRRORED_REPEAT, WRAP_MIRROR_CLAMP_TO_EDGE };
+int mapWrapSampler(wrapSampler m)
+{
+    switch (m)
+    {
+    case wrapSampler::WRAP_CLAMP_TO_EDGE:
+        return GL_CLAMP_TO_EDGE;
+        break;
+    case wrapSampler::WRAP_CLAMP_TO_BORDER:
+        return GL_CLAMP_TO_BORDER;
+        break;
+    case wrapSampler::WRAP_REPEAT:
+        return GL_REPEAT;
+        break;
+    case wrapSampler::WRAP_MIRRORED_REPEAT:
+        return GL_MIRRORED_REPEAT;
+        break;
+    case wrapSampler::WRAP_MIRROR_CLAMP_TO_EDGE:
+        return GL_MIRROR_CLAMP_TO_EDGE;
+        break;
+    }
+}
+
+
+struct shaderJSON {
+    std::string name;
+    std::string vertex;
+    std::string fragment;
+};
+struct meshJSON {
+    std::string type;
+    std::string name;
+    std::string path;
+};
+struct textureData {
+    glm::vec2 x;
+    glm::vec2 y;
+    glm::vec4 z;
+    glm::vec4 w;
+};
+struct textureJSON {
+    std::string type;
+    std::string name;
+    bool colored;
+    std::string path;
+    textureData data;
+};
+struct samplerJSON {
+    std::string name;
+    magSampler mag;
+    minSampler min;
+    wrapSampler wrap_t;
+    wrapSampler wrap_s;
+    glm::vec4 border;
+    float anisotropy;
+};
+struct materialproperty {
+    std::string name;
+    std::string type;
+    float scalar;
+    glm::vec2 v2;
+    glm::vec3 v3;
+    glm::vec4 v4;
+};
+struct textureSampler {
+    std::string sampler;
+    std::string texture;
+};
+struct materialJSON
+{
+    std::string type;
+    std::string name;
+    std::string shader;
+    std::vector<materialproperty> properties;
+    std::vector<textureSampler> textureSampler;
+};
+
+template<typename T>
+std::vector<T> extractJSON(const nlohmann::json& j, std::string parent) {
+    return j.at(parent).get<std::vector<T>>();
+}
+
+void from_json(const nlohmann::json& j, shaderJSON& s)
+{
+    j.at("name").get_to(s.name);
+    j.at("vertex").get_to(s.vertex);
+    j.at("fragment").get_to(s.fragment);
+}
+
+
+void from_json(const nlohmann::json& j, meshJSON& m)
+{
+    j.at("type").get_to(m.type);
+    j.at("name").get_to(m.name);
+    m.path = j.value<std::string>("path", "");
+}
+
+void from_json(const nlohmann::json& j, textureData& d)
+{
+    d.x = j.value<glm::vec2>("x", {0.0f,0.0f});
+    d.y = j.value<glm::vec2>("y", {0.0f,0.0f});
+    d.z = j.value<glm::vec4>("z", {0.0f,0.0f,0.0f,0.0f});
+    d.w = j.value<glm::vec4>("w", {0.0f,0.0f,0.0f,0.0f});
+}
+
+void from_json(const nlohmann::json& j, textureJSON& t)
+{
+    j.at("type").get_to(t.type);
+    j.at("name").get_to(t.name);
+    t.colored = (bool)j.value<int>("colored", 1);
+    t.path = j.value<std::string>("path", "");
+    
+    textureData data = j.value<textureData>("data", textureData());
+    t.data.x = data.x;
+    t.data.y = data.y;
+    t.data.z = data.z;
+    t.data.w = data.w;
+}
+
+void from_json(const nlohmann::json& j, samplerJSON &s)
+{
+    j.at("name").get_to(s.name);
+    s.mag = (magSampler)j.value<int>("mag", 1);
+    s.min = (minSampler)j.value<int>("min", 5);
+    s.wrap_s = (wrapSampler)j.value<int>("wrap_s", 2);
+    s.wrap_t = (wrapSampler)j.value<int>("wrap_t", 2);
+    s.border = j.value<glm::vec4>("border", {1.0f,1.0f ,1.0f ,1.0f });
+    s.anisotropy = j.value<float>("anisotropy", 1.0);
+}
+
+void from_json(const nlohmann::json& j, materialproperty& p)
+{
+    p.name = j.value<std::string>("name","");
+    p.type = j.value<std::string>("type","");
+    p.scalar = j.value<float>("scalar",0.0f);
+    p.v2 = j.value<glm::vec2>("scalar", {0.0f,0.0f});
+    p.v3 = j.value<glm::vec3>("vec3", {0.0f,0.0f,0.0f });
+    p.v4 = j.value<glm::vec4>("vec4", {0.0f,0.0f,0.0f ,0.0f });
+}
+
+void from_json(const nlohmann::json& j, textureSampler& ts)
+{
+    j.at("sampler").get_to(ts.sampler);
+    j.at("texture").get_to(ts.texture);
+}
+
+void from_json(const nlohmann::json& j, materialJSON& m)
+{
+    j.at("type").get_to(m.type);
+    j.at("name").get_to(m.name);
+    j.at("shader").get_to(m.shader);
+    m.properties = extractJSON<materialproperty>(j, "properties");
+    m.textureSampler = extractJSON<textureSampler>(j, "textureSampler");
+}
+
+
+///////////////////////////////////////////////////
 void famm::Store::loadAssets()
 {
-    /// Shaders Creating & loading
-    std::vector<std::pair<std::string, std::string>> namesOfShadersProgram = { std::make_pair("light_transform.vert","light_array.frag"),std::make_pair("transform.vert","texture.frag") };
-    char* shaderName[4] = { "lightSupport","textureProgram" };
-    for (int i = 0; i < namesOfShadersProgram.size(); i++)
+    std::ifstream file_in("assets/data/resources.json");
+    nlohmann::json resources;
+    file_in >> resources;
+    file_in.close();
+    
+    std::vector<shaderJSON> desShader;
+    desShader = extractJSON<shaderJSON>(resources,"shaders");
+
+
+    for (auto& [name,vertex,fragment]: desShader)
     {
-        tableOfShaderPrograms[shaderName[i]] = new ShaderProgram;
-        tableOfShaderPrograms[shaderName[i]]->create();
-        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/" + namesOfShadersProgram[i].first, GL_VERTEX_SHADER);
-        tableOfShaderPrograms[shaderName[i]]->attach("assets/shaders/" + namesOfShadersProgram[i].second, GL_FRAGMENT_SHADER);
-        tableOfShaderPrograms[shaderName[i]]->link();
+        tableOfShaderPrograms[name] = new ShaderProgram;
+        tableOfShaderPrograms[name]->create();
+        tableOfShaderPrograms[name]->attach(vertex, GL_VERTEX_SHADER);
+        tableOfShaderPrograms[name]->attach(fragment, GL_FRAGMENT_SHADER);
+        tableOfShaderPrograms[name]->link();
     }
+//  desShader.clear();
 
     /// Meshes Creating/Loading
-    char* MeshName[5] = { "Suzanne","cube","land", "sphere", "Banana"};
-
-    //Wolf Mesh
-    tableOfMeshes[MeshName[0]] = new Mesh;
-    famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[0]], "assets/models/Suzanne/Suzanne.obj");
-    
-
-    ////Cube Mesh
-    tableOfMeshes[MeshName[1]] = new Mesh;
-    famm::mesh_utils::Cuboid(*(tableOfMeshes[MeshName[1]]));
-
-    //Land Mesh
-    tableOfMeshes[MeshName[2]] = new Mesh;
-    famm::mesh_utils::Plane(*tableOfMeshes[MeshName[2]], { 1, 1 }, false, { 0, 0, 0 }, { 1, 1 }, { 0, 0 }, { 100, 100 });
-
-    ////Sphere Mesh
-    tableOfMeshes[MeshName[3]] = new Mesh;
-    famm::mesh_utils::Sphere(*(tableOfMeshes[MeshName[3]]));
-
-    ////food Mesh
-    tableOfMeshes[MeshName[4]] = new Mesh;
-    famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[4]], "assets/models/Banana/Banana.obj");
-
-    ////Eiffel Tower Mesh
-    //tableOfMeshes[MeshName[4]] = new Mesh;
-    //famm::mesh_utils::loadOBJ(*tableOfMeshes[MeshName[4]], "assets/models/EiffelTower/EiffelTower.obj");
-
+    std::vector<meshJSON> desMesh;
+    desMesh = extractJSON<meshJSON>(resources, "meshes");
+    for (auto& [type, name, path]: desMesh)
+    {
+        tableOfMeshes[name] = new Mesh;
+        if (type == "utils")
+        {
+            if(name == "cuboid") famm::mesh_utils::Cuboid(*(tableOfMeshes[name]));
+            else if(name == "sphere") famm::mesh_utils::Sphere(*(tableOfMeshes[name]));
+            else if(name == "plane") famm::mesh_utils::Plane(*tableOfMeshes[name]);
+        }
+        else
+        {
+            famm::mesh_utils::loadOBJ(*tableOfMeshes[name], path.c_str());
+        }
+    }
+    desMesh.clear();
 
     /// Textures Loading
-    //White
-    Texture2D* whiteTexture = new Texture2D;
-    whiteTexture->create();
-    whiteTexture->loadTexture({ 255, 255, 255, 255 });
-    tableOfTextures["white"] = whiteTexture;
-
-    //Black
-    Texture2D* blackTexture = new Texture2D;
-    blackTexture->create();
-    blackTexture->loadTexture({ 0, 0, 0, 255 });
-    tableOfTextures["black"] = blackTexture;
-
-    //Yellow
-    Texture2D* yellowTexture = new Texture2D;
-    yellowTexture->create();
-    yellowTexture->loadTexture({ 255, 255, 0, 255 });
-    tableOfTextures["yellow"] = yellowTexture;
-
-    //checkerboard_albedo
-    Texture2D* cbAlbedoTexture = new Texture2D;
-    cbAlbedoTexture->create();
-    cbAlbedoTexture->loadTexture({ 256,256 }, { 128,128 }, { 255, 255, 255, 255 }, { 16, 16, 16, 255 });
-    tableOfTextures["checkerboard_albedo"] = cbAlbedoTexture;
-    //checkerboard_specular
-    Texture2D* cbSpeculatTexture = new Texture2D;
-    cbSpeculatTexture->create();
-    cbSpeculatTexture->loadTexture({ 256,256 }, { 128,128 }, { 0, 0, 0, 255 }, { 255, 255, 255, 255 });
-    tableOfTextures["checkerboard_specular"] = cbSpeculatTexture;
-    //checkerboard_roughness
-    Texture2D* cbRoughnessTexture = new Texture2D;
-    cbRoughnessTexture->create();
-    cbRoughnessTexture->loadTexture({ 256,256 }, { 128,128 }, { 255, 255, 255, 255 }, { 64, 64, 64, 255 });
-    tableOfTextures["checkerboard_roughness"] = cbRoughnessTexture;
-
-    //metal_albedo
-    Texture2D* metalAlbedo = new Texture2D;
-    metalAlbedo->create();
-    metalAlbedo->loadTexture("assets/images/common/materials/metal/albedo.jpg");
-    tableOfTextures["metal_albedo"] = metalAlbedo;
-
-    //metal_specular
-    Texture2D* metalSpecular = new Texture2D;
-    metalSpecular->create();
-    metalSpecular->loadTexture("assets/images/common/materials/metal/specular.jpg");
-    tableOfTextures["metal_specular"] = metalSpecular;
-
-    //metal_roughness
-    Texture2D* metalRoughness = new Texture2D;
-    metalRoughness->create();
-    metalRoughness->loadTexture("assets/images/common/materials/metal/roughness.jpg");
-    tableOfTextures["metal_roughness"] = metalRoughness;
-
-    //asphalt_albedo
-    Texture2D* asphaltAlbedo = new Texture2D;
-    asphaltAlbedo->create();
-    asphaltAlbedo->loadTexture("assets/images/common/materials/asphalt/albedo.jpg");
-    tableOfTextures["asphalt_albedo"] = asphaltAlbedo;
-
-    //asphalt_specular
-    Texture2D* asphaltSpecular = new Texture2D;
-    asphaltSpecular->create();
-    asphaltSpecular->loadTexture("assets/images/common/materials/asphalt/specular.jpg");
-    tableOfTextures["asphalt_specular"] = asphaltSpecular;
-
-    //asphalt_roughness
-    Texture2D* asphaltRoughness = new Texture2D;
-    asphaltRoughness->create();
-    asphaltRoughness->loadTexture("assets/images/common/materials/asphalt/roughness.jpg", true, false); // greyscale
-    tableOfTextures["asphalt_roughness"] = asphaltRoughness;
-
-    //asphalt_emissive
-    Texture2D* asphaltEmissive = new Texture2D;
-    asphaltEmissive->create();
-    asphaltEmissive->loadTexture("assets/images/common/materials/asphalt/emissive.jpg");
-    tableOfTextures["asphalt_emissive"] = asphaltEmissive;
-
-    //discoball_roughness
-    Texture2D* ballRoughness = new Texture2D;
-    ballRoughness->create();
-    ballRoughness->loadTexture("assets/images/common/materials/discoball/roughness.png", true, false);
-    tableOfTextures["ball_roughness"] = ballRoughness;
-
-    //discoball_normal
-    Texture2D* ballNormal = new Texture2D;
-    ballNormal->create();
-    ballNormal->loadTexture("assets/images/common/materials/discoball/normal.png");
-    tableOfTextures["ball_normal"] = ballNormal;
-
-    //discoball_emissive
-    Texture2D* ballEmissive = new Texture2D;
-    ballEmissive->create();
-    ballEmissive->loadTexture("assets/images/common/materials/discoball/emissive.png"); // greyscale
-    tableOfTextures["discoball_emissive"] = ballEmissive;
-
-    //discoball_metalness
-    Texture2D* ballMetalness = new Texture2D;
-    ballMetalness->create();
-    ballMetalness->loadTexture("assets/images/common/materials/discoball/metalness.png");
-    tableOfTextures["discoball_metalness"] = ballMetalness;
-
-    //discoball_color
-    Texture2D* ballDisplacement = new Texture2D;
-    ballDisplacement->create();
-    ballDisplacement->loadTexture("assets/images/common/materials/discoball/displacement.png");
-    tableOfTextures["discoball_displacement"] = ballDisplacement;
-
-    //discoball_color
-    Texture2D* ballColor = new Texture2D;
-    ballColor->create();
-    ballColor->loadTexture("assets/images/common/materials/discoball/color.png");
-    tableOfTextures["discoball_color"] = ballColor;
-
-    //glass
-    Texture2D* glass = new Texture2D;
-    glass->create();
-    glass->loadTexture("assets/images/common/glass-panels.png");
-    tableOfTextures["glass"] = glass;
-
-    //glitter
-    Texture2D* glitter = new Texture2D;
-    glitter->create();
-    glitter->loadTexture("assets/images/common/glitter.jpg");
-    tableOfTextures["glitter"] = glitter;
-
-    //sprinkles
-    Texture2D* sprinkles = new Texture2D;
-    sprinkles->create();
-    sprinkles->loadTexture("assets/images/common/sprinkles.jpg");
-    tableOfTextures["sprinkles"] = sprinkles;
-
-    //moon
-    Texture2D* moon = new Texture2D;
-    moon->create();
-    moon->loadTexture("assets/images/common/moon.jpg");
-    tableOfTextures["moon"] = moon;
-
-    //moon
-    Texture2D* BananaPeel = new Texture2D;
-    BananaPeel->create();
-    BananaPeel->loadTexture("assets/images/common/BananaPeel.jpg");
-    tableOfTextures["BananaPeel"] = BananaPeel;
-
+    std::vector<textureJSON> desTexture;
+    desTexture = extractJSON<textureJSON>(resources, "textures");
+    for (auto& [type,name,colored,path,data]: desTexture)
+    {
+        tableOfTextures[name] = new Texture2D;
+        tableOfTextures[name]->create();
+        if (type == "file")
+        {
+            tableOfTextures[name]->loadTexture(path.c_str(), true, colored);
+        }
+        else
+        {
+            if(type == "checkboard")
+                tableOfTextures[name]->loadTexture(data.x, data.y,data.z,data.w);
+            else
+                tableOfTextures[name]->loadTexture(data.z);
+        }
+    }
+    desTexture.clear();
 
     /// Sampler creating
     //default sampler
-    Sampler* mySampler = new Sampler;
-    mySampler->create();
-    mySampler->setSamplerParameters();
-    tableOfSampelers["default"] = mySampler;
+    std::vector<samplerJSON> desSampler;
+    desSampler = extractJSON<samplerJSON>(resources, "samplers");
+    for (auto& [name,mag,min,wrap_s,wrap_t,border,anisotropy]: desSampler)
+    {
+        tableOfSampelers[name] = new Sampler(mapMagSampler(mag),mapMinSampler(min),mapWrapSampler(wrap_s),mapWrapSampler(wrap_t),border,anisotropy);
+        tableOfSampelers[name]->create();
+        tableOfSampelers[name]->setSamplerParameters();
+        
+    }
+    desSampler.clear();
 
     /// Material Creating
-    
-    // Land
-    Material* landMaterial = new Material(getShaderPointer("lightSupport"));
-
-    landMaterial->addProperty("material.albedo_tint", { 1,1,1 });
-    landMaterial->addProperty("material.specular_tint", { 1,1,1 });
-    landMaterial->addProperty("material.roughness_range", { 0.0,1.0 });
-    landMaterial->addProperty("material.emissive_tint", { 1,1,1 });
-
-    landMaterial->addTextureSampler(cbAlbedoTexture, mySampler);
-    landMaterial->addTextureSampler(cbSpeculatTexture, mySampler);
-    landMaterial->addTextureSampler(whiteTexture, mySampler);
-    landMaterial->addTextureSampler(cbRoughnessTexture, mySampler);
-    landMaterial->addTextureSampler(blackTexture, mySampler);
-    tableOfMaterials["land"] = landMaterial;
-
-
-    // Suzanne
-    Material* Suzanne = new Material(getShaderPointer("lightSupport"));
-
-    Suzanne->addProperty("material.albedo_tint", { 1,1,1 });
-    Suzanne->addProperty("material.specular_tint", { 1,1,1 });
-    Suzanne->addProperty("material.roughness_range", { 0.0,1.0 });
-    Suzanne->addProperty("material.emissive_tint", { 1,1,1 });
-
-    Suzanne->addTextureSampler(asphaltAlbedo, mySampler);
-    Suzanne->addTextureSampler(asphaltSpecular, mySampler);
-    Suzanne->addTextureSampler(whiteTexture, mySampler);
-    Suzanne->addTextureSampler(asphaltRoughness, mySampler);
-    Suzanne->addTextureSampler(asphaltEmissive, mySampler);
-    tableOfMaterials["Suzanne"] = Suzanne;
-
-    // Banana
-    Material* Banana = new Material(getShaderPointer("lightSupport"));
-
-    Banana->addProperty("material.albedo_tint", { 1,1,1 });
-    Banana->addProperty("material.specular_tint", { 1,1,1 });
-    Banana->addProperty("material.roughness_range", { 0.0,1.0 });
-    Banana->addProperty("material.emissive_tint", { 1,1,1 });
-
-    Banana->addTextureSampler(yellowTexture, mySampler);
-    Banana->addTextureSampler(yellowTexture, mySampler);
-    Banana->addTextureSampler(yellowTexture, mySampler);
-    Banana->addTextureSampler(yellowTexture, mySampler);
-    Banana->addTextureSampler(yellowTexture, mySampler);
-    tableOfMaterials["Banana"] = Banana;
-
-    // Sphere
-    Material* sphere = new Material(getShaderPointer("lightSupport"));
-
-    sphere->addProperty("material.albedo_tint", {1,1,1});
-    sphere->addProperty("material.specular_tint", { 1,1,1 });
-    sphere->addProperty("material.roughness_range", { 0.0,1.0});
-    sphere->addProperty("material.emissive_tint", { 1,1,1 });
-
-    sphere->addTextureSampler(blackTexture, mySampler);
-    sphere->addTextureSampler(blackTexture, mySampler);
-    sphere->addTextureSampler(whiteTexture, mySampler);
-    sphere->addTextureSampler(whiteTexture, mySampler);
-    sphere->addTextureSampler(moon, mySampler);
-    tableOfMaterials["Sphere"] = sphere;
-
-    // Sphere2
-    Material* metal = new Material(getShaderPointer("lightSupport"));
-
-    metal->addProperty("material.albedo_tint", { 1,1,1 });
-    metal->addProperty("material.specular_tint", { 1,1,1 });
-    metal->addProperty("material.roughness_range", { 0.0,1.0 });
-    metal->addProperty("material.emissive_tint", { 1,1,1 });
-
-    metal->addTextureSampler(metalAlbedo, mySampler);
-    metal->addTextureSampler(metalSpecular, mySampler);
-    metal->addTextureSampler(whiteTexture, mySampler);
-    metal->addTextureSampler(metalRoughness, mySampler);
-    metal->addTextureSampler(blackTexture, mySampler);
-    tableOfMaterials["Metal"] = metal;
-
-    // Sphere for blending
-    Material* anotherSphere = new Material(getShaderPointer("textureProgram"));
-    anotherSphere->addTextureSampler(glass, mySampler);
-    tableOfMaterials["anotherSphere"] = anotherSphere;
-
-    // Suzanne for blending
-    Material* anotherSuzanne = new Material(getShaderPointer("textureProgram"));
-    anotherSuzanne->addTextureSampler(glass, mySampler);
-    tableOfMaterials["anotherSuzanne"] = anotherSuzanne;
-
-    // Suzanne for blending
-    Material* banana = new Material(getShaderPointer("textureProgram"));
-    banana->addTextureSampler(BananaPeel, mySampler);
-    tableOfMaterials["BananaPeel"] = banana;
+    std::vector<materialJSON> desMaterial;
+    desMaterial = extractJSON<materialJSON>(resources, "materials");
+    for (auto&[type,name,shader, properties, textureSampler] : desMaterial)
+    {
+        tableOfMaterials[name] = new Material(getShaderPointer(shader));
+        for (auto& [propName, propType, scalar, v2, v3, v4] : properties)
+        {
+            if (propType == "scalar") tableOfMaterials[name]->addProperty("material."+propName, scalar);
+            else if(propType == "vec2") tableOfMaterials[name]->addProperty("material."+propName, v2);
+            else if(propType == "vec3") tableOfMaterials[name]->addProperty("material."+propName, v3);
+            else if(propType == "vec4") tableOfMaterials[name]->addProperty("material."+propName, v4);
+        }
+        for (auto& [sampler,texture]: textureSampler)
+        {
+            tableOfMaterials[name]->addTextureSampler(getTexturePointer(texture),getSamplerPointer(sampler));
+        }
+    }
+    desMaterial.clear();
 
 }
 
