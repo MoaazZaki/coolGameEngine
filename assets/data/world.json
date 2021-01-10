@@ -1,0 +1,213 @@
+{
+  "enities": [
+    {
+      "components": [
+        {
+          "type": "transform",
+          "position": [ 0, 0, 0 ],
+          "rotation": [ 0, 0, 0 ],
+          "scale": [ 1, 1, 1 ],
+          "children": {
+            "enities": [
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 30, 3, 20 ],
+                    "rotation": [ 0, 0, 0 ],
+                    "scale": [ 1000, 1000, 1000 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "plane",
+                    "material": "checkboard",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "renderState"
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 5, 9.7, 4 ],
+                    "rotation": [ 0, -0.9, 0 ],
+                    "scale": [ 10, 10, 10 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "sphere",
+                    "material": "glass",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "renderState",
+                    "blendingEnabled": 1
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 14.3, 5.2, 26.7 ],
+                    "rotation": [ 0, -0.9, 0 ],
+                    "scale": [ 5, 5, 5 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "sphere",
+                    "material": "metal",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "renderState"
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 34.9, 76, 20 ],
+                    "rotation": [ 0, -0.9, 0 ],
+                    "scale": [ 10, 10, 10 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "sphere",
+                    "material": "moon",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "renderState"
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 92.4, 9.6, -8.8 ],
+                    "rotation": [ 0, -0.9, 0 ],
+                    "scale": [ 10, 10, 10 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "suzanne",
+                    "material": "asphalt",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "renderState"
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 74.2, 11.2, 1 ],
+                    "rotation": [ 0, -0.9, 0 ],
+                    "scale": [ 10, 10, 10 ],
+                    "children": {
+                      "enities": [
+                        {
+                          "components": [
+                            {
+                              "type": "transform",
+                              "position": [ 58.3, 3.5, 0.3 ],
+                              "rotation": [ 1.42, 0.32, 1.06 ],
+                              "scale": [ 0.5, 0.5, 0.5 ]
+                            },
+                            {
+                              "type": "meshRenderer",
+                              "mesh": "banana",
+                              "material": "banana",
+                              "tint": [ 1, 1, 1, 1 ]
+                            },
+                            {
+                              "type": "renderState"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "suzanne",
+                    "material": "glass",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "renderState",
+                    "blendingEnabled": 1
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "type": "transform",
+          "position": [ 10, 10, 10 ],
+          "rotation": [ -10, -10, -10 ]
+        },
+        {
+          "type": "camera",
+          "projection": "Perspective",
+          "controller": {
+            "enities": [
+              {
+                "components": [
+                  {
+                    "type": "cameraController"
+                  }
+                ]
+              }
+            ]
+          }
+          }
+      ]
+    },
+    {
+      "components": [
+        {
+          "type": "transform",
+          "rotation": [ -1.5, -15, -2.6 ]
+        },
+        {
+          "type": "light",
+          "enabled": 1,
+          "lightType": 0,
+          "color": [ 0.2274, 0.2196, 0.2118 ]
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "type": "transform",
+          "position": [ 16.7, 3.3, 24.2 ],
+          "rotation": [ 0, 0, 0 ]
+        },
+        {
+          "type": "light",
+          "enabled": 1,
+          "lightType": 1,
+          "color": [ 0.9098, 0.36078431, 0.36078431 ],
+          "constantAtt": 0.3,
+          "linearAtt": 0.3,
+          "quadraticAtt": 0.1
+        }
+      ]
+    }
+  ]
+}

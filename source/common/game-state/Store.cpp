@@ -235,8 +235,6 @@ int mapWrapSampler(wrapSampler m)
         break;
     }
 }
-
-
 struct shaderJSON {
     std::string name;
     std::string vertex;
@@ -290,6 +288,7 @@ struct materialJSON
     std::vector<textureSampler> textureSampler;
 };
 
+// JSON functions
 template<typename T>
 std::vector<T> extractJSON(const nlohmann::json& j, std::string parent) {
     return j.at(parent).get<std::vector<T>>();

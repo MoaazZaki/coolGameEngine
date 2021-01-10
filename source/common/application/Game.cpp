@@ -1,4 +1,153 @@
 #include "Game.hpp"
+////////////// JSON UTILS ///////////////////
+// JSON Types
+struct meshRendererJSON {
+	std::string mesh;
+	std::string material;
+	glm::vec4 tint;
+};
+struct componentJSON {
+	std::string type;
+	// Possible component container
+	famm::Transform* transform;
+	meshRendererJSON meshRenderer;
+	famm::Camera* camera;
+	famm::CameraController* cameraController;
+	famm::RenderState* renderState;
+	famm::Light* light;
+
+};
+
+// JSON Functions
+
+void from_json(const nlohmann::json& j, componentJSON& c)
+{
+	j.at("type").get_to(c.type);
+	if (c.type == "transform")
+	{
+		c.transform = new famm::Transform;
+		c.transform->position = j.value<glm::vec3>("position", { 0.0f,0.0f,0.0f });
+		c.transform->rotation = j.value<glm::vec3>("rotation", { 0.0f,0.0f,0.0f });
+		c.transform->scale = j.value<glm::vec3>("scale", { 1.0f,1.0f,1.0f });
+	}
+	else if (c.type == "meshRenderer")
+	{
+		j.at("mesh").get_to(c.meshRenderer.mesh);
+		j.at("material").get_to(c.meshRenderer.material);
+		c.meshRenderer.tint = j.value<glm::vec4>("tint", { 1.0f,1.0f,1.0f,1.0f });
+	}
+	else if (c.type == "renderState")
+	{
+		c.renderState = new famm::RenderState;
+		// Enables
+		c.renderState->alphaTestingEnabled = (bool)j.value<int>("alphaTestingEnabled", 1);
+		c.renderState->alphaToCoverageEnabled = (bool)j.value<int>("alphaToCoverageEnabled", 0);
+		c.renderState->depthEnabled = (bool)j.value<int>("depthEnabled", 1);
+		c.renderState->transparentDepthEnabled = (bool)j.value<int>("transparentDepthEnabled", 1);
+		c.renderState->blendingEnabled = (bool)j.value<int>("blendingEnabled",0);
+		c.renderState->cullingEnabled = (bool)j.value<int>("cullingEnabled", 1);
+
+		// Culling
+		std::string mode = j.value<std::string>("cullingFaceToCull", "GL_BACK");
+		c.renderState->cullingFaceToCull = (mode == "GL_BACK") ? GL_BACK : ((mode == "GL_FRONT") ? GL_FRONT : (mode == "GL_FRONT_AND_BACK") ? GL_FRONT_AND_BACK : GL_BACK);
+		mode = j.value<std::string>("cullingFrontFace", "GL_CCW");
+		c.renderState->cullingFrontFace = (mode == "GL_CCW") ? GL_CCW : ((mode == "GL_CW") ? GL_CW : GL_CCW);
+
+		// Blending 
+		mode = j.value<std::string>("blendEquation", "GL_FUNC_ADD");
+		c.renderState->blendEquation = (mode == "GL_FUNC_ADD") ? GL_FUNC_ADD : ((mode == "GL_FUNC_SUBTRACT") ? GL_FUNC_SUBTRACT : ((mode == "GL_FUNC_REVERSE_SUBTRACT") ? GL_FUNC_REVERSE_SUBTRACT : ((mode == "GL_MIN") ? GL_MIN : ((mode == "GL_MAX") ? GL_MAX : GL_FUNC_ADD))));
+		mode = j.value<std::string>("blendSourceFactor", "GL_SRC_ALPHA");
+		c.renderState->blendSourceFactor = (mode == "GL_SRC_ALPHA") ? GL_SRC_ALPHA : ((mode == "GL_ZERO") ? GL_ZERO : ((mode == "GL_ONE") ? GL_ONE : ((mode == "GL_SRC_COLOR") ? GL_SRC_COLOR : ((mode == "GL_ONE_MINUS_SRC_COLOR") ? GL_ONE_MINUS_SRC_COLOR : ((mode == "GL_DST_COLOR") ? GL_DST_COLOR : ((mode == "GL_ONE_MINUS_DST_COLOR") ? GL_ONE_MINUS_DST_COLOR : ((mode == "GL_ONE_MINUS_SRC_ALPHA") ? GL_ONE_MINUS_SRC_ALPHA : ((mode == "GL_DST_ALPHA") ? GL_DST_ALPHA : ((mode == "GL_ONE_MINUS_DST_ALPHA") ? GL_ONE_MINUS_DST_ALPHA : ((mode == "GL_CONSTANT_COLOR") ? GL_CONSTANT_COLOR : ((mode == "GL_ONE_MINUS_CONSTANT_COLOR") ? GL_ONE_MINUS_CONSTANT_COLOR : ((mode == "GL_CONSTANT_ALPHA") ? GL_CONSTANT_ALPHA : ((mode == "GL_ONE_MINUS_CONSTANT_ALPHA") ? GL_ONE_MINUS_CONSTANT_ALPHA : GL_SRC_ALPHA)))))))))))));
+		mode = j.value<std::string>("blendDestFactor", "GL_ONE_MINUS_SRC_ALPHA");
+		c.renderState->blendDestFactor = (mode == "GL_SRC_ALPHA") ? GL_SRC_ALPHA : ((mode == "GL_ZERO") ? GL_ZERO : ((mode == "GL_ONE") ? GL_ONE : ((mode == "GL_SRC_COLOR") ? GL_SRC_COLOR : ((mode == "GL_ONE_MINUS_SRC_COLOR") ? GL_ONE_MINUS_SRC_COLOR : ((mode == "GL_DST_COLOR") ? GL_DST_COLOR : ((mode == "GL_ONE_MINUS_DST_COLOR") ? GL_ONE_MINUS_DST_COLOR : ((mode == "GL_ONE_MINUS_SRC_ALPHA") ? GL_ONE_MINUS_SRC_ALPHA : ((mode == "GL_DST_ALPHA") ? GL_DST_ALPHA : ((mode == "GL_ONE_MINUS_DST_ALPHA") ? GL_ONE_MINUS_DST_ALPHA : ((mode == "GL_CONSTANT_COLOR") ? GL_CONSTANT_COLOR : ((mode == "GL_ONE_MINUS_CONSTANT_COLOR") ? GL_ONE_MINUS_CONSTANT_COLOR : ((mode == "GL_CONSTANT_ALPHA") ? GL_CONSTANT_ALPHA : ((mode == "GL_ONE_MINUS_CONSTANT_ALPHA") ? GL_ONE_MINUS_CONSTANT_ALPHA : GL_ONE_MINUS_SRC_ALPHA)))))))))))));
+		c.renderState->blendColor = j.value<glm::vec4>("blendColor", { 1.0f,1.0f,1.0f,1.0f });
+
+		// Depth testing
+		mode =j.value<std::string>("depthFunction", "GL_LEQUAL");
+		c.renderState->depthFunction = (mode == "GL_LEQUAL") ? GL_LEQUAL : ((mode == "GL_ALWAYS") ? GL_ALWAYS : ((mode == "GL_NEVER") ? GL_NEVER : ((mode == "GL_EQUAL") ? GL_EQUAL : ((mode == "GL_NOTEQUAL") ? GL_NOTEQUAL : ((mode == "GL_LESS") ? GL_LESS : ((mode == "GL_GREATER") ? GL_GREATER : ((mode == "GL_GEQUAL") ? GL_GEQUAL : GL_LEQUAL)))))));
+
+		// Alpha testing
+		c.renderState->alphaTestingThreshold = j.value<float>("alphaTestingThreshold", 0.0);
+	}
+	else if (c.type == "camera")
+	{
+		c.camera = new famm::Camera;
+		c.camera->projectionType = (bool)j.value<int>("projectionType", 1);
+		c.camera->target = j.value<glm::vec3>("target", { 0,0,0 });
+		c.camera->near = j.value<float>("near", 0.01f);
+		c.camera->far = j.value<float>("far", 1000.0f);
+		c.camera->aspect_ratio = j.value<float>("aspect_ratio", 16.0/9.0);
+		c.camera->vertical_field_of_view_angle = j.value<float>("vertical_field_of_view_angle", glm::radians(90.0f));
+		c.camera->field_of_view_y = j.value<float>("field_of_view_y", glm::radians(90.0f));
+		c.camera->orthographic_height = j.value<float>("field_of_view_y", 2.0f);
+		c.camera->yaw = j.value<float>("yaw", 0.0f);
+		c.camera->pitch = j.value<float>("pitch", 0.0f);
+	}
+	else if (c.type == "cameraController")
+	{
+		c.cameraController = new famm::CameraController;
+		c.cameraController->position_sensitivity = j.value<glm::vec3>("position_sensitivity", { 3.0f, 3.0f, 3.0f });
+		c.cameraController->yaw_sensitivity = j.value<float>("yaw_sensitivity", 0.01f);
+		c.cameraController->pitch_sensitivity = j.value<float>("pitch_sensitivity", 0.01f);
+		c.cameraController->fov_sensitivity = j.value<float>("fov_sensitivity", glm::pi<float>());
+		c.cameraController->speedup_factor = j.value<float>("speedup_factor", 8.0f);
+		c.cameraController->mouse_locked = (bool)j.value<int>("mouse_locked", 0);
+	}
+	else if (c.type == "light")
+	{
+		c.light = new famm::Light;
+		c.light->enabled = (bool)j.value<int>("enabled", 1);
+		c.light->type = (famm::LightType)j.value<int>("lightType", 0);
+		c.light->color = j.value<glm::vec3>("color", {0.0f,0.0f,0.0f});
+		c.light->constantAttenuation = j.value<float>("constantAtt", 0.0f);
+		c.light->LinearAttenuation = j.value<float>("linearAtt", 0.0f);
+		c.light->QuadraticAttenuation = j.value<float>("quadraticAtt", 0.0f);
+	}
+}
+
+void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent, Store* myStore, ECSManager* myManager)
+{
+	Entity object;
+	for (auto& entity : j["enities"])
+	{
+		object = myManager->createEntity();
+		for (auto& compoent : entity["components"])
+		{
+			componentJSON c = compoent;
+			if (c.type == "transform")
+			{
+				c.transform->parent = parent;
+				myManager->addComponentData<Transform>(object,*c.transform);
+				if (compoent.contains("children")) extractWorld(compoent["children"], object, myStore, myManager);
+			}
+			else if (c.type == "meshRenderer")
+			{
+				myManager->addComponentData<MeshRenderer>(object, MeshRenderer({ myStore->getMeshPointer(c.meshRenderer.mesh),myStore->getMaterialPointer(c.meshRenderer.material), c.meshRenderer.tint }));
+			}
+			else if (c.type == "renderState")
+			{
+				myManager->addComponentData<RenderState>(object, *c.renderState);
+				worldArray.push_back(object);
+			}
+			else if (c.type == "camera")
+			{
+				myManager->addComponentData<Camera>(object, *c.camera);
+				if (compoent.contains("controller")) extractWorld(compoent["controller"], object, myStore, myManager);
+			}
+			else if (c.type == "cameraController")
+			{
+				c.cameraController->controlledCamera = parent;
+				myManager->addComponentData<CameraController>(object, *c.cameraController);
+			}
+			else if (c.type == "light")
+			{
+				myManager->addComponentData<Light>(object, *c.light);
+				lightArray.push_back(object);
+			}
+		}
+	}
+}
+
 
 void famm::Game::onInitialize()
 {
@@ -46,101 +195,12 @@ void famm::Game::onInitialize()
 	Entity camera;
 	Entity cameraController;
 
-	//Creating Default render state
-	RenderState defaultState;
-	RenderState transparentState;
-	transparentState.blendingEnabled = true;
-	//World Entity (root of scene)
-	worldEntity = myManager.createEntity();
-	myManager.addComponentData<Transform>(worldEntity, famm::Transform({ 0,0,0 }, { 0,0,0 }, { 1,1,1 },MAX_ENTITIES+1));
-	//world.push_back(worldEntity);
+	std::ifstream file_in("assets/data/world.json"); 
+	nlohmann::json world;
+	file_in >> world;
+	file_in.close();
 
-	//Land Entity
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("plane"),myStore->getMaterialPointer("checkboard"), {0.901, 0.670, 0.419,0} }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 30,3,20 }, { 0,0,0 }, { 1000,1000,1000 }, worldEntity));
-	myManager.addComponentData<RenderState>(object, defaultState);
-	world.push_back(object);
-
-	//Wolf Entity
-	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("glass"),{0.4, 0.352, 0.301,0} }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 5,9.7,4 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
-	myManager.addComponentData<RenderState>(object, transparentState);
-	world.push_back(object);
-
-	//Wolf Entity
-	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("metal"),{0.4, 0.352, 0.301,0} }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 14.3,5.2,26.7 }, { 0,-0.9,0 }, { 5,5,5 }, worldEntity));
-	myManager.addComponentData<RenderState>(object, defaultState);
-	world.push_back(object);
-
-	//Wolf Entity
-	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("sphere"),myStore->getMaterialPointer("moon"),{0.4, 0.352, 0.301,0} }));
-	myManager.addComponentData<Transform>(object, famm::Transform({34.9,76,20 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
-	myManager.addComponentData<RenderState>(object, defaultState);
-	world.push_back(object);
-
-	//Wolf Entity
-	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("suzanne"),myStore->getMaterialPointer("asphalt"),{0.4, 0.352, 0.301,0} }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 92.4,9.6,-8.8 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
-	myManager.addComponentData<RenderState>(object, defaultState);
-	world.push_back(object);
-
-	//Wolf Entity
-	//Entity wolfParent = object;			//making Tree 2 the parent of the wolf
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("suzanne"),myStore->getMaterialPointer("glass"),{0.4, 0.352, 0.301,0} }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 74.2,11.2,1 }, { 0,-0.9,0 }, { 10,10,10 }, worldEntity));
-	myManager.addComponentData<RenderState>(object, transparentState);
-	world.push_back(object);
-
-	//Banana Entity
-	object = myManager.createEntity();
-	myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer("banana"),myStore->getMaterialPointer("banana"),{0.4, 0.352, 0.301,0} }));
-	myManager.addComponentData<Transform>(object, famm::Transform({ 58.3,3.5,0.3 }, { 1.42,0.32,1.06 }, { 0.5,0.5,0.5 }, worldEntity));
-	myManager.addComponentData<RenderState>(object, defaultState);
-	world.push_back(object);
-
-
-	//Camera Entity
-	camera = myManager.createEntity();
-	myManager.addComponentData<Camera>(camera, famm::Camera(
-		{
-			1,
-			{0,0,0},
-			0.01f,
-			1000.0f,
-			16.0/9.0,
-			glm::radians(90.0f),
-			2.0f,
-			glm::radians(90.0f)
-		}));
-	myManager.addComponentData<Transform>(camera, famm::Transform({ 10, 10, 10 }, { -10, -10, -10 }));
-
-
-	//Camera controller Entity 
-	cameraController = myManager.createEntity();
-	myManager.addComponentData<CameraController>(cameraController, famm::CameraController({ camera,{3.0f, 3.0f, 3.0f},0.01f,0.01f,glm::pi<float>() / 10,8.0f,false}));
-
-	////Light Entity
-	Entity defaultLight = myManager.createEntity();
-	myManager.addComponentData<Light>(defaultLight, famm::Light({ true,famm::LightType::DIRECTIONAL,{0.2274,0.2196,0.2118},0,0,0,0,0 }));
-	myManager.addComponentData<Transform>(defaultLight, famm::Transform({ 0, 0, 0 }, { -1.5, -15, -2.6 }));
-	lightArray.push_back(defaultLight); 
-
-	////Light Entity
-	defaultLight = myManager.createEntity();
-	myManager.addComponentData<Light>(defaultLight, famm::Light({ true,famm::LightType::POINT,{232/255.0, 92/ 255.0, 92/ 255.0},0.3,0.3,0.1,0,0 }));
-	myManager.addComponentData<Transform>(defaultLight, famm::Transform({ 16.7, 3.3, 24.2 }, { 0,0,0 }));
-	lightArray.push_back(defaultLight);
+	extractWorld(world, MAX_ENTITIES + 1, myStore, &myManager);
 
 	glClearColor(7/255.0,12/255.0, 41/ 255.0, 1);
 }
@@ -267,12 +327,12 @@ void famm::Game::transformationGui(ImGuiIO* io)
 		static std::string FTCString = "Face To Cull##";
 		static std::string FFCString = "Front Face##";
 
-		for (int i = 0; i < world.size(); i++)
+		for (int i = 0; i < worldArray.size(); i++)
 		{
-			std::string entityString = std::to_string(world[i]);
+			std::string entityString = std::to_string(worldArray[i]);
 
-			auto& myTransformComponent = myManager.getComponentData<famm::Transform>(world[i]);
-			auto& myRemderStateComponent = myManager.getComponentData<famm::RenderState>(world[i]);
+			auto& myTransformComponent = myManager.getComponentData<famm::Transform>(worldArray[i]);
+			auto& myRemderStateComponent = myManager.getComponentData<famm::RenderState>(worldArray[i]);
 
 			ImGui::Text(entityString.c_str());
 
@@ -344,7 +404,7 @@ void famm::Game::newModelGui(ImGuiIO* io)
 	ImGui::DragFloat3("Rotation", glm::value_ptr(rotation), 0.01f);
 	ImGui::DragFloat3("Scale", glm::value_ptr(scale), 0.1f);
 
-	famm::ReorderableList(std::begin(world), std::end(world),
+	famm::ReorderableList(std::begin(worldArray), std::end(worldArray),
 		[&](size_t index, Entity& element) {
 			std::string str_id = std::to_string(index);
 			int element_i32 = element;
@@ -358,11 +418,11 @@ void famm::Game::newModelGui(ImGuiIO* io)
 			myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer(models[item_current_idx].c_str()),myStore->getMaterialPointer(models[item_current_idx].c_str()) }));
 			myManager.addComponentData<Transform>(object, famm::Transform(translation, rotation, scale));
 			myManager.addComponentData<RenderState>(object, defaultState);
-			world.insert(std::begin(world) + index, object);
+			worldArray.insert(std::begin(worldArray) + index, object);
 		},
 			[&](size_t index) {
-			myManager.destroyEntity(world[index]);
-			world.erase(std::begin(world) + index);
+			myManager.destroyEntity(worldArray[index]);
+			worldArray.erase(std::begin(worldArray) + index);
 		});
 	ImGui::End();
 }

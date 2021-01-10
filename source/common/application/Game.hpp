@@ -9,12 +9,14 @@
 #include <CameraControllerSystem.hpp>
 #include <imgui-utils/utils.hpp>
 
+struct componentJSON; // Forward decleration
+
 namespace famm {
 	class Game : public famm::Application {
 	private:
 		ECSManager myManager;
 
-		std::vector<Entity> world;
+		std::vector<Entity> worldArray;
 
 		std::vector<Entity> lightArray;
 
@@ -39,6 +41,8 @@ namespace famm {
 		void onResume() { isPaused = false; }
 
 		bool statePaused() override { return isPaused; }
+
+		void extractWorld(const nlohmann::json& j, famm::Entity node, Store* myStore, ECSManager* myManager);
 
 	};
 }
