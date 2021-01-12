@@ -33,6 +33,21 @@
       "type": "file",
       "name": "banana",
       "path": "assets/models/Banana/Banana.obj"
+    },
+    {
+      "type": "file",
+      "name": "WallFuseBox",
+      "path": "assets/models/WallFuseBox/WallFuseBox.obj"
+    },
+    {
+      "type": "file",
+      "name": "hand",
+      "path": "assets/models/hand/hand.obj"
+    },
+    {
+      "type": "file",
+      "name": "lamp",
+      "path": "assets/models/LAMP/ceiling_lamp_obj.obj"
     }
   ],
   "textures": [
@@ -53,8 +68,13 @@
     },
     {
       "type": "color",
+      "name": "grey",
+      "data": { "z": [ 70, 70, 70, 255 ] }
+    },
+    {
+      "type": "color",
       "name": "white",
-      "data": { "z" :[ 255, 255, 255, 255 ] }
+      "data": { "z": [ 255, 255, 255, 255 ] }
     },
     {
       "type": "file",
@@ -65,10 +85,10 @@
       "type": "checkboard",
       "name": "checkboard_albedo",
       "data": {
-        "x":[ 256, 256 ],
-        "y":[ 128, 128 ],
-        "z":[ 255, 255, 255, 255 ],
-        "w":[ 16, 16, 16, 255 ]
+        "x": [ 256, 256 ],
+        "y": [ 128, 128 ],
+        "z": [ 255, 255, 255, 255 ],
+        "w": [ 16, 16, 16, 255 ]
       }
 
     },
@@ -101,8 +121,18 @@
     },
     {
       "type": "file",
+      "name": "metalbw_albedo",
+      "path": "assets/images/common/materials/metal/albedobw.jpg"
+    },
+    {
+      "type": "file",
       "name": "metal_specular",
       "path": "assets/images/common/materials/metal/specular.jpg"
+    },
+    {
+      "type": "file",
+      "name": "metalbw_specular",
+      "path": "assets/images/common/materials/metal/specularbw.jpg"
     },
     {
       "type": "file",
@@ -129,6 +159,16 @@
       "type": "file",
       "name": "asphalt_emissive",
       "path": "assets/images/common/materials/asphalt/emissive.jpg"
+    },
+    {
+      "type": "file",
+      "name": "floor",
+      "path": "assets/images/common/floor.jpg"
+    },
+    {
+      "type": "file",
+      "name": "lamp",
+      "path": "assets/images/common/lamp.jpg"
     }
   ],
   "samplers": [
@@ -148,7 +188,7 @@
   "materials": [
     {
       "type": "light",
-      "name": "checkboard",
+      "name": "floor",
       "shader": "light",
       "properties": [
         {
@@ -174,19 +214,19 @@
       ],
       "textureSampler": [
         {
-          "texture": "checkboard_albedo",
+          "texture": "floor",
           "sampler": "default"
         },
         {
-          "texture": "checkboard_specular",
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "grey",
           "sampler": "default"
         },
         {
           "texture": "white",
-          "sampler": "default"
-        },
-        {
-          "texture": "checkboard_roughness",
           "sampler": "default"
         },
         {
@@ -362,6 +402,55 @@
       "textureSampler": [
         {
           "texture": "banana",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "metal2",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "metalbw_albedo",
+          "sampler": "default"
+        },
+        {
+          "texture": "metal_specular",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "metal_roughness",
+          "sampler": "default"
+        },
+        {
+          "texture": "lamp",
           "sampler": "default"
         }
       ]

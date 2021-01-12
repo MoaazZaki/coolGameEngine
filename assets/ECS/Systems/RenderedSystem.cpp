@@ -158,9 +158,9 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
             
             if (samplers2D.size() > 1) //IF light supported
             {
-                currentProgram->set(currentProgram->getUniformLocation("sky_light.top_color"), glm::vec3(64/255.0, 77/ 255.0,128 / 255.0));
-                currentProgram->set(currentProgram->getUniformLocation("sky_light.middle_color"), glm::vec3(89/ 255.0, 89/ 255.0, 102/ 255.0));
-                currentProgram->set(currentProgram->getUniformLocation("sky_light.bottom_color"), glm::vec3(64/ 255.0,64 / 255.0,64 / 255.0));
+                currentProgram->set(currentProgram->getUniformLocation("sky_light.top_color"), glm::vec3(0.0f));
+                currentProgram->set(currentProgram->getUniformLocation("sky_light.middle_color"), glm::vec3(0.0f));
+                currentProgram->set(currentProgram->getUniformLocation("sky_light.bottom_color"), glm::vec3(0.0f));
                 currentProgram->set(4, light_index); //Uniform light_count is always 4
 
                 if (myRenderStateComponent.alphaTestingEnabled)

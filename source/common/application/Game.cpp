@@ -381,7 +381,8 @@ void famm::Game::newModelGui(ImGuiIO* io)
 	float speed = 0;
 
 
-	std::vector<std::string> models = { "suzanne","cuboid" };
+	std::vector<std::string> models = { "plane","lamp" };
+	std::vector<std::string> materials = { "floor","metal" };
 	static int item_current_idx = 0;
 	if (ImGui::BeginCombo("Models", models[item_current_idx].c_str()))
 	{
@@ -415,7 +416,7 @@ void famm::Game::newModelGui(ImGuiIO* io)
 			Entity object;
 			RenderState defaultState;
 			object = myManager.createEntity();
-			myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer(models[item_current_idx].c_str()),myStore->getMaterialPointer(models[item_current_idx].c_str()) }));
+			myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer(models[item_current_idx].c_str()),myStore->getMaterialPointer(materials[item_current_idx].c_str()) }));
 			myManager.addComponentData<Transform>(object, famm::Transform(translation, rotation, scale));
 			myManager.addComponentData<RenderState>(object, defaultState);
 			worldArray.insert(std::begin(worldArray) + index, object);

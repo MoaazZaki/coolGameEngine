@@ -20,7 +20,7 @@
                   {
                     "type": "meshRenderer",
                     "mesh": "plane",
-                    "material": "checkboard",
+                    "material": "floor",
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
@@ -32,19 +32,19 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 5, 9.7, 4 ],
-                    "rotation": [ 0, -0.9, 0 ],
-                    "scale": [ 10, 10, 10 ]
+                    "position": [ -34.9, 21.6, -27.9 ],
+                    "rotation": [ 0, 0, -1.57 ],
+                    "scale": [ 100, 1, 200 ]
                   },
                   {
                     "type": "meshRenderer",
-                    "mesh": "sphere",
-                    "material": "glass",
+                    "mesh": "cuboid",
+                    "material": "floor",
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
                     "type": "renderState",
-                    "blendingEnabled": 1
+                    "cullingEnabled": 0
                   }
                 ]
               },
@@ -52,99 +52,99 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 14.3, 5.2, 26.7 ],
-                    "rotation": [ 0, -0.9, 0 ],
-                    "scale": [ 5, 5, 5 ]
+                    "position": [ 122.7, 21.6, -27.9 ],
+                    "rotation": [ 0, 0, -1.57 ],
+                    "scale": [ 100, 1, 200 ]
                   },
                   {
                     "type": "meshRenderer",
-                    "mesh": "sphere",
-                    "material": "metal",
-                    "tint": [ 1, 1, 1, 1 ]
-                  },
-                  {
-                    "type": "renderState"
-                  }
-                ]
-              },
-              {
-                "components": [
-                  {
-                    "type": "transform",
-                    "position": [ 34.9, 76, 20 ],
-                    "rotation": [ 0, -0.9, 0 ],
-                    "scale": [ 10, 10, 10 ]
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "sphere",
-                    "material": "moon",
-                    "tint": [ 1, 1, 1, 1 ]
-                  },
-                  {
-                    "type": "renderState"
-                  }
-                ]
-              },
-              {
-                "components": [
-                  {
-                    "type": "transform",
-                    "position": [ 92.4, 9.6, -8.8 ],
-                    "rotation": [ 0, -0.9, 0 ],
-                    "scale": [ 10, 10, 10 ]
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "suzanne",
-                    "material": "asphalt",
-                    "tint": [ 1, 1, 1, 1 ]
-                  },
-                  {
-                    "type": "renderState"
-                  }
-                ]
-              },
-              {
-                "components": [
-                  {
-                    "type": "transform",
-                    "position": [ 74.2, 11.2, 1 ],
-                    "rotation": [ 0, -0.9, 0 ],
-                    "scale": [ 10, 10, 10 ],
-                    "children": {
-                      "enities": [
-                        {
-                          "components": [
-                            {
-                              "type": "transform",
-                              "position": [ 58.3, 3.5, 0.3 ],
-                              "rotation": [ 1.42, 0.32, 1.06 ],
-                              "scale": [ 0.5, 0.5, 0.5 ]
-                            },
-                            {
-                              "type": "meshRenderer",
-                              "mesh": "banana",
-                              "material": "banana",
-                              "tint": [ 1, 1, 1, 1 ]
-                            },
-                            {
-                              "type": "renderState"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "suzanne",
-                    "material": "glass",
+                    "mesh": "cuboid",
+                    "material": "floor",
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
                     "type": "renderState",
-                    "blendingEnabled": 1
+                    "cullingEnabled": 0
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 42.4, 21.6, -127 ],
+                    "rotation": [ 0, 1.56, 1.56 ],
+                    "scale": [ 100, 1, 160 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "cuboid",
+                    "material": "floor",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "renderState",
+                    "cullingEnabled": 0
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 42.4, 21.6, 71.2 ],
+                    "rotation": [ 0, 1.56, 1.56 ],
+                    "scale": [ 100, 1, 160 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "cuboid",
+                    "material": "floor",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "renderState",
+                    "cullingEnabled": 0
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 43.4, 71.6, -25.7 ],
+                    "rotation": [ 0, 0, 0 ],
+                    "scale": [ 163.4, 1, 203.3 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "cuboid",
+                    "material": "floor",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "renderState",
+                    "cullingEnabled": 0
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 44, 32.5, -31.9 ],
+                    "rotation": [ 0, 0, 0 ],
+                    "scale": [ 0.028, 0.028, 0.028 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "lamp",
+                    "material": "metal2",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "renderState",
+                    "cullingEnabled": 0
                   }
                 ]
               }
@@ -157,7 +157,7 @@
       "components": [
         {
           "type": "transform",
-          "position": [ 10, 10, 10 ],
+          "position": [ 10, 15, 10 ],
           "rotation": [ -10, -10, -10 ]
         },
         {
@@ -168,26 +168,13 @@
               {
                 "components": [
                   {
-                    "type": "cameraController"
+                    "type": "cameraController",
+                    "speedup_factor": 15
                   }
                 ]
               }
             ]
           }
-          }
-      ]
-    },
-    {
-      "components": [
-        {
-          "type": "transform",
-          "rotation": [ -1.5, -15, -2.6 ]
-        },
-        {
-          "type": "light",
-          "enabled": 1,
-          "lightType": 0,
-          "color": [ 0.2274, 0.2196, 0.2118 ]
         }
       ]
     },
@@ -195,17 +182,54 @@
       "components": [
         {
           "type": "transform",
-          "position": [ 16.7, 3.3, 24.2 ],
-          "rotation": [ 0, 0, 0 ]
+          "position": [ 20, 15, 50 ],
+          "rotation": [ -10, -10, -10 ]
+        },
+        {
+          "type": "camera",
+          "projection": "Perspective",
+          "controller": {
+            "enities": [
+              {
+                "components": [
+                  {
+                    "type": "cameraController",
+                    "speedup_factor": 15
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "type": "transform",
+          "position": [ 43.9, 62.2, -32.1 ]
         },
         {
           "type": "light",
           "enabled": 1,
           "lightType": 1,
-          "color": [ 0.9098, 0.36078431, 0.36078431 ],
-          "constantAtt": 0.3,
-          "linearAtt": 0.3,
-          "quadraticAtt": 0.1
+          "color": [ 0.9882, 0.95686, 0.95686 ],
+          "constantAtt": 0.1,
+          "linearAtt": 0.3
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "type": "transform",
+          "rotation": [ 0, -1, 0 ]
+        },
+        {
+          "type": "light",
+          "enabled": 1,
+          "lightType": 0,
+          "color": [ 0.08235, 0.07843, 0.08235 ]
         }
       ]
     }
