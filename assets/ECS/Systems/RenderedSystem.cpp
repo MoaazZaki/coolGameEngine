@@ -1,5 +1,5 @@
 #include "RenderedSystem.hpp"
-
+#include "iostream"
 bool sortBySecond(const std::pair<famm::Entity, float>& a,const std::pair<famm::Entity, float>& b)
 {
     return (a.second > b.second);
@@ -8,9 +8,9 @@ bool sortBySecond(const std::pair<famm::Entity, float>& a,const std::pair<famm::
 void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<CameraSystem> myCameraSystem,std::shared_ptr<LightSystem> myLightSystem)
 {
     // Collect all the lights -> Donde with myLightSystem prameter
-
-    glm::mat4 cameraVP = myCameraSystem->getProjectionMatrix(myManager) * myCameraSystem->getViewMatrix(myManager);
-    std::unordered_set<Entity>::iterator it = (myCameraSystem->entitiesSet).begin();
+    Entity camera =  *(myCameraSystem->entitiesSet.find(10));
+    glm::mat4 cameraVP = myCameraSystem->getProjectionMatrix(myManager, camera) * myCameraSystem->getViewMatrix(myManager, camera);
+    std::unordered_set<Entity>::iterator it = (myCameraSystem->entitiesSet).find(10);
     glm::vec3 cameraPos = myManager->getComponentData<famm::Transform>(*it).position; //Get camera position
 
     std::unordered_map<Entity,glm::mat4> transformations;
@@ -36,16 +36,19 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
 
         transformations[entity] = generalTransformationMatrix; //Store object to world only
         generalTransformationMatrix = cameraVP * generalTransformationMatrix; //Edit the value to calculate depth
-            
+        glm::vec4 transformed_center = generalTransformationMatrix * glm::vec4(0, 0, 0, 1);
         //  Calculate the distance from camera transform to the selected entity transform.
         //  Add it to M
         if (myRenderStateComponent.blendingEnabled)
         {
-            glm::vec4 transformed_center = generalTransformationMatrix * glm::vec4(0, 0, 0, 1);
+            //glm::vec4 transformed_center = generalTransformationMatrix * glm::vec4(0, 0, 0, 1);
             transparentDistances.push_back(std::make_pair(entity, transformed_center.z / transformed_center.w));
+            
         }
         else
             obliqueDistances.push_back(std::make_pair(entity, 0.0));
+
+       // std::cout << entity << " - " << (transformed_center.z / transformed_center.w ) << std::endl;
 
     }
      

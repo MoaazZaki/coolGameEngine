@@ -86,11 +86,11 @@ void from_json(const nlohmann::json& j, componentJSON& c)
 	else if (c.type == "cameraController")
 	{
 		c.cameraController = new famm::CameraController;
-		c.cameraController->position_sensitivity = j.value<glm::vec3>("position_sensitivity", { 3.0f, 3.0f, 3.0f });
+		c.cameraController->position_sensitivity = j.value<glm::vec3>("position_sensitivity", { 30.0f, 30.0f, 30.0f });
 		c.cameraController->yaw_sensitivity = j.value<float>("yaw_sensitivity", 0.01f);
 		c.cameraController->pitch_sensitivity = j.value<float>("pitch_sensitivity", 0.01f);
 		c.cameraController->fov_sensitivity = j.value<float>("fov_sensitivity", glm::pi<float>());
-		c.cameraController->speedup_factor = j.value<float>("speedup_factor", 8.0f);
+		c.cameraController->speedup_factor = j.value<float>("speedup_factor", 1.5f);
 		c.cameraController->mouse_locked = (bool)j.value<int>("mouse_locked", 0);
 	}
 	else if (c.type == "light")
@@ -219,8 +219,15 @@ void famm::Game::onDraw(double deltaTime) {
 		CCS->moveCamera(&myManager, deviceManager, deltaTime, CS);
 		RS->drawEnities(&myManager, CS,LS);
 	}
-	if ((deviceManager->pressedActionChecker(famm::ControlsActions::MENU, famm::PressModes::JUST_PRESSED) && !isPaused)) onPause();
-	if ((deviceManager->pressedActionChecker(famm::ControlsActions::DEV, famm::PressModes::JUST_PRESSED) && !isPaused)) developementMode = !developementMode;
+	if ((deviceManager->pressedActionChecker(famm::ControlsActions::MENU, famm::PressModes::JUST_PRESSED) && !isPaused))
+	{
+		deviceManager->getMouse().unlockMouse(deviceManager->getWindow());
+		onPause();
+	}
+	if ((deviceManager->pressedActionChecker(famm::ControlsActions::DEV, famm::PressModes::JUST_PRESSED) && !isPaused))
+	{
+		developementMode = !developementMode;
+	}
 }
 
 

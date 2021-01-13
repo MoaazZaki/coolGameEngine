@@ -6,7 +6,7 @@
 #include <System.hpp>
 #include <DeviceManager.hpp>
 #include <CameraSystem.hpp>
-
+#include <glm/gtc/noise.hpp>
 
 namespace famm {
 
@@ -14,6 +14,7 @@ namespace famm {
     {
     private:
     public:
+        void shakeCamera(double& hieght, const double& delta_time);
         void moveCamera(ECSManager* ECSmanager, DeviceManager* deviceManager, double delta_time, std::shared_ptr<CameraSystem> camera);
     };
 

@@ -169,7 +169,7 @@
                 "components": [
                   {
                     "type": "cameraController",
-                    "speedup_factor": 15
+                    "speedup_factor": 1.5
                   }
                 ]
               }
@@ -182,7 +182,7 @@
       "components": [
         {
           "type": "transform",
-          "position": [ 20, 15, 50 ],
+          "position": [ 10, 15, 10 ],
           "rotation": [ -10, -10, -10 ]
         },
         {
@@ -194,7 +194,7 @@
                 "components": [
                   {
                     "type": "cameraController",
-                    "speedup_factor": 15
+                    "speedup_factor": 1.5
                   }
                 ]
               }
