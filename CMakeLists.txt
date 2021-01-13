@@ -59,6 +59,8 @@ set(COMMON_SOURCES
         assets/ECS/Systems/RenderedSystem.cpp
         assets/ECS/Systems/CameraSystem.cpp
         assets/ECS/Systems/CameraControllerSystem.cpp
+        assets/ECS/Systems/InteractionSystem.cpp
+
 )
 
 # Define the directories in which to search for the included headers

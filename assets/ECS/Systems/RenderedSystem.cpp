@@ -7,11 +7,25 @@ bool sortBySecond(const std::pair<famm::Entity, float>& a,const std::pair<famm::
 
 void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<CameraSystem> myCameraSystem,std::shared_ptr<LightSystem> myLightSystem)
 {
+    famm::Camera cameraComponent;
+    cameraComponent.enabled = false;
+    famm::Entity camera;
+    // get active camera
+    for (auto& cam : myCameraSystem->entitiesSet)
+    {
+        cameraComponent = myManager->getComponentData<famm::Camera>(cam);
+        if (cameraComponent.enabled)
+        {
+            camera = cam;
+            break;
+        }
+    }
+    if (!cameraComponent.enabled) return;
+
     // Collect all the lights -> Donde with myLightSystem prameter
-    Entity camera =  *(myCameraSystem->entitiesSet.find(10));
     glm::mat4 cameraVP = myCameraSystem->getProjectionMatrix(myManager, camera) * myCameraSystem->getViewMatrix(myManager, camera);
     std::unordered_set<Entity>::iterator it = (myCameraSystem->entitiesSet).find(10);
-    glm::vec3 cameraPos = myManager->getComponentData<famm::Transform>(*it).position; //Get camera position
+    glm::vec3 cameraPos = myManager->getComponentData<famm::Transform>(camera).position; //Get camera position
 
     std::unordered_map<Entity,glm::mat4> transformations;
    
@@ -37,18 +51,22 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
         transformations[entity] = generalTransformationMatrix; //Store object to world only
         generalTransformationMatrix = cameraVP * generalTransformationMatrix; //Edit the value to calculate depth
         glm::vec4 transformed_center = generalTransformationMatrix * glm::vec4(0, 0, 0, 1);
+        float dist = (transformed_center.z / transformed_center.w);
         //  Calculate the distance from camera transform to the selected entity transform.
         //  Add it to M
         if (myRenderStateComponent.blendingEnabled)
         {
             //glm::vec4 transformed_center = generalTransformationMatrix * glm::vec4(0, 0, 0, 1);
-            transparentDistances.push_back(std::make_pair(entity, transformed_center.z / transformed_center.w));
+            transparentDistances.push_back(std::make_pair(entity, dist));
             
         }
         else
             obliqueDistances.push_back(std::make_pair(entity, 0.0));
 
-       // std::cout << entity << " - " << (transformed_center.z / transformed_center.w ) << std::endl;
+        if (dist >= 0 && dist <= 1)
+            myTransformComponent.isLoockedAt = true;
+        else
+            myTransformComponent.isLoockedAt = false;
 
     }
      
@@ -66,6 +84,8 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
     for (auto const& [entity,depth] : M)
     {
         auto& myRendererComponent = myManager->getComponentData<famm::MeshRenderer>(entity);
+        if (!myRendererComponent.enabled) continue;
+
         auto& myTransformComponent = myManager->getComponentData<famm::Transform>(entity);
         auto& myRenderStateComponent = myManager->getComponentData<famm::RenderState>(entity);
 

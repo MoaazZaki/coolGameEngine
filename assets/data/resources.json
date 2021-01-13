@@ -48,6 +48,11 @@
       "type": "file",
       "name": "lamp",
       "path": "assets/models/LAMP/ceiling_lamp_obj.obj"
+    },
+    {
+      "type": "file",
+      "name": "doorHandle",
+      "path": "assets/models/doorHandle/doorHandle.obj"
     }
   ],
   "textures": [
@@ -174,6 +179,11 @@
       "type": "file",
       "name": "A",
       "path": "assets/images/common/A.jpg"
+    },
+    {
+      "type": "file",
+      "name": "glassDoor",
+      "path": "assets/images/common/glassDoor.jpg"
     }
   ],
   "samplers": [
@@ -488,7 +498,7 @@
       ],
       "textureSampler": [
         {
-          "texture": "A",
+          "texture": "glassDoor",
           "sampler": "default"
         },
         {
@@ -496,7 +506,7 @@
           "sampler": "default"
         },
         {
-          "texture": "grey",
+          "texture": "black",
           "sampler": "default"
         },
         {
@@ -504,7 +514,7 @@
           "sampler": "default"
         },
         {
-          "texture": "A",
+          "texture": "glassDoor",
           "sampler": "default"
         }
       ]

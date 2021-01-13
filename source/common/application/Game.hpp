@@ -7,6 +7,7 @@
 
 #include <RenderedSystem.hpp>
 #include <CameraControllerSystem.hpp>
+#include <InteractionSystem.hpp>
 #include <imgui-utils/utils.hpp>
 
 struct componentJSON; // Forward decleration
@@ -19,6 +20,8 @@ namespace famm {
 		std::vector<Entity> worldArray;
 
 		std::vector<Entity> lightArray;
+
+		std::vector<Entity> cameraArray;
 
 		std::vector<std::shared_ptr<System>> mySystems;
 
@@ -42,7 +45,7 @@ namespace famm {
 
 		bool statePaused() override { return isPaused; }
 
-		void extractWorld(const nlohmann::json& j, famm::Entity node, Store* myStore, ECSManager* myManager);
+		void extractWorld(const nlohmann::json& j, famm::Entity node, famm::Entity interactionParent, Store* myStore, ECSManager* myManager);
 
 	};
 }

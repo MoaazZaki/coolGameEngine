@@ -20,10 +20,12 @@ void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceMana
         
         auto& cameraController = ECSmanager->getComponentData<CameraController>(entity);
         auto& camera = ECSmanager->getComponentData<Camera>(cameraController.controlledCamera);
+        if (!camera.enabled) continue;
+
         auto& transform = ECSmanager->getComponentData<Transform>(cameraController.controlledCamera);
         Entity cameraEntity = cameraController.controlledCamera;
 
-        if (cameraEntity == 8)
+        if (camera.mode == 1)
         {
 
             if (deviceManager->mouseActionChecker(famm::ControlsActions::MOUSE_LEFT, famm::PressModes::IS_PRESSED) && !cameraController.mouse_locked)

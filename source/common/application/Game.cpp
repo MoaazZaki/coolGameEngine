@@ -15,7 +15,7 @@ struct componentJSON {
 	famm::CameraController* cameraController;
 	famm::RenderState* renderState;
 	famm::Light* light;
-
+	famm::Interaction* interaction;
 };
 
 // JSON Functions
@@ -72,10 +72,12 @@ void from_json(const nlohmann::json& j, componentJSON& c)
 	else if (c.type == "camera")
 	{
 		c.camera = new famm::Camera;
+		c.camera->enabled = (bool)j.value<int>("enabled", 1);
+		c.camera->mode = (bool)j.value<int>("mode", 0);
 		c.camera->projectionType = (bool)j.value<int>("projectionType", 1);
 		c.camera->target = j.value<glm::vec3>("target", { 0,0,0 });
 		c.camera->near = j.value<float>("near", 0.01f);
-		c.camera->far = j.value<float>("far", 1000.0f);
+		c.camera->far = j.value<float>("far", 500.0f);
 		c.camera->aspect_ratio = j.value<float>("aspect_ratio", 16.0/9.0);
 		c.camera->vertical_field_of_view_angle = j.value<float>("vertical_field_of_view_angle", glm::radians(90.0f));
 		c.camera->field_of_view_y = j.value<float>("field_of_view_y", glm::radians(90.0f));
@@ -103,12 +105,23 @@ void from_json(const nlohmann::json& j, componentJSON& c)
 		c.light->LinearAttenuation = j.value<float>("linearAtt", 0.0f);
 		c.light->QuadraticAttenuation = j.value<float>("quadraticAtt", 0.0f);
 	}
+	else if (c.type == "interaction")
+	{
+		c.interaction = new famm::Interaction;
+		c.interaction->enabled = (bool)j.value<int>("enabled", 0);
+		c.interaction->distanceOfInertaction = j.value<float>("distanceOfInteraction", 0.01);
+		c.interaction->buttonOfInteraction = (famm::ControlsActions)j.value<int>("distanceOfInteraction", 0);
+		c.interaction->on = j.value<GLbyte>("on", 1);
+		c.interaction->parent = j.value<int>("parent", 0);
+		c.interaction->action = j.value<GLbyte>("action", 0);
+		c.interaction->componentType = j.value<GLbyte>("componentType", 0);
+	}
 }
 
-void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent, Store* myStore, ECSManager* myManager)
+void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent,famm::Entity interactionParent, Store* myStore, ECSManager* myManager)
 {
 	Entity object;
-	for (auto& entity : j["enities"])
+	for (auto& entity : j["entities"])
 	{
 		object = myManager->createEntity();
 		for (auto& compoent : entity["components"])
@@ -118,11 +131,11 @@ void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent, Stor
 			{
 				c.transform->parent = parent;
 				myManager->addComponentData<Transform>(object,*c.transform);
-				if (compoent.contains("children")) extractWorld(compoent["children"], object, myStore, myManager);
+				if (compoent.contains("children")) extractWorld(compoent["children"], object,0, myStore, myManager);
 			}
 			else if (c.type == "meshRenderer")
 			{
-				myManager->addComponentData<MeshRenderer>(object, MeshRenderer({ myStore->getMeshPointer(c.meshRenderer.mesh),myStore->getMaterialPointer(c.meshRenderer.material), c.meshRenderer.tint }));
+				myManager->addComponentData<MeshRenderer>(object, MeshRenderer({ (bool)compoent.value<int>("enabled", 1),myStore->getMeshPointer(c.meshRenderer.mesh),myStore->getMaterialPointer(c.meshRenderer.material), c.meshRenderer.tint }));
 			}
 			else if (c.type == "renderState")
 			{
@@ -132,7 +145,7 @@ void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent, Stor
 			else if (c.type == "camera")
 			{
 				myManager->addComponentData<Camera>(object, *c.camera);
-				if (compoent.contains("controller")) extractWorld(compoent["controller"], object, myStore, myManager);
+				if (compoent.contains("controller")) extractWorld(compoent["controller"], object,0, myStore, myManager);
 			}
 			else if (c.type == "cameraController")
 			{
@@ -143,6 +156,18 @@ void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent, Stor
 			{
 				myManager->addComponentData<Light>(object, *c.light);
 				lightArray.push_back(object);
+			}
+			else if (c.type == "interaction")
+			{
+				if (interactionParent != 0) c.interaction->parent = interactionParent;
+				myManager->addComponentData<Interaction>(object, *c.interaction);
+				if (compoent.contains("with"))
+				{
+					if ((bool)compoent.value<int>("attachTransformation", 0))
+						extractWorld(compoent["with"], object, object, myStore, myManager);
+					else
+						extractWorld(compoent["with"], parent, object, myStore, myManager);
+				}
 			}
 		}
 	}
@@ -158,6 +183,7 @@ void famm::Game::onInitialize()
 	myManager.addComponentType<famm::CameraController>();
 	myManager.addComponentType<famm::RenderState>();
 	myManager.addComponentType<famm::Light>();
+	myManager.addComponentType<famm::Interaction>();
 
 	// Creating systems
 	auto& rendererSystem = myManager.addSystem<famm::RendererSystem>();
@@ -168,6 +194,8 @@ void famm::Game::onInitialize()
 	mySystems.push_back(cameraControllerSystem);
 	auto& lightSystem = myManager.addSystem<famm::LightSystem>();
 	mySystems.push_back(lightSystem);
+	auto& interactionSystem = myManager.addSystem<famm::InteractionSystem>();
+	mySystems.push_back(interactionSystem);
 
 	// Setting signatures
 	famm::Signature signature;
@@ -190,6 +218,11 @@ void famm::Game::onInitialize()
 	signature.set(myManager.getComponentType<famm::Transform>());
 	myManager.setSystemSignature<LightSystem>(signature);
 
+	signature.reset();
+	signature.set(myManager.getComponentType<famm::Interaction>());
+	signature.set(myManager.getComponentType<famm::Transform>());
+	myManager.setSystemSignature<InteractionSystem>(signature);
+
 	Entity worldEntity;
 	Entity object;
 	Entity camera;
@@ -200,17 +233,19 @@ void famm::Game::onInitialize()
 	file_in >> world;
 	file_in.close();
 
-	extractWorld(world, MAX_ENTITIES + 1, myStore, &myManager);
+	extractWorld(world, MAX_ENTITIES + 1,0, myStore, &myManager);
+
+	
 
 	glClearColor(7/255.0,12/255.0, 41/ 255.0, 1);
 }
-
 
 void famm::Game::onDraw(double deltaTime) {
 	std::shared_ptr<RendererSystem> RS = std::static_pointer_cast<RendererSystem>(mySystems[0]);
 	std::shared_ptr <CameraSystem> CS = std::static_pointer_cast<CameraSystem>(mySystems[1]);
 	std::shared_ptr<CameraControllerSystem> CCS = std::static_pointer_cast<CameraControllerSystem>(mySystems[2]);
 	std::shared_ptr<LightSystem> LS = std::static_pointer_cast<LightSystem>(mySystems[3]);
+	std::shared_ptr<InteractionSystem> IS = std::static_pointer_cast<InteractionSystem>(mySystems[4]);
 
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -218,6 +253,7 @@ void famm::Game::onDraw(double deltaTime) {
 	{
 		CCS->moveCamera(&myManager, deviceManager, deltaTime, CS);
 		RS->drawEnities(&myManager, CS,LS);
+		IS->updateInteractions(&myManager, deviceManager,CS,LS);
 	}
 	if ((deviceManager->pressedActionChecker(famm::ControlsActions::MENU, famm::PressModes::JUST_PRESSED) && !isPaused))
 	{
@@ -229,8 +265,6 @@ void famm::Game::onDraw(double deltaTime) {
 		developementMode = !developementMode;
 	}
 }
-
-
 
 void famm::Game::lightGui(ImGuiIO* io)
 {
@@ -423,7 +457,7 @@ void famm::Game::newModelGui(ImGuiIO* io)
 			Entity object;
 			RenderState defaultState;
 			object = myManager.createEntity();
-			myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ myStore->getMeshPointer(models[item_current_idx].c_str()),myStore->getMaterialPointer(materials[item_current_idx].c_str()) }));
+			myManager.addComponentData<MeshRenderer>(object, famm::MeshRenderer({ true,myStore->getMeshPointer(models[item_current_idx].c_str()),myStore->getMaterialPointer(materials[item_current_idx].c_str()) }));
 			myManager.addComponentData<Transform>(object, famm::Transform(translation, rotation, scale));
 			myManager.addComponentData<RenderState>(object, defaultState);
 			worldArray.insert(std::begin(worldArray) + index, object);

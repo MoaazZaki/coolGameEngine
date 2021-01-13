@@ -8,6 +8,7 @@
 #include "./mesh/Material.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/euler_angles.hpp>
+#include <DeviceManager.hpp>
 
 namespace famm {
 
@@ -23,7 +24,7 @@ namespace famm {
 		glm::vec3 scale;		//for scaling
 		glm::vec3 rotation;		//representing Euler Angles
 		Entity parent;			//parent id
-
+		bool isLoockedAt = false;
 		Transform(
 			const glm::vec3& position = { 0,0,0 },
 			const glm::vec3& rotation = { 0,0,0 },
@@ -39,7 +40,7 @@ namespace famm {
 	};
 
 	struct MeshRenderer {
-
+		bool enabled;
 		Mesh* mesh;							// Pointer to the mesh Class
 		Material* material;				// pointer to the material class
 		glm::vec4 tint = { 1,1,1,1 };		//tint color
@@ -47,7 +48,9 @@ namespace famm {
 
 	struct Camera {
 
-		//Entity containerEntity;
+		bool enabled;
+		bool mode;// 0 play - 1 dev
+ 		//Entity containerEntity;
 		bool projectionType;    //Projection type: 0 for Orthographic -- 1 for Perspective 
 		glm::vec3 target;
 		float near, far;       //distances from camera        
@@ -100,6 +103,23 @@ namespace famm {
 		//spotlight
 		float InnerSpotAngle = 0.0;
 		float OuterSpotAngle = 0.0;
+	};
+
+	struct Interaction
+	{
+		Entity parent;
+		bool enabled;
+		float distanceOfInertaction;
+		famm::ControlsActions buttonOfInteraction;
+		GLbyte on; // 0 self - 1 other - 2 both
+		GLbyte action; // 0 nothing - 1 toggle - 2 remove 
+		GLbyte componentType; // 0 light - 1 mesh
+		bool isInteracted = false;
+	};
+
+	struct Progress
+	{
+
 	};
 }
 

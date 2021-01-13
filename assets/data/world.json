@@ -1,5 +1,5 @@
 {
-  "enities": [
+  "entities": [
     {
       "components": [
         {
@@ -8,7 +8,7 @@
           "rotation": [ 0, 0, 0 ],
           "scale": [ 1, 1, 1 ],
           "children": {
-            "enities": [
+            "entities": [
               {
                 "components": [
                   {
@@ -132,6 +132,34 @@
                 "components": [
                   {
                     "type": "transform",
+                    "position": [ 120.9, 22.7, -34.8 ],
+                    "rotation": [ -1.56, -1.56, 0 ],
+                    "scale": [ 25.2, 0.5, 43.6 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "cuboid",
+                    "material": "A",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "renderState",
+                    "cullingEnabled": 0
+                  },
+                  {
+                    "type": "interaction",
+                    "distanceOfInteraction": 25,
+                    "enabled": 1,
+                    "on": 0,
+                    "action": 1,
+                    "componentType": 1
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
                     "position": [ 44, 32.5, -31.9 ],
                     "rotation": [ 0, 0, 0 ],
                     "scale": [ 0.028, 0.028, 0.028 ]
@@ -145,6 +173,40 @@
                   {
                     "type": "renderState",
                     "cullingEnabled": 0
+                  },
+                  {
+                    "type": "interaction",
+                    "enabled": 1,
+                    "attachTransformation": 0,
+                    "distanceOfInteraction": 30,
+                    "buttonOfInteraction": 0,
+                    "on": 1,
+                    "with": {
+                      "entities": [
+                        {
+                          "components": [
+                            {
+                              "type": "transform",
+                              "position": [ 43.9, 62.2, -32.1 ]
+                            },
+                            {
+                              "type": "light",
+                              "enabled": 1,
+                              "lightType": 1,
+                              "color": [ 0.9882, 0.95686, 0.95686 ],
+                              "constantAtt": 0.1,
+                              "linearAtt": 0.3
+                            },
+                            {
+                              "type": "interaction",
+                              "enabled": 1,
+                              "on": 0,
+                              "action": 1
+                            }
+                          ]
+                        }
+                      ]
+                    }
                   }
                 ]
               }
@@ -163,8 +225,10 @@
         {
           "type": "camera",
           "projection": "Perspective",
+          "enabled": 0,
+          "mode": 1,
           "controller": {
-            "enities": [
+            "entities": [
               {
                 "components": [
                   {
@@ -188,34 +252,19 @@
         {
           "type": "camera",
           "projection": "Perspective",
-          "controller": {
-            "enities": [
-              {
-                "components": [
-                  {
-                    "type": "cameraController",
-                    "speedup_factor": 1.5
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "type": "transform",
-          "position": [ 43.9, 62.2, -32.1 ]
-        },
-        {
-          "type": "light",
           "enabled": 1,
-          "lightType": 1,
-          "color": [ 0.9882, 0.95686, 0.95686 ],
-          "constantAtt": 0.1,
-          "linearAtt": 0.3
+          "controller": {
+            "entities": [
+              {
+                "components": [
+                  {
+                    "type": "cameraController",
+                    "speedup_factor": 1.5
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     },
