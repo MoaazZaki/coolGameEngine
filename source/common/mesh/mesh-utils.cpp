@@ -24,6 +24,8 @@
 
 bool famm::mesh_utils::loadOBJ(famm::Mesh &mesh, const char* filename) {
 
+    glm::vec3 min = { INT16_MAX,INT16_MAX,INT16_MAX };
+    glm::vec3 max = { INT16_MIN,INT16_MIN,INT16_MIN };
     // We get the parent path since we would like to see if contains any ".mtl" file that define the object materials
     auto parent_path_string = std::filesystem::path(filename).parent_path().string();
 
@@ -64,6 +66,13 @@ bool famm::mesh_utils::loadOBJ(famm::Mesh &mesh, const char* filename) {
                     attrib.vertices[3 * index.vertex_index + 2]
             };
 
+            if (vertex.position.x > max.x) max.x = vertex.position.x;
+            if (vertex.position.y > max.y) max.y = vertex.position.y;
+            if (vertex.position.z > max.z) max.z = vertex.position.z;
+            if (vertex.position.x < min.x) min.x = vertex.position.x;
+            if (vertex.position.y < min.y) min.y = vertex.position.y;
+            if (vertex.position.z < min.z) min.z = vertex.position.z;
+
             vertex.normal = {
                     attrib.normals[3 * index.normal_index + 0],
                     attrib.normals[3 * index.normal_index + 1],
@@ -74,7 +83,6 @@ bool famm::mesh_utils::loadOBJ(famm::Mesh &mesh, const char* filename) {
                     attrib.texcoords[2 * index.texcoord_index + 0],
                     attrib.texcoords[2 * index.texcoord_index + 1]
             };
-
 
             vertex.color = {
                     attrib.colors[3 * index.vertex_index + 0] * 255,
@@ -97,6 +105,9 @@ bool famm::mesh_utils::loadOBJ(famm::Mesh &mesh, const char* filename) {
             }
         }
     }
+
+    // Save boundingbox to mesh object
+    mesh.setBoundingBox(min, max);
 
     // Create and populate the OpenGL objects in the mesh
     if (mesh.isCreated()) mesh.destroy();
@@ -194,6 +205,8 @@ void famm::mesh_utils::Cuboid(Mesh& mesh,
     mesh.setVertexData(0, vertices);
     mesh.setElementData(elements);
 };
+
+
 
 void famm::mesh_utils::Sphere(famm::Mesh& mesh, const glm::ivec2& segments, bool colored,
             const glm::vec3& center, float radius,

@@ -8,6 +8,7 @@
 #include <RenderedSystem.hpp>
 #include <CameraControllerSystem.hpp>
 #include <InteractionSystem.hpp>
+#include <ColliderSystem.hpp>
 #include <imgui-utils/utils.hpp>
 
 struct componentJSON; // Forward decleration

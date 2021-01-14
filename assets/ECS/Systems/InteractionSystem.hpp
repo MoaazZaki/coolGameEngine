@@ -13,7 +13,7 @@ namespace famm {
     {
     public:
         void performInteraction(ECSManager* myManager, Entity object, Interaction& component);
-        void updateInteractions(ECSManager* myManager, DeviceManager* myDeviceManager, std::shared_ptr<CameraSystem> myCameraSystem, std::shared_ptr<LightSystem> myLightSystem);
+        void updateInteractions(ECSManager* myManager, DeviceManager* myDeviceManager, std::shared_ptr<CameraSystem> myCameraSystem);
     };
 
 }

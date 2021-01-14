@@ -3,6 +3,11 @@
 
 void famm::InteractionSystem::performInteraction(ECSManager* myManager, Entity object,Interaction& component)
 {
+	if (component.action == 2)
+	{
+		myManager->destroyEntity(object);
+		return;
+	}
 	if(component.componentType == 0)
 	{ 
 		if (component.action == 1)
@@ -10,10 +15,6 @@ void famm::InteractionSystem::performInteraction(ECSManager* myManager, Entity o
 			auto& myLightComponent = myManager->getComponentData<Light>(object);
 
 			myLightComponent.enabled = !myLightComponent.enabled;
-		}
-		if (component.action == 2)
-		{
-			myManager->destroyEntity(object);
 		}
 	}	
 	else if (component.componentType == 1)
@@ -27,7 +28,7 @@ void famm::InteractionSystem::performInteraction(ECSManager* myManager, Entity o
 	}
 }
 
-void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceManager* myDeviceManager,std::shared_ptr<CameraSystem> myCameraSystem,std::shared_ptr<LightSystem> myLightSystem)
+void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceManager* myDeviceManager,std::shared_ptr<CameraSystem> myCameraSystem)
 {
 	famm::Camera cameraComponent;
 	cameraComponent.enabled = false;
@@ -62,12 +63,12 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 			}
 			else
 			{
-				//std::cout << entity << " - " << myInteractionComponent.distanceOfInertaction << std::endl;
+				
 				glm::vec3& cameraPos = myManager->getComponentData<famm::Transform>(camera).position; //Get camera position
 				auto& myTransformComponent = myManager->getComponentData<famm::Transform>(entity);
 
-				float dist = glm::distance(cameraPos, myTransformComponent.position);
-				if (myTransformComponent.isLoockedAt && dist <= myInteractionComponent.distanceOfInertaction && myDeviceManager->mouseActionChecker(famm::ControlsActions::MOUSE_LEFT, famm::PressModes::JUST_PRESSED))
+				float distance = glm::distance(cameraPos, myTransformComponent.position);
+				if (myTransformComponent.isLoockedAt && distance <= myInteractionComponent.distanceOfInertaction && myDeviceManager->mouseActionChecker(myInteractionComponent.buttonOfInteraction, famm::PressModes::JUST_PRESSED))
 				{
 					myInteractionComponent.isInteracted = true;
 					if(myInteractionComponent.on == 0 || myInteractionComponent.on == 2)

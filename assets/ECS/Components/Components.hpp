@@ -25,6 +25,7 @@ namespace famm {
 		glm::vec3 rotation;		//representing Euler Angles
 		Entity parent;			//parent id
 		bool isLoockedAt = false;
+		 
 		Transform(
 			const glm::vec3& position = { 0,0,0 },
 			const glm::vec3& rotation = { 0,0,0 },
@@ -115,6 +116,12 @@ namespace famm {
 		GLbyte action; // 0 nothing - 1 toggle - 2 remove 
 		GLbyte componentType; // 0 light - 1 mesh
 		bool isInteracted = false;
+	};
+
+	struct Collider
+	{
+		bool enabled;
+		glm::vec3 AABBcorners[2];		//Bounding box corners
 	};
 
 	struct Progress

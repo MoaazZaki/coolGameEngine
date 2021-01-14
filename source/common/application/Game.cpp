@@ -16,6 +16,7 @@ struct componentJSON {
 	famm::RenderState* renderState;
 	famm::Light* light;
 	famm::Interaction* interaction;
+	famm::Collider* collider;
 };
 
 // JSON Functions
@@ -35,6 +36,11 @@ void from_json(const nlohmann::json& j, componentJSON& c)
 		j.at("mesh").get_to(c.meshRenderer.mesh);
 		j.at("material").get_to(c.meshRenderer.material);
 		c.meshRenderer.tint = j.value<glm::vec4>("tint", { 1.0f,1.0f,1.0f,1.0f });
+	}
+	else if (c.type == "collider")
+	{
+		c.collider = new famm::Collider;
+		c.collider->enabled = (bool)j.value<int>("enabled", 1);
 	}
 	else if (c.type == "renderState")
 	{
@@ -110,7 +116,7 @@ void from_json(const nlohmann::json& j, componentJSON& c)
 		c.interaction = new famm::Interaction;
 		c.interaction->enabled = (bool)j.value<int>("enabled", 0);
 		c.interaction->distanceOfInertaction = j.value<float>("distanceOfInteraction", 0.01);
-		c.interaction->buttonOfInteraction = (famm::ControlsActions)j.value<int>("distanceOfInteraction", 0);
+		c.interaction->buttonOfInteraction = (famm::ControlsActions)j.value<int>("buttonOfInteraction", 0);
 		c.interaction->on = j.value<GLbyte>("on", 1);
 		c.interaction->parent = j.value<int>("parent", 0);
 		c.interaction->action = j.value<GLbyte>("action", 0);
@@ -141,6 +147,17 @@ void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent,famm:
 			{
 				myManager->addComponentData<RenderState>(object, *c.renderState);
 				worldArray.push_back(object);
+			}
+			else if (c.type == "collider")
+			{
+				MeshRenderer currentMesh;
+				if (c.meshRenderer.mesh != "cuboid" && c.meshRenderer.mesh != "plane" && c.meshRenderer.mesh != "sphere")
+				{
+					currentMesh = myManager->getComponentData<MeshRenderer>(object);
+					c.collider->AABBcorners[0] = currentMesh.mesh->mingetMinBound();
+					c.collider->AABBcorners[1] = currentMesh.mesh->mingetMaxBound();
+					myManager->addComponentData<Collider>(object, *c.collider);
+				}
 			}
 			else if (c.type == "camera")
 			{
@@ -184,6 +201,7 @@ void famm::Game::onInitialize()
 	myManager.addComponentType<famm::RenderState>();
 	myManager.addComponentType<famm::Light>();
 	myManager.addComponentType<famm::Interaction>();
+	myManager.addComponentType<famm::Collider>();
 
 	// Creating systems
 	auto& rendererSystem = myManager.addSystem<famm::RendererSystem>();
@@ -196,6 +214,8 @@ void famm::Game::onInitialize()
 	mySystems.push_back(lightSystem);
 	auto& interactionSystem = myManager.addSystem<famm::InteractionSystem>();
 	mySystems.push_back(interactionSystem);
+	auto& colliderSystem = myManager.addSystem<famm::ColliderSystem>();
+	mySystems.push_back(colliderSystem);
 
 	// Setting signatures
 	famm::Signature signature;
@@ -223,6 +243,11 @@ void famm::Game::onInitialize()
 	signature.set(myManager.getComponentType<famm::Transform>());
 	myManager.setSystemSignature<InteractionSystem>(signature);
 
+	signature.reset();
+	signature.set(myManager.getComponentType<famm::Collider>());
+	signature.set(myManager.getComponentType<famm::Transform>());
+	myManager.setSystemSignature<ColliderSystem>(signature);
+
 	Entity worldEntity;
 	Entity object;
 	Entity camera;
@@ -246,6 +271,7 @@ void famm::Game::onDraw(double deltaTime) {
 	std::shared_ptr<CameraControllerSystem> CCS = std::static_pointer_cast<CameraControllerSystem>(mySystems[2]);
 	std::shared_ptr<LightSystem> LS = std::static_pointer_cast<LightSystem>(mySystems[3]);
 	std::shared_ptr<InteractionSystem> IS = std::static_pointer_cast<InteractionSystem>(mySystems[4]);
+	std::shared_ptr<ColliderSystem> CDS = std::static_pointer_cast<ColliderSystem>(mySystems[5]);
 
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -253,7 +279,8 @@ void famm::Game::onDraw(double deltaTime) {
 	{
 		CCS->moveCamera(&myManager, deviceManager, deltaTime, CS);
 		RS->drawEnities(&myManager, CS,LS);
-		IS->updateInteractions(&myManager, deviceManager,CS,LS);
+		IS->updateInteractions(&myManager, deviceManager,CS);
+		CDS->updateColliders(&myManager, CS);
 	}
 	if ((deviceManager->pressedActionChecker(famm::ControlsActions::MENU, famm::PressModes::JUST_PRESSED) && !isPaused))
 	{
@@ -422,7 +449,7 @@ void famm::Game::newModelGui(ImGuiIO* io)
 	float speed = 0;
 
 
-	std::vector<std::string> models = { "plane","lamp" };
+	std::vector<std::string> models = { "plane","cuboid" };
 	std::vector<std::string> materials = { "floor","metal" };
 	static int item_current_idx = 0;
 	if (ImGui::BeginCombo("Models", models[item_current_idx].c_str()))

@@ -7,7 +7,7 @@
 #include <functional>
 #include <iostream>
 #include <cassert>
-
+#include <glm/vec3.hpp>
 #include <glad/gl.h>
 
 #include "vertex-attributes.hpp"
@@ -29,6 +29,8 @@ namespace famm {
         // The element data type, The mode of the primitive assembly step
         GLenum element_type = GL_UNSIGNED_SHORT, primitive_mode = GL_TRIANGLES;
         GLsizei element_count = 0, vertex_count = 0; // How meany elements/vertices are there. Needed by draw()
+
+        glm::vec3 boundingBox[2];
 
     public:
         // The underlying OpenGL objects creator
@@ -240,6 +242,18 @@ namespace famm {
             }
         }
 
+
+        void setBoundingBox(const glm::vec3 &min,const glm::vec3& max) {
+
+            this->boundingBox[0] = min;
+            this->boundingBox[1] = max;
+        }
+        glm::vec3 mingetMinBound() {
+            return this->boundingBox[0];
+        }
+        glm::vec3 mingetMaxBound() {
+            return this->boundingBox[1];
+        }
         //Delete copy constructor and assignment operation
         //This is important for Class that follow the RAII pattern since we destroy the underlying OpenGL object in deconstruction
         //So if we copied the object, one of them can destroy the object(s) while the other still thinks they are valid.

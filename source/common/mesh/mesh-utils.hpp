@@ -16,6 +16,7 @@ namespace famm::mesh_utils {
                 const glm::vec2& texture_offset = {0, 0},
                 const glm::vec2& texture_tiling = {1, 1});
 
+
     void Sphere(Mesh& mesh,
                 const glm::ivec2& segments = {32, 16},
                 bool colored = false,
