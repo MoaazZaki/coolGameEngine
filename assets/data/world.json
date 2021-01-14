@@ -43,6 +43,9 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -61,6 +64,9 @@
                     "mesh": "cuboid",
                     "material": "floor",
                     "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
                   },
                   {
                     "type": "renderState",
@@ -83,6 +89,9 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -103,6 +112,9 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -121,6 +133,9 @@
                     "mesh": "cuboid",
                     "material": "floor",
                     "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
                   },
                   {
                     "type": "renderState",
@@ -171,11 +186,11 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
-                    "type": "renderState",
-                    "cullingEnabled": 0
+                    "type": "collider"
                   },
                   {
-                    "type": "collider"
+                    "type": "renderState",
+                    "cullingEnabled": 0
                   },
                   {
                     "type": "interaction",

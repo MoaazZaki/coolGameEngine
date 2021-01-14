@@ -122,6 +122,8 @@ namespace famm {
 	{
 		bool enabled;
 		glm::vec3 AABBcorners[2];		//Bounding box corners
+		glm::vec3 lastNonCollided;
+
 	};
 
 	struct Progress

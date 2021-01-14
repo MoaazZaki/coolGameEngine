@@ -199,6 +199,9 @@ void famm::mesh_utils::Cuboid(Mesh& mesh,
             20, 21, 22, 22, 23, 20,
     };
 
+    // Save boundingbox to mesh object
+    mesh.setBoundingBox({ bounds[0].x,bounds[0].y ,bounds[0].z }, { bounds[1].x,bounds[1].y ,bounds[1].z });
+
     // Create and populate the OpenGL objects in the mesh
     if (mesh.isCreated()) mesh.destroy();
     mesh.create({famm::setup_buffer_accessors<Vertex>});
@@ -244,6 +247,10 @@ void famm::mesh_utils::Sphere(famm::Mesh& mesh, const glm::ivec2& segments, bool
         }
     }
 
+    // Save boundingbox to mesh object
+    mesh.setBoundingBox({ center.x - radius,center.y - radius ,center.z - radius }, { center.x + radius,center.y + radius ,center.z + radius });
+
+
     // Create and populate the OpenGL objects in the mesh
     if (mesh.isCreated()) mesh.destroy();
     mesh.create({famm::setup_buffer_accessors<Vertex>});
@@ -286,6 +293,10 @@ void famm::mesh_utils::Plane(famm::Mesh& mesh, const glm::ivec2& resolution, boo
             index++;
         }
     }
+
+    // Save boundingbox to mesh object
+    mesh.setBoundingBox({ center.x - size.x/2,center.y - size.y / 2 ,-0.1 }, { center.x + size.x / 2,center.y + size.y / 2 ,0.1 });
+
 
     // Create and populate the OpenGL objects in the mesh
     if (mesh.isCreated()) mesh.destroy();
