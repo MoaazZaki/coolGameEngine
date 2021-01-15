@@ -17,6 +17,7 @@ struct componentJSON {
 	famm::Light* light;
 	famm::Interaction* interaction;
 	famm::Collider* collider;
+	famm::Progress* progress;
 };
 
 // JSON Functions
@@ -121,6 +122,19 @@ void from_json(const nlohmann::json& j, componentJSON& c)
 		c.interaction->parent = j.value<int>("parent", 0);
 		c.interaction->action = j.value<GLbyte>("action", 0);
 		c.interaction->componentType = j.value<GLbyte>("componentType", 0);
+
+		c.interaction->startOn = (bool)j.value<int>("startOn", 0);
+		c.interaction->fireProgress = (bool)j.value<int>("fireProgress", 0);
+		if(c.interaction->fireProgress)
+			j.at("firedProgressIndex").get_to(c.interaction->firedProgressIndex);
+		c.interaction->firingType = j.value<GLbyte>("firingType", 0);
+		c.interaction->isOneTime = (bool)j.value<int>("isOneTime", 0);
+	}
+
+	else if (c.type == "progress")
+	{
+		c.progress = new famm::Progress;
+		j.at("goal").get_to(c.progress->goal);
 	}
 }
 
@@ -185,6 +199,11 @@ void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent,famm:
 					else
 						extractWorld(compoent["with"], parent, object, myStore, myManager);
 				}
+			}
+			else if (c.type == "progress")
+			{
+				std::cout << "MAAAAAAAAAAAAAAAAAAAWWWWWWWWWWW" << c.progress->goal << std::endl;
+				myManager->addComponentData<Progress>(object, *c.progress);
 			}
 		}
 	}

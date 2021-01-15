@@ -1,304 +1,324 @@
 {
-  "entities": [
-    {
-      "components": [
+    "entities": [
         {
-          "type": "transform",
-          "position": [ 0, 0, 0 ],
-          "rotation": [ 0, 0, 0 ],
-          "scale": [ 1, 1, 1 ],
-          "children": {
-            "entities": [
-              {
-                "components": [
-                  {
+            "components": [
+                {
                     "type": "transform",
-                    "position": [ 30, 3, 20 ],
+                    "position": [ 0, 0, 0 ],
                     "rotation": [ 0, 0, 0 ],
-                    "scale": [ 1000, 1000, 1000 ]
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "plane",
-                    "material": "floor",
-                    "tint": [ 1, 1, 1, 1 ]
-                  },
-                  {
-                    "type": "renderState"
-                  }
-                ]
-              },
-              {
-                "components": [
-                  {
-                    "type": "transform",
-                    "position": [ -34.9, 21.6, -27.9 ],
-                    "rotation": [ 0, 0, -1.57 ],
-                    "scale": [ 100, 1, 200 ]
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "cuboid",
-                    "material": "floor",
-                    "tint": [ 1, 1, 1, 1 ]
-                  },
-                  {
-                    "type": "collider"
-                  },
-                  {
-                    "type": "renderState",
-                    "cullingEnabled": 0
-                  }
-                ]
-              },
-              {
-                "components": [
-                  {
-                    "type": "transform",
-                    "position": [ 122.7, 21.6, -27.9 ],
-                    "rotation": [ 0, 0, -1.57 ],
-                    "scale": [ 100, 1, 200 ]
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "cuboid",
-                    "material": "floor",
-                    "tint": [ 1, 1, 1, 1 ]
-                  },
-                  {
-                    "type": "collider"
-                  },
-                  {
-                    "type": "renderState",
-                    "cullingEnabled": 0
-                  }
-                ]
-              },
-              {
-                "components": [
-                  {
-                    "type": "transform",
-                    "position": [ 42.4, 21.6, -127 ],
-                    "rotation": [ 0, 1.56, 1.56 ],
-                    "scale": [ 100, 1, 160 ]
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "cuboid",
-                    "material": "floor",
-                    "tint": [ 1, 1, 1, 1 ]
-                  },
-                  {
-                    "type": "collider"
-                  },
-                  {
-                    "type": "renderState",
-                    "cullingEnabled": 0
-                  }
-                ]
-              },
-              {
-                "components": [
-                  {
-                    "type": "transform",
-                    "position": [ 42.4, 21.6, 71.2 ],
-                    "rotation": [ 0, 1.56, 1.56 ],
-                    "scale": [ 100, 1, 160 ]
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "cuboid",
-                    "material": "floor",
-                    "tint": [ 1, 1, 1, 1 ]
-                  },
-                  {
-                    "type": "collider"
-                  },
-                  {
-                    "type": "renderState",
-                    "cullingEnabled": 0
-                  }
-                ]
-              },
-              {
-                "components": [
-                  {
-                    "type": "transform",
-                    "position": [ 43.4, 71.6, -25.7 ],
-                    "rotation": [ 0, 0, 0 ],
-                    "scale": [ 163.4, 1, 203.3 ]
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "cuboid",
-                    "material": "floor",
-                    "tint": [ 1, 1, 1, 1 ]
-                  },
-                  {
-                    "type": "collider"
-                  },
-                  {
-                    "type": "renderState",
-                    "cullingEnabled": 0
-                  }
-                ]
-              },
-              {
-                "components": [
-                  {
-                    "type": "transform",
-                    "position": [ 120.9, 22.7, -34.8 ],
-                    "rotation": [ -1.56, -1.56, 0 ],
-                    "scale": [ 25.2, 0.5, 43.6 ]
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "cuboid",
-                    "material": "A",
-                    "tint": [ 1, 1, 1, 1 ]
-                  },
-                  {
-                    "type": "renderState",
-                    "cullingEnabled": 0
-                  },
-                  {
-                    "type": "interaction",
-                    "distanceOfInteraction": 25,
-                    "enabled": 1,
-                    "on": 0,
-                    "action": 1,
-                    "componentType": 1
-                  }
-                ]
-              },
-              {
-                "components": [
-                  {
-                    "type": "transform",
-                    "position": [ 44, 32.5, -31.9 ],
-                    "rotation": [ 0, 0, 0 ],
-                    "scale": [ 0.028, 0.028, 0.028 ]
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "lamp",
-                    "material": "metal2",
-                    "tint": [ 1, 1, 1, 1 ]
-                  },
-                  {
-                    "type": "collider"
-                  },
-                  {
-                    "type": "renderState",
-                    "cullingEnabled": 0
-                  },
-                  {
-                    "type": "interaction",
-                    "enabled": 1,
-                    "attachTransformation": 0,
-                    "distanceOfInteraction": 30,
-                    "buttonOfInteraction": 0,
-                    "on": 1,
-                    "with": {
-                      "entities": [
-                        {
-                          "components": [
+                    "scale": [ 1, 1, 1 ],
+                    "children": {
+                        "entities": [
                             {
-                              "type": "transform",
-                              "position": [ 43.9, 62.2, -32.1 ]
+                                "components": [
+                                    {
+                                        "type": "transform",
+                                        "position": [ 30, 3, 20 ],
+                                        "rotation": [ 0, 0, 0 ],
+                                        "scale": [ 1000, 1000, 1000 ]
+                                    },
+                                    {
+                                        "type": "meshRenderer",
+                                        "mesh": "plane",
+                                        "material": "floor",
+                                        "tint": [ 1, 1, 1, 1 ]
+                                    },
+                                    {
+                                        "type": "renderState"
+                                    }
+                                ]
                             },
                             {
-                              "type": "light",
-                              "enabled": 1,
-                              "lightType": 1,
-                              "color": [ 0.9882, 0.95686, 0.95686 ],
-                              "constantAtt": 0.1,
-                              "linearAtt": 0.3
+                                "components": [
+                                    {
+                                        "type": "transform",
+                                        "position": [ -34.9, 21.6, -27.9 ],
+                                        "rotation": [ 0, 0, -1.57 ],
+                                        "scale": [ 100, 1, 200 ]
+                                    },
+                                    {
+                                        "type": "meshRenderer",
+                                        "mesh": "cuboid",
+                                        "material": "floor",
+                                        "tint": [ 1, 1, 1, 1 ]
+                                    },
+                                    {
+                                        "type": "collider"
+                                    },
+                                    {
+                                        "type": "renderState",
+                                        "cullingEnabled": 0
+                                    }
+                                ]
                             },
                             {
-                              "type": "interaction",
-                              "enabled": 1,
-                              "on": 0,
-                              "action": 1
+                                "components": [
+                                    {
+                                        "type": "transform",
+                                        "position": [ 122.7, 21.6, -27.9 ],
+                                        "rotation": [ 0, 0, -1.57 ],
+                                        "scale": [ 100, 1, 200 ]
+                                    },
+                                    {
+                                        "type": "meshRenderer",
+                                        "mesh": "cuboid",
+                                        "material": "floor",
+                                        "tint": [ 1, 1, 1, 1 ]
+                                    },
+                                    {
+                                        "type": "collider"
+                                    },
+                                    {
+                                        "type": "renderState",
+                                        "cullingEnabled": 0
+                                    }
+                                ]
+                            },
+                            {
+                                "components": [
+                                    {
+                                        "type": "transform",
+                                        "position": [ 42.4, 21.6, -127 ],
+                                        "rotation": [ 0, 1.56, 1.56 ],
+                                        "scale": [ 100, 1, 160 ]
+                                    },
+                                    {
+                                        "type": "meshRenderer",
+                                        "mesh": "cuboid",
+                                        "material": "floor",
+                                        "tint": [ 1, 1, 1, 1 ]
+                                    },
+                                    {
+                                        "type": "collider"
+                                    },
+                                    {
+                                        "type": "renderState",
+                                        "cullingEnabled": 0
+                                    }
+                                ]
+                            },
+                            {
+                                "components": [
+                                    {
+                                        "type": "transform",
+                                        "position": [ 42.4, 21.6, 71.2 ],
+                                        "rotation": [ 0, 1.56, 1.56 ],
+                                        "scale": [ 100, 1, 160 ]
+                                    },
+                                    {
+                                        "type": "meshRenderer",
+                                        "mesh": "cuboid",
+                                        "material": "floor",
+                                        "tint": [ 1, 1, 1, 1 ]
+                                    },
+                                    {
+                                        "type": "collider"
+                                    },
+                                    {
+                                        "type": "renderState",
+                                        "cullingEnabled": 0
+                                    }
+                                ]
+                            },
+                            {
+                                "components": [
+                                    {
+                                        "type": "transform",
+                                        "position": [ 43.4, 71.6, -25.7 ],
+                                        "rotation": [ 0, 0, 0 ],
+                                        "scale": [ 163.4, 1, 203.3 ]
+                                    },
+                                    {
+                                        "type": "meshRenderer",
+                                        "mesh": "cuboid",
+                                        "material": "floor",
+                                        "tint": [ 1, 1, 1, 1 ]
+                                    },
+                                    {
+                                        "type": "collider"
+                                    },
+                                    {
+                                        "type": "renderState",
+                                        "cullingEnabled": 0
+                                    }
+                                ]
+                            },
+                            {
+                                "components": [
+                                    {
+                                        "type": "transform",
+                                        "position": [ 120.9, 22.7, -34.8 ],
+                                        "rotation": [ -1.56, -1.56, 0 ],
+                                        "scale": [ 25.2, 0.5, 43.6 ]
+                                    },
+                                    {
+                                        "type": "meshRenderer",
+                                        "mesh": "cuboid",
+                                        "material": "A",
+                                        "tint": [ 1, 1, 1, 1 ],
+                                        "enabled": 0
+                                    },
+                                    {
+                                        "type": "renderState",
+                                        "cullingEnabled": 0
+                                    },
+                                    {
+                                        "type": "interaction",
+                                        "distanceOfInteraction": 25,
+                                        "enabled": 1,
+                                        "on": 0,
+                                        "action": 1,
+                                        "componentType": 1,
+                                        "startOn": 1,
+                                        "fireProgress": 1,
+                                        "firedProgressIndex": 0,
+                                        "firingType": 2,
+                                        "buttonOfInteraction": 0,
+                                        "isOneTime": 1
+                                    }
+                                ]
+                            },
+                            {
+                                "components": [
+                                    {
+                                        "type": "transform",
+                                        "position": [ 44, 32.5, -31.9 ],
+                                        "rotation": [ 0, 0, 0 ],
+                                        "scale": [ 0.028, 0.028, 0.028 ]
+                                    },
+                                    {
+                                        "type": "meshRenderer",
+                                        "mesh": "lamp",
+                                        "material": "metal2",
+                                        "tint": [ 1, 1, 1, 1 ]
+                                    },
+                                    {
+                                        "type": "collider"
+                                    },
+                                    {
+                                        "type": "renderState",
+                                        "cullingEnabled": 0
+                                    },
+                                    {
+                                        "type": "interaction",
+                                        "enabled": 1,
+                                        "attachTransformation": 0,
+                                        "distanceOfInteraction": 30,
+                                        "buttonOfInteraction": 0,
+                                        "on": 1,
+                                        "startOn": 0,
+                                        "fireProgress": 1,
+                                        "firedProgressIndex": 0,
+                                        "firingType": 0,
+                                        "with": {
+                                            "entities": [
+                                                {
+                                                    "components": [
+                                                        {
+                                                            "type": "transform",
+                                                            "position": [ 43.9, 62.2, -32.1 ]
+                                                        },
+                                                        {
+                                                            "type": "light",
+                                                            "enabled": 1,
+                                                            "lightType": 1,
+                                                            "color": [ 0.9882, 0.95686, 0.95686 ],
+                                                            "constantAtt": 0.1,
+                                                            "linearAtt": 0.3
+                                                        },
+                                                        {
+                                                            "type": "interaction",
+                                                            "enabled": 1,
+                                                            "on": 0,
+                                                            "action": 2
+
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
                             }
-                          ]
-                        }
-                      ]
+                        ]
                     }
-                  }
-                ]
-              }
+                }
             ]
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "type": "transform",
-          "position": [ 10, 15, 10 ],
-          "rotation": [ -10, -10, -10 ]
         },
         {
-          "type": "camera",
-          "projection": "Perspective",
-          "enabled": 0,
-          "mode": 1,
-          "controller": {
-            "entities": [
-              {
-                "components": [
-                  {
-                    "type": "cameraController",
-                    "speedup_factor": 1.5
-                  }
-                ]
-              }
+            "components": [
+                {
+                    "type": "transform",
+                    "position": [ 10, 15, 10 ],
+                    "rotation": [ -10, -10, -10 ]
+                },
+                {
+                    "type": "camera",
+                    "projection": "Perspective",
+                    "enabled": 0,
+                    "mode": 1,
+                    "controller": {
+                        "entities": [
+                            {
+                                "components": [
+                                    {
+                                        "type": "cameraController",
+                                        "speedup_factor": 1.5
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
             ]
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "type": "transform",
-          "position": [ 10, 15, 10 ],
-          "rotation": [ -10, -10, -10 ]
         },
         {
-          "type": "camera",
-          "projection": "Perspective",
-          "enabled": 1,
-          "controller": {
-            "entities": [
-              {
-                "components": [
-                  {
-                    "type": "cameraController",
-                    "speedup_factor": 1.5
-                  }
-                ]
-              }
+            "components": [
+                {
+                    "type": "transform",
+                    "position": [ 10, 15, 10 ],
+                    "rotation": [ -10, -10, -10 ]
+                },
+                {
+                    "type": "camera",
+                    "projection": "Perspective",
+                    "enabled": 1,
+                    "controller": {
+                        "entities": [
+                            {
+                                "components": [
+                                    {
+                                        "type": "cameraController",
+                                        "speedup_factor": 1.5
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
             ]
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "type": "transform",
-          "rotation": [ 0, -1, 0 ]
         },
         {
-          "type": "light",
-          "enabled": 1,
-          "lightType": 0,
-          "color": [ 0.08235, 0.07843, 0.08235 ]
+            "components": [
+                {
+                    "type": "transform",
+                    "rotation": [ 0, -1, 0 ]
+                },
+                {
+                    "type": "light",
+                    "enabled": 1,
+                    "lightType": 0,
+                    "color": [ 0.08235, 0.07843, 0.08235 ]
+                }
+            ]
+        },
+        {
+            "components": [
+                {
+                    "type": "progress",
+                    "goal": 1
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

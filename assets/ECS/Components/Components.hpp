@@ -108,9 +108,12 @@ namespace famm {
 
 	struct Interaction
 	{
-		Entity parent;
-		bool enabled;
-		float distanceOfInertaction;
+		Entity parent;//
+		bool enabled;//
+
+		bool isOneTime;
+
+		float distanceOfInertaction;//
 		GLbyte on; // 0 self - 1 other - 2 both
 		GLbyte action; // 0 nothing - 1 toggle - 2 remove 
 		GLbyte componentType; // 0 light - 1 mesh
@@ -137,7 +140,7 @@ namespace famm {
 
 	struct Progress
 	{
-		GLubyte counter;
+		GLubyte counter = 0;
 		GLubyte goal;
 	};
 }

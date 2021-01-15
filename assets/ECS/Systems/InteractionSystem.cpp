@@ -46,6 +46,7 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 
 
 	std::unordered_set<Entity> copy = entitiesSet;
+	//std::cout << "Entity size:" << copy.size() << std::endl;
 	for (auto& entity : copy)
 	{
 		auto& myInteractionComponent = myManager->getComponentData<famm::Interaction>(entity);
@@ -77,6 +78,7 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 							myInteractionComponent.isInteracted = true;
 							if (myInteractionComponent.firingType == 0)
 							{
+								
 								myProgressSystem->updateProgress(myManager, myInteractionComponent.firedProgressIndex);
 								if (myInteractionComponent.on == 0 || myInteractionComponent.on == 2)
 									performInteraction(myManager, entity, myInteractionComponent);
@@ -114,8 +116,10 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 						// Perform interaction on progress
 						if (myInteractionComponent.firingType == 1)
 						{
+							//std::cout << "HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" << myInteractionComponent.firedProgressIndex << std::endl;
 							if (!myProgressSystem->isNumberExist(myInteractionComponent.firedProgressIndex))
 							{
+	
 								myInteractionComponent.isInteracted = true;
 								if (myInteractionComponent.on == 0 || myInteractionComponent.on == 2)
 									performInteraction(myManager, entity, myInteractionComponent);
@@ -125,9 +129,11 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 						{
 							if (myProgressSystem->isProgressFinished())
 							{
+								std::cout << "MAAAAAAAAAAAAAAAAAAAWWWWWWWWWWW" << entity << std::endl;
 								myInteractionComponent.isInteracted = true;
 								if (myInteractionComponent.on == 0 || myInteractionComponent.on == 2)
 									performInteraction(myManager, entity, myInteractionComponent);
+								myInteractionComponent.enabled = false;
 							}
 						}
 					}

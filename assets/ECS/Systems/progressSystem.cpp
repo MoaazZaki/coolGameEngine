@@ -1,8 +1,9 @@
 #include "progressSystem.hpp"
-
+#include "iostream"
 void famm::ProgressSystem::assignProgress()
 {
 	int index = 0;
+
 	for (auto& entity: entitiesSet)
 	{
 		memo[index] = entity;
@@ -18,10 +19,15 @@ void famm::ProgressSystem::updateProgress(ECSManager* myManager, int& progressNu
 	myProgressComponent.counter++;
 	if (myProgressComponent.counter == myProgressComponent.goal)
 	{
+
 		myManager->destroyEntity(it->second);
 		memo.erase(progressNumber);
 		progressNumber = -1;
-		if (memo.size() == 0) progressFinished = true;
+		
+		if (memo.size() == 0)
+		{
+			progressFinished = true;
+		}
 	}
 }
 
