@@ -111,11 +111,20 @@ namespace famm {
 		Entity parent;
 		bool enabled;
 		float distanceOfInertaction;
-		famm::ControlsActions buttonOfInteraction;
 		GLbyte on; // 0 self - 1 other - 2 both
 		GLbyte action; // 0 nothing - 1 toggle - 2 remove 
 		GLbyte componentType; // 0 light - 1 mesh
 		bool isInteracted = false;
+
+		bool startOn = 0; // 0 button - 1 progress
+
+		bool fireProgress = false;
+		int firedProgressIndex;
+		GLbyte firingType; // 0 increment - 1 progress finished - 2 all finished
+
+
+		famm::ControlsActions buttonOfInteraction;
+
 	};
 
 	struct Collider
@@ -128,7 +137,8 @@ namespace famm {
 
 	struct Progress
 	{
-
+		GLubyte counter;
+		GLubyte goal;
 	};
 }
 

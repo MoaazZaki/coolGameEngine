@@ -61,6 +61,7 @@ set(COMMON_SOURCES
         assets/ECS/Systems/CameraControllerSystem.cpp
         assets/ECS/Systems/InteractionSystem.cpp
         assets/ECS/Systems/ColliderSystem.cpp
+        assets/ECS/Systems/ProgressSystem.cpp
 
 )
 

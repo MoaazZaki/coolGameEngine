@@ -202,6 +202,7 @@ void famm::Game::onInitialize()
 	myManager.addComponentType<famm::Light>();
 	myManager.addComponentType<famm::Interaction>();
 	myManager.addComponentType<famm::Collider>();
+	myManager.addComponentType<famm::Progress>();
 
 	// Creating systems
 	auto& rendererSystem = myManager.addSystem<famm::RendererSystem>();
@@ -216,6 +217,8 @@ void famm::Game::onInitialize()
 	mySystems.push_back(interactionSystem);
 	auto& colliderSystem = myManager.addSystem<famm::ColliderSystem>();
 	mySystems.push_back(colliderSystem);
+	auto& progressSystem = myManager.addSystem<famm::ProgressSystem>();
+	mySystems.push_back(progressSystem);
 
 	// Setting signatures
 	famm::Signature signature;
@@ -248,6 +251,10 @@ void famm::Game::onInitialize()
 	signature.set(myManager.getComponentType<famm::Transform>());
 	myManager.setSystemSignature<ColliderSystem>(signature);
 
+	signature.reset();
+	signature.set(myManager.getComponentType<famm::Progress>());
+	myManager.setSystemSignature<ProgressSystem>(signature);
+
 	Entity worldEntity;
 	Entity object;
 	Entity camera;
@@ -259,9 +266,8 @@ void famm::Game::onInitialize()
 	file_in.close();
 
 	extractWorld(world, MAX_ENTITIES + 1,0, myStore, &myManager);
-
+	progressSystem->assignProgress();
 	
-
 	glClearColor(7/255.0,12/255.0, 41/ 255.0, 1);
 }
 
@@ -272,6 +278,7 @@ void famm::Game::onDraw(double deltaTime) {
 	std::shared_ptr<LightSystem> LS = std::static_pointer_cast<LightSystem>(mySystems[3]);
 	std::shared_ptr<InteractionSystem> IS = std::static_pointer_cast<InteractionSystem>(mySystems[4]);
 	std::shared_ptr<ColliderSystem> CDS = std::static_pointer_cast<ColliderSystem>(mySystems[5]);
+	std::shared_ptr<ProgressSystem> PS = std::static_pointer_cast<ProgressSystem>(mySystems[6]);
 
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -279,7 +286,7 @@ void famm::Game::onDraw(double deltaTime) {
 	{
 		CCS->moveCamera(&myManager, deviceManager, deltaTime, CS);
 		RS->drawEnities(&myManager, CS,LS);
-		IS->updateInteractions(&myManager, deviceManager,CS);
+		IS->updateInteractions(&myManager, deviceManager,CS, PS);
 		CDS->updateColliders(&myManager, CS);
 	}
 	if ((deviceManager->pressedActionChecker(famm::ControlsActions::MENU, famm::PressModes::JUST_PRESSED) && !isPaused))

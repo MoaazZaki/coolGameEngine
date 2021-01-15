@@ -243,7 +243,7 @@
         {
           "type": "camera",
           "projection": "Perspective",
-          "enabled": 1,
+          "enabled": 0,
           "mode": 1,
           "controller": {
             "entities": [
@@ -270,7 +270,7 @@
         {
           "type": "camera",
           "projection": "Perspective",
-          "enabled": 0,
+          "enabled": 1,
           "controller": {
             "entities": [
               {

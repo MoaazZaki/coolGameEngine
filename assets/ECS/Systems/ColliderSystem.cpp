@@ -27,10 +27,10 @@ void famm::ColliderSystem::updateColliders(ECSManager* myManager, std::shared_pt
 		glm::vec4 pointMin = myTransformComponent.to_mat4() * glm::vec4(myColliderComponent.AABBcorners[0], 1.0);
 		glm::vec4 pointMax = myTransformComponent.to_mat4() * glm::vec4(myColliderComponent.AABBcorners[1], 1.0);
 		
-		glm::vec3 p1 = glm::vec3({ pointMin.x -1 ,pointMin.y - 1,pointMin.z - 1 });
+		glm::vec3 p1 = glm::vec3({ pointMin.x - 1,pointMin.y - 1,pointMin.z - 1 });
 		glm::vec3 p2 = glm::vec3({ pointMax.x + 1,pointMin.y - 1,pointMin.z - 1 });
 		glm::vec3 p4 = glm::vec3({ pointMin.x - 1,pointMax.y + 1,pointMin.z - 1 });
-		glm::vec3 p5 = glm::vec3({ pointMin.x - 1,pointMin.y - 1,pointMax.z + 1});
+		glm::vec3 p5 = glm::vec3({ pointMin.x - 1,pointMin.y - 1,pointMax.z + 1 });
 
 		glm::vec3 p1_minus_p4 = p1 - p4;
 		glm::vec3 p1_minus_p5 = p1 - p5;
