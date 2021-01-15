@@ -53,6 +53,31 @@
       "type": "file",
       "name": "doorHandle",
       "path": "assets/models/doorHandle/doorHandle.obj"
+    },
+    {
+      "type": "file",
+      "name": "Screwdriver",
+      "path": "assets/models/Screwdriver/Screwdriver.obj"
+    },
+    {
+      "type": "file",
+      "name": "Key",
+      "path": "assets/models/Key/Key.obj"
+    },
+    {
+      "type": "file",
+      "name": "Bed",
+      "path": "assets/models/Bed/Bed.obj"
+    },
+    {
+      "type": "file",
+      "name": "TV",
+      "path": "assets/models/TV/TV.obj"
+    },
+    {
+      "type": "file",
+      "name": "Skeletons",
+      "path": "assets/models/Skeletons/Skeletons.obj"
     }
   ],
   "textures": [
