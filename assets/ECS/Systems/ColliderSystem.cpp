@@ -52,10 +52,9 @@ void famm::ColliderSystem::updateColliders(ECSManager* myManager, std::shared_pt
 
 		if (u_camera >= std::min<float>(u_p1_minus_p4, u_p1_minus_p5) && u_camera <= std::max<float>(u_p1_minus_p4, u_p1_minus_p5))
 		{
-			if (v_camera >= std::min<float>(v_p1_minus_p2, v_p1_minus_p5) && v_camera <= std::max<float>(v_p1_minus_p2, v_p1_minus_p5))
+			if (w_camera >= std::min<float>(w_p1_minus_p2, w_p1_minus_p4) && w_camera <= std::max<float>(w_p1_minus_p2, w_p1_minus_p4))
 			{
-				//myCameraTransformComponent.position.y = pointMin.y;
-				if (w_camera >= std::min<float>(w_p1_minus_p2, w_p1_minus_p4) && w_camera <= std::max<float>(w_p1_minus_p2, w_p1_minus_p4))
+				if (v_camera >= std::min<float>(v_p1_minus_p2, v_p1_minus_p5) && v_camera <= std::max<float>(v_p1_minus_p2, v_p1_minus_p5) || myColliderComponent.highCollider)
 				{
 					myCameraTransformComponent.position = myColliderComponent.lastNonCollided;
 				}

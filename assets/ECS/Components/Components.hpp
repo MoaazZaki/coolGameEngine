@@ -113,7 +113,7 @@ namespace famm {
 
 		bool isOneTime;
 
-		float distanceOfInertaction;//
+		float distanceOfInteraction;//
 		GLbyte on; // 0 self - 1 other - 2 both
 		GLbyte action; // 0 nothing - 1 toggle - 2 remove 
 		GLbyte componentType; // 0 light - 1 mesh
@@ -135,13 +135,15 @@ namespace famm {
 		bool enabled;
 		glm::vec3 AABBcorners[2];		//Bounding box corners
 		glm::vec3 lastNonCollided;
-
+		bool highCollider =true;
 	};
 
 	struct Progress
 	{
 		GLubyte counter = 0;
 		GLubyte goal;
+		GLubyte conditionOfInteraction = 0;
+		std::vector<int> attachedTo;
 	};
 }
 

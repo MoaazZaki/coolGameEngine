@@ -159,7 +159,7 @@ std::int16_t famm::DeviceManager::getUsedKey(PressModes mode)
 std::uint16_t famm::DeviceManager::getCorrespondingKey(ControlsActions action) {
     switch (action)
     {
-    case famm::ControlsActions::MOUSE_LEFT:
+    case famm::ControlsActions::INTERACT:
         return controlSettings.mouseLeft;
         break;
     case famm::ControlsActions::UP:

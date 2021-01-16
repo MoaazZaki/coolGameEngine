@@ -17,7 +17,7 @@ namespace famm {
 
 	enum class PressModes {IS_PRESSED,JUST_PRESSED,JUST_RELEASED};
 	enum class CallbacksModes { KEY_EVENT, CURSOR_MOVE_EVENT, MOUSE_BUTTON_EVENT,SCROLL_EVENT};
-	enum class ControlsActions {MOUSE_LEFT,UP,DOWN,RIGHT,LEFT,SPRINT,CAMERA_UP,CAMERA_DOWN,SCREEN_SHOT,MENU,DEV};
+	enum class ControlsActions { INTERACT,UP,DOWN,RIGHT,LEFT,SPRINT,CAMERA_UP,CAMERA_DOWN,SCREEN_SHOT,MENU,DEV};
 
 	struct WindowSettings {
 		const char* title;

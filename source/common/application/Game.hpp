@@ -22,8 +22,6 @@ namespace famm {
 
 		std::vector<Entity> lightArray;
 
-		std::vector<Entity> cameraArray;
-
 		std::vector<std::shared_ptr<System>> mySystems;
 
 		bool isPaused = false;

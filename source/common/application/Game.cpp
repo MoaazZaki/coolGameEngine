@@ -42,6 +42,7 @@ void from_json(const nlohmann::json& j, componentJSON& c)
 	{
 		c.collider = new famm::Collider;
 		c.collider->enabled = (bool)j.value<int>("enabled", 1);
+		c.collider->highCollider = (bool)j.value<int>("highCollider", 0);
 	}
 	else if (c.type == "renderState")
 	{
@@ -111,12 +112,14 @@ void from_json(const nlohmann::json& j, componentJSON& c)
 		c.light->constantAttenuation = j.value<float>("constantAtt", 0.0f);
 		c.light->LinearAttenuation = j.value<float>("linearAtt", 0.0f);
 		c.light->QuadraticAttenuation = j.value<float>("quadraticAtt", 0.0f);
+		c.light->InnerSpotAngle = j.value<float>("InnerSpotAngle", 0.0f);
+		c.light->OuterSpotAngle = j.value<float>("OuterSpotAngle", 0.0f);
 	}
 	else if (c.type == "interaction")
 	{
 		c.interaction = new famm::Interaction;
 		c.interaction->enabled = (bool)j.value<int>("enabled", 0);
-		c.interaction->distanceOfInertaction = j.value<float>("distanceOfInteraction", 0.01);
+		c.interaction->distanceOfInteraction = j.value<float>("distanceOfInteraction", 0.01);
 		c.interaction->buttonOfInteraction = (famm::ControlsActions)j.value<int>("buttonOfInteraction", 0);
 		c.interaction->on = j.value<GLbyte>("on", 1);
 		c.interaction->parent = j.value<int>("parent", 0);
@@ -134,7 +137,9 @@ void from_json(const nlohmann::json& j, componentJSON& c)
 	else if (c.type == "progress")
 	{
 		c.progress = new famm::Progress;
-		j.at("goal").get_to(c.progress->goal);
+		j.at("goal").get_to(c.progress->goal); 
+		c.progress->conditionOfInteraction =j.value<GLbyte>("conditionOfInteraction", 0);
+		c.progress->attachedTo = j.value<std::vector<int>>("attachedTo", std::vector<int>(0));
 	}
 }
 
@@ -164,14 +169,12 @@ void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent,famm:
 			}
 			else if (c.type == "collider")
 			{
-				MeshRenderer currentMesh;
-				if (c.meshRenderer.mesh != "cuboid" && c.meshRenderer.mesh != "plane" && c.meshRenderer.mesh != "sphere")
-				{
-					currentMesh = myManager->getComponentData<MeshRenderer>(object);
-					c.collider->AABBcorners[0] = currentMesh.mesh->mingetMinBound();
-					c.collider->AABBcorners[1] = currentMesh.mesh->mingetMaxBound();
-					myManager->addComponentData<Collider>(object, *c.collider);
-				}
+				MeshRenderer currentMesh;			
+				currentMesh = myManager->getComponentData<MeshRenderer>(object);
+				c.collider->AABBcorners[0] = currentMesh.mesh->mingetMinBound();
+				c.collider->AABBcorners[1] = currentMesh.mesh->mingetMaxBound();
+				myManager->addComponentData<Collider>(object, *c.collider);
+				
 			}
 			else if (c.type == "camera")
 			{
@@ -202,7 +205,6 @@ void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent,famm:
 			}
 			else if (c.type == "progress")
 			{
-				std::cout << "MAAAAAAAAAAAAAAAAAAAWWWWWWWWWWW" << c.progress->goal << std::endl;
 				myManager->addComponentData<Progress>(object, *c.progress);
 			}
 		}
@@ -285,8 +287,7 @@ void famm::Game::onInitialize()
 	file_in.close();
 
 	extractWorld(world, MAX_ENTITIES + 1,0, myStore, &myManager);
-	progressSystem->assignProgress();
-	
+	progressSystem->assignProgress(&myManager);
 	glClearColor(7/255.0,12/255.0, 41/ 255.0, 1);
 }
 

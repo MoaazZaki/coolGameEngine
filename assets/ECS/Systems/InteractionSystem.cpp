@@ -24,6 +24,7 @@ void famm::InteractionSystem::performInteraction(ECSManager* myManager, Entity o
 			myMeshComponent.enabled = !myMeshComponent.enabled;
 		}
 	}
+	
 
 }
 
@@ -46,7 +47,6 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 
 
 	std::unordered_set<Entity> copy = entitiesSet;
-	//std::cout << "Entity size:" << copy.size() << std::endl;
 	for (auto& entity : copy)
 	{
 		auto& myInteractionComponent = myManager->getComponentData<famm::Interaction>(entity);
@@ -70,23 +70,38 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 					glm::vec3& cameraPos = myManager->getComponentData<famm::Transform>(camera).position; //Get camera position
 					auto& myTransformComponent = myManager->getComponentData<famm::Transform>(entity);
 					float distance = glm::distance(cameraPos, myTransformComponent.position);
-					if (myTransformComponent.isLoockedAt && distance <= myInteractionComponent.distanceOfInertaction && myDeviceManager->mouseActionChecker(myInteractionComponent.buttonOfInteraction, famm::PressModes::JUST_PRESSED))
+					
+					//std::cout << "The distance: " << (distance <= myInteractionComponent.distanceOfInteraction) << std::endl;
+
+					if (myTransformComponent.isLoockedAt && distance <= myInteractionComponent.distanceOfInteraction && myDeviceManager->mouseActionChecker(myInteractionComponent.buttonOfInteraction, famm::PressModes::JUST_PRESSED))
 					{
 						//Perform progress if attached
 						if (myInteractionComponent.fireProgress)
 						{
-							myInteractionComponent.isInteracted = true;
+							
 							if (myInteractionComponent.firingType == 0)
 							{
-								
-								myProgressSystem->updateProgress(myManager, myInteractionComponent.firedProgressIndex);
-								if (myInteractionComponent.on == 0 || myInteractionComponent.on == 2)
-									performInteraction(myManager, entity, myInteractionComponent);
+								int myProgressEntity = myProgressSystem->getEntity(myInteractionComponent.firedProgressIndex);
+								auto& myProgressComponent = myManager->getComponentData<Progress>(myProgressEntity);
+								if (myProgressComponent.counter >= myProgressComponent.conditionOfInteraction)
+								{
+									if (myInteractionComponent.isOneTime)
+										myInteractionComponent.enabled = false;
+
+									myInteractionComponent.isInteracted = true;
+									myProgressSystem->updateProgress(myManager, myInteractionComponent.firedProgressIndex);
+									if (myInteractionComponent.on == 0 || myInteractionComponent.on == 2)
+										performInteraction(myManager, entity, myInteractionComponent);
+								}
 							}
 							else if (myInteractionComponent.firingType == 1)
 							{
 								if (!myProgressSystem->isNumberExist(myInteractionComponent.firedProgressIndex))
 								{
+									if (myInteractionComponent.isOneTime)
+										myInteractionComponent.enabled = false;
+
+									myInteractionComponent.isInteracted = true;
 									if (myInteractionComponent.on == 0 || myInteractionComponent.on == 2)
 										performInteraction(myManager, entity, myInteractionComponent);
 								}
@@ -95,6 +110,10 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 							{
 								if (myProgressSystem->isProgressFinished())
 								{
+									if (myInteractionComponent.isOneTime)
+										myInteractionComponent.enabled = false;
+
+									myInteractionComponent.isInteracted = true;
 									if (myInteractionComponent.on == 0 || myInteractionComponent.on == 2)
 										performInteraction(myManager, entity, myInteractionComponent);
 								}
@@ -103,6 +122,9 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 						}
 						else
 						{
+							if (myInteractionComponent.isOneTime)
+								myInteractionComponent.enabled = false;
+
 							myInteractionComponent.isInteracted = true;
 							if (myInteractionComponent.on == 0 || myInteractionComponent.on == 2)
 								performInteraction(myManager, entity, myInteractionComponent);
@@ -116,9 +138,10 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 						// Perform interaction on progress
 						if (myInteractionComponent.firingType == 1)
 						{
-							//std::cout << "HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" << myInteractionComponent.firedProgressIndex << std::endl;
 							if (!myProgressSystem->isNumberExist(myInteractionComponent.firedProgressIndex))
 							{
+								if (myInteractionComponent.isOneTime)
+									myInteractionComponent.enabled = false;
 	
 								myInteractionComponent.isInteracted = true;
 								if (myInteractionComponent.on == 0 || myInteractionComponent.on == 2)
@@ -129,7 +152,9 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 						{
 							if (myProgressSystem->isProgressFinished())
 							{
-								std::cout << "MAAAAAAAAAAAAAAAAAAAWWWWWWWWWWW" << entity << std::endl;
+								if (myInteractionComponent.isOneTime)
+									myInteractionComponent.enabled = false;
+
 								myInteractionComponent.isInteracted = true;
 								if (myInteractionComponent.on == 0 || myInteractionComponent.on == 2)
 									performInteraction(myManager, entity, myInteractionComponent);

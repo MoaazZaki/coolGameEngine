@@ -2,13 +2,11 @@
 
 void famm::CameraControllerSystem::shakeCamera(double &hieght,const double &delta_time)
 {
-    static float amplitude = 0.1f;
-    static float adjustAmplitudePerSecond = 0.01f;
+    static float amplitude = 0.15f;
     static float timeElapsed = 0.0f;
 
     
     timeElapsed += delta_time;
-    //amplitude += adjustAmplitudePerSecond * delta_time;
     hieght += (double)amplitude * glm::sin(timeElapsed*10);
   
 }
@@ -28,12 +26,12 @@ void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceMana
         if (camera.mode == 1)
         {
 
-            if (deviceManager->mouseActionChecker(famm::ControlsActions::MOUSE_LEFT, famm::PressModes::IS_PRESSED) && !cameraController.mouse_locked)
+            if (deviceManager->mouseActionChecker(famm::ControlsActions::INTERACT, famm::PressModes::IS_PRESSED) && !cameraController.mouse_locked)
             {
                 deviceManager->getMouse().lockMouse(deviceManager->getWindow());
                 cameraController.mouse_locked = true;
             }
-            else if (!deviceManager->mouseActionChecker(famm::ControlsActions::MOUSE_LEFT, famm::PressModes::IS_PRESSED) && cameraController.mouse_locked)
+            else if (!deviceManager->mouseActionChecker(famm::ControlsActions::INTERACT, famm::PressModes::IS_PRESSED) && cameraController.mouse_locked)
             {
                 deviceManager->getMouse().unlockMouse(deviceManager->getWindow());
                 cameraController.mouse_locked = false;
@@ -41,7 +39,7 @@ void famm::CameraControllerSystem::moveCamera(ECSManager* ECSmanager, DeviceMana
 
 
 
-            if (deviceManager->mouseActionChecker(famm::ControlsActions::MOUSE_LEFT, famm::PressModes::IS_PRESSED))
+            if (deviceManager->mouseActionChecker(famm::ControlsActions::INTERACT, famm::PressModes::IS_PRESSED))
             {
                 glm::vec2 delta = deviceManager->getMouse().getMouseDelta();
                 camera.pitch -= delta.y * cameraController.pitch_sensitivity;

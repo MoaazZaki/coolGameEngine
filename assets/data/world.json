@@ -43,6 +43,9 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -83,6 +86,9 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -101,6 +107,9 @@
                     "mesh": "cuboid",
                     "material": "wall",
                     "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
                   },
                   {
                     "type": "renderState",
@@ -123,6 +132,9 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -141,6 +153,9 @@
                     "mesh": "cuboid",
                     "material": "wall",
                     "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
                   },
                   {
                     "type": "renderState",
@@ -183,6 +198,9 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -203,6 +221,9 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -221,6 +242,9 @@
                     "mesh": "cuboid",
                     "material": "wall",
                     "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
                   },
                   {
                     "type": "renderState",
@@ -244,22 +268,24 @@
                     "enabled": 1
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   },
                   {
                     "type": "interaction",
-                    "distanceOfInteraction": 25,
                     "enabled": 1,
+                    "isOneTime": 1,
+                    "distanceOfInteraction": 25,
                     "on": 0,
-                    "action": 1,
+                    "action": 2,
                     "componentType": 1,
-                    "startOn": 1,
+                    "startOn": 0,
                     "fireProgress": 1,
-                    "firedProgressIndex": 0,
-                    "firingType": 2,
-                    "buttonOfInteraction": 0,
-                    "isOneTime": 1
+                    "firedProgressIndex": 6,
+                    "firingType": 0
                   }
                 ]
               },
@@ -283,45 +309,6 @@
                   {
                     "type": "renderState",
                     "cullingEnabled": 0
-                  },
-                  {
-                    "type": "interaction",
-                    "enabled": 1,
-                    "attachTransformation": 0,
-                    "distanceOfInteraction": 30,
-                    "buttonOfInteraction": 0,
-                    "on": 1,
-                    "startOn": 0,
-                    "fireProgress": 1,
-                    "firedProgressIndex": 0,
-                    "firingType": 0,
-                    "with": {
-                      "entities": [
-                        {
-                          "components": [
-                            {
-                              "type": "transform",
-                              "position": [ 43.9, 62.2, -32.1 ]
-                            },
-                            {
-                              "type": "light",
-                              "enabled": 1,
-                              "lightType": 1,
-                              "color": [ 0.9882, 0.95686, 0.95686 ],
-                              "constantAtt": 1.5,
-                              "linearAtt": 0.05
-                            },
-                            {
-                              "type": "interaction",
-                              "enabled": 1,
-                              "on": 0,
-                              "action": 2
-
-                            }
-                          ]
-                        }
-                      ]
-                    }
                   }
                 ]
               },
@@ -345,45 +332,6 @@
                   {
                     "type": "renderState",
                     "cullingEnabled": 0
-                  },
-                  {
-                    "type": "interaction",
-                    "enabled": 1,
-                    "attachTransformation": 0,
-                    "distanceOfInteraction": 30,
-                    "buttonOfInteraction": 0,
-                    "on": 1,
-                    "startOn": 0,
-                    "fireProgress": 1,
-                    "firedProgressIndex": 0,
-                    "firingType": 0,
-                    "with": {
-                      "entities": [
-                        {
-                          "components": [
-                            {
-                              "type": "transform",
-                              "position": [ -85.2, 62.2, 126.1 ]
-                            },
-                            {
-                              "type": "light",
-                              "enabled": 1,
-                              "lightType": 1,
-                              "color": [ 0.9882, 0.95686, 0.95686 ],
-                              "constantAtt": 1.5,
-                              "linearAtt": 0.05
-                            },
-                            {
-                              "type": "interaction",
-                              "enabled": 1,
-                              "on": 0,
-                              "action": 2
-
-                            }
-                          ]
-                        }
-                      ]
-                    }
                   }
                 ]
               },
@@ -398,12 +346,25 @@
                   {
                     "type": "meshRenderer",
                     "mesh": "Key",
-                    "material": "metal2",
+                    "material": "key",
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
                     "type": "renderState",
                     "cullingEnabled": 0
+                  },
+                  {
+                    "type": "interaction",
+                    "enabled": 1,
+                    "isOneTime": 1,
+                    "distanceOfInteraction": 50,
+                    "on": 0,
+                    "action": 2,
+                    "componentType": 1,
+                    "startOn": 0,
+                    "fireProgress": 1,
+                    "firedProgressIndex": 3,
+                    "firingType": 0
                   }
                 ]
               },
@@ -420,6 +381,32 @@
                     "mesh": "Bed",
                     "material": "metal_bed",
                     "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
+                  },
+                  {
+                    "type": "renderState",
+                    "cullingEnabled": 0
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 90, 4, 40 ],
+                    "rotation": [ 0, 9.4, 0 ],
+                    "scale": [ 20, 20, 20 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "Bed",
+                    "material": "metal_bed",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
                   },
                   {
                     "type": "renderState",
@@ -444,6 +431,18 @@
                   {
                     "type": "renderState",
                     "cullingEnabled": 0
+                  },
+                  {
+                    "type": "interaction",
+                    "enabled": 1,
+                    "distanceOfInteraction": 50,
+                    "on": 0,
+                    "action": 2,
+                    "componentType": 1,
+                    "startOn": 0,
+                    "fireProgress": 1,
+                    "firedProgressIndex": 0,
+                    "firingType": 0
                   }
                 ]
               },
@@ -451,7 +450,7 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 55, 18, 55 ],
+                    "position": [ 55, 16, 55 ],
                     "rotation": [ 0, 9.4, 0 ],
                     "scale": [ 0.03, 0.03, 0.03 ]
                   },
@@ -460,6 +459,9 @@
                     "mesh": "TV",
                     "material": "TV",
                     "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
                   },
                   {
                     "type": "renderState",
@@ -482,6 +484,9 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -502,28 +507,75 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
-                    "type": "renderState",
-                    "cullingEnabled": 0
-                  }
-                ]
-              },
-              {
-                "components": [
-                  {
-                    "type": "transform",
-                    "position": [ 90, 4, 40 ],
-                    "rotation": [ 0, 9.4, 0 ],
-                    "scale": [ 20, 20, 20 ]
-                  },
-                  {
-                    "type": "meshRenderer",
-                    "mesh": "Bed",
-                    "material": "metal_bed",
-                    "tint": [ 1, 1, 1, 1 ]
+                    "type": "collider"
                   },
                   {
                     "type": "renderState",
                     "cullingEnabled": 0
+                  },
+                  {
+                    "type": "interaction",
+                    "enabled": 1,
+                    "isOneTime": 0,
+                    "distanceOfInteraction": 40,
+                    "on": 1,
+                    "action": 1,
+                    "componentType": 0,
+                    "startOn": 0,
+                    "fireProgress": 1,
+                    "firedProgressIndex": 0,
+                    "firingType": 1,
+                    "with": {
+                      "entities": [
+                        {
+                          "components": [
+                            {
+                              "type": "transform",
+                              "position": [ 43.9, 62.2, -32.1 ]
+                            },
+                            {
+                              "type": "light",
+                              "enabled": 0,
+                              "lightType": 1,
+                              "color": [ 0.9882, 0.95686, 0.95686 ],
+                              "constantAtt": 1.5,
+                              "linearAtt": 0.05
+                            },
+                            {
+                              "type": "interaction",
+                              "enabled": 1,
+                              "on": 0,
+                              "action": 1
+
+                            }
+                          ]
+                        },
+                        {
+                          "components": [
+                            {
+                              "type": "transform",
+                              "position": [ -85.2, 62.2, 126.1 ]
+                            },
+                            {
+                              "type": "light",
+                              "enabled": 0,
+                              "lightType": 1,
+                              "color": [ 0.9882, 0.95686, 0.95686 ],
+                              "constantAtt": 1.5,
+                              "linearAtt": 0.05
+                            },
+                            {
+                              "type": "interaction",
+                              "enabled": 1,
+                              "on": 0,
+                              "action": 1
+
+                            }
+                          ]
+                        }
+                      ]
+                    }
+
                   }
                 ]
               },
@@ -541,6 +593,10 @@
                     "material": "A",
                     "tint": [ 1, 1, 1, 1 ],
                     "enabled": 1
+                  },
+                  {
+                    "type": "collider",
+                    "highCollider": 1
                   },
                   {
                     "type": "renderState",
@@ -564,6 +620,10 @@
                     "enabled": 1
                   },
                   {
+                    "type": "collider",
+                    "highCollider": 1
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -583,6 +643,10 @@
                     "material": "green_box",
                     "tint": [ 1, 1, 1, 1 ],
                     "enabled": 1
+                  },
+                  {
+                    "type": "collider",
+                    "highCollider": 1
                   },
                   {
                     "type": "renderState",
@@ -606,8 +670,25 @@
                     "enabled": 1
                   },
                   {
+                    "type": "collider",
+                    "highCollider": 1
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
+                  },
+                  {
+                    "type": "interaction",
+                    "enabled": 1,
+                    "isOneTime": 1,
+                    "distanceOfInteraction": 50,
+                    "on": 0,
+                    "action": 2,
+                    "componentType": 1,
+                    "startOn": 0,
+                    "fireProgress": 1,
+                    "firedProgressIndex": 2,
+                    "firingType": 0
                   }
                 ]
               },
@@ -615,7 +696,7 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ -60, 40, -125 ],
+                    "position": [ -60, 30, -125 ],
                     "rotation": [ 1.6, 3.25, 0 ],
                     "scale": [ 1, 1, 1 ]
                   },
@@ -626,8 +707,54 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
+                  },
+                  {
+                    "type": "interaction",
+                    "enabled": 1,
+                    "isOneTime": 1,
+                    "distanceOfInteraction": 30,
+                    "on": 1,
+                    "action": 1,
+                    "componentType": 0,
+                    "startOn": 0,
+                    "fireProgress": 1,
+                    "firedProgressIndex": 1,
+                    "firingType": 0,
+                    "with": {
+                      "entities": [
+                        {
+                          "components": [
+                            {
+                              "type": "transform",
+                              "position": [ -57.8, 22.5, -114 ],
+                              "rotation": [ -9.7, 37.9, 43.5 ]
+                            },
+                            {
+                              "type": "light",
+                              "enabled": 0,
+                              "lightType": 2,
+                              "color": [ 0.63921568, 0.14862745, 0.1352941 ],
+                              "constantAtt": -3.8,
+                              "linearAtt": 0.9,
+                              "InnerSpotAngle": 0.8,
+                              "OuterSpotAngle": 1.8
+                            },
+                            {
+                              "type": "interaction",
+                              "enabled": 1,
+                              "on": 0,
+                              "action": 1
+
+                            }
+                          ]
+                        }
+                      ]
+                    }
                   }
                 ]
               },
@@ -645,6 +772,9 @@
                     "material": "A",
                     "tint": [ 1, 1, 1, 1 ],
                     "enabled": 1
+                  },
+                  {
+                    "type": "collider"
                   },
                   {
                     "type": "renderState",
@@ -669,6 +799,19 @@
                   {
                     "type": "renderState",
                     "cullingEnabled": 0
+                  },
+                  {
+                    "type": "interaction",
+                    "enabled": 1,
+                    "isOneTime": 1,
+                    "distanceOfInteraction": 40,
+                    "on": 0,
+                    "action": 2,
+                    "componentType": 1,
+                    "startOn": 0,
+                    "fireProgress": 1,
+                    "firedProgressIndex": 5,
+                    "firingType": 0
                   }
                 ]
               },
@@ -686,6 +829,10 @@
                     "material": "A",
                     "tint": [ 1, 1, 1, 1 ],
                     "enabled": 1
+                  },
+                  {
+                    "type": "collider",
+                    "highCollider": 1
                   },
                   {
                     "type": "renderState",
@@ -709,6 +856,10 @@
                     "enabled": 1
                   },
                   {
+                    "type": "collider",
+                    "highCollider": 1
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -728,6 +879,10 @@
                     "material": "A",
                     "tint": [ 1, 1, 1, 1 ],
                     "enabled": 1
+                  },
+                  {
+                    "type": "collider",
+                    "highCollider": 1
                   },
                   {
                     "type": "renderState",
@@ -751,8 +906,24 @@
                     "enabled": 1
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
+                  },
+                  {
+                    "type": "interaction",
+                    "enabled": 1,
+                    "isOneTime": 1,
+                    "distanceOfInteraction": 40,
+                    "on": 0,
+                    "action": 2,
+                    "componentType": 1,
+                    "startOn": 0,
+                    "fireProgress": 1,
+                    "firedProgressIndex": 4,
+                    "firingType": 0
                   }
                 ]
               },
@@ -772,6 +943,9 @@
                     "enabled": 1
                   },
                   {
+                    "type": "collider"
+                  },
+                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   }
@@ -787,7 +961,7 @@
       "components": [
         {
           "type": "transform",
-          "position": [ 10, 15, 10 ],
+          "position": [ -18, 25, 25 ],
           "rotation": [ -10, -10, -10 ]
         },
         {
@@ -814,7 +988,7 @@
       "components": [
         {
           "type": "transform",
-          "position": [ 10, 15, 10 ],
+          "position": [ -18, 27, 25 ],
           "rotation": [ -10, -10, -10 ]
         },
         {
@@ -885,8 +1059,80 @@
     {
       "components": [
         {
+          "type": "transform",
+          "position": [ 121.1, 32.4, -78.3 ]
+        },
+        {
+          "type": "light",
+          "enabled": 1,
+          "lightType": 1,
+          "color": [ 0.8117647, 0.59215686, 0.0823529 ],
+          "constantAtt": 0.3,
+          "linearAtt": 1.4
+        }
+      ]
+    },
+    {
+      "components": [
+        {
           "type": "progress",
           "goal": 1
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "type": "progress",
+          "goal": 1
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "type": "progress",
+          "goal": 2,
+          "conditionOfInteraction": 1,
+          "attachedTo": [ 1 ]
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "type": "progress",
+          "goal": 2,
+          "conditionOfInteraction": 1,
+          "attachedTo": [ 2 ]
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "type": "progress",
+          "goal": 1
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "type": "progress",
+          "goal": 2,
+          "conditionOfInteraction": 1,
+          "attachedTo": [ 4 ]
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "type": "progress",
+          "goal": 4,
+          "conditionOfInteraction": 3,
+          "attachedTo": [ 0,3,5 ]
         }
       ]
     }
