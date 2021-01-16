@@ -1044,6 +1044,27 @@
                               "cullingEnabled": 0
                             }
                           ]
+                        },
+                        {
+                          "components": [
+                            {
+                              "type": "transform",
+                              "position": [ -96, 35, 186 ],
+                              "rotation": [ 0, 1.61, 0 ],
+                              "scale": [ 1, 35, 32 ]
+                            },
+                            {
+                              "type": "meshRenderer",
+                              "mesh": "cuboid",
+                              "material": "A",
+                              "tint": [ 1, 1, 1, 1 ],
+                              "enabled": 1
+                            },
+                            {
+                              "type": "renderState",
+                              "cullingEnabled": 0
+                            }
+                          ]
                         }
 
                       ]
