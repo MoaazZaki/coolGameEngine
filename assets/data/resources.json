@@ -169,6 +169,23 @@
       "name": "metal_roughness",
       "path": "assets/images/common/materials/metal/roughness.jpg"
     },
+
+    {
+      "type": "file",
+      "name": "wood_albedo",
+      "path": "assets/images/common/materials/wood/albedo.jpg"
+    },
+    {
+      "type": "file",
+      "name": "wood_specular",
+      "path": "assets/images/common/materials/wood/specular.jpg"
+    },
+    {
+      "type": "file",
+      "name": "wood_roughness",
+      "colored": 0,
+      "path": "assets/images/common/materials/wood/roughness.jpg"
+    },
     {
       "type": "file",
       "name": "asphalt_albedo",
@@ -193,7 +210,12 @@
     {
       "type": "file",
       "name": "floor",
-      "path": "assets/images/common/floor.jpg"
+      "path": "assets/images/common/floor.png"
+    },
+    {
+      "type": "file",
+      "name": "wall",
+      "path": "assets/images/common/wall.jpg"
     },
     {
       "type": "file",
@@ -209,6 +231,51 @@
       "type": "file",
       "name": "glassDoor",
       "path": "assets/images/common/glassDoor.jpg"
+    },
+    {
+      "type": "file",
+      "name": "lamp_off",
+      "path": "assets/images/common/lamp_off.jpg"
+    },
+    {
+      "type": "file",
+      "name": "bed",
+      "path": "assets/images/common/bed.jpg"
+    },
+    {
+      "type": "file",
+      "name": "cartoon",
+      "path": "assets/images/common/cartoon.png"
+    },
+    {
+      "type": "file",
+      "name": "hand",
+      "path": "assets/images/common/hand.png"
+    },
+    {
+      "type": "file",
+      "name": "door",
+      "path": "assets/images/common/door.png"
+    },
+    {
+      "type": "file",
+      "name": "TV",
+      "path": "assets/images/common/TV.jpg"
+    },
+    {
+      "type": "file",
+      "name": "bone",
+      "path": "assets/images/common/bone.png"
+    },
+    {
+      "type": "file",
+      "name": "xray",
+      "path": "assets/images/common/xray.jpg"
+    },
+    {
+      "type": "file",
+      "name": "riddle",
+      "path": "assets/images/common/riddle.png"
     }
   ],
   "samplers": [
@@ -255,6 +322,55 @@
       "textureSampler": [
         {
           "texture": "floor",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "grey",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "wall",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 0.7, 0.7, 0.7 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "vec2": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "wall",
           "sampler": "default"
         },
         {
@@ -448,6 +564,55 @@
     },
     {
       "type": "light",
+      "name": "wallFuseBox",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 0.1, 0.1, 0.1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "metalbw_albedo",
+          "sampler": "default"
+        },
+        {
+          "texture": "lamp",
+          "sampler": "default"
+        },
+        {
+          "texture": "lamp",
+          "sampler": "default"
+        },
+        {
+          "texture": "metal_roughness",
+          "sampler": "default"
+        },
+        {
+          "texture": "lamp_off",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
       "name": "metal2",
       "shader": "light",
       "properties": [
@@ -478,7 +643,56 @@
           "sampler": "default"
         },
         {
-          "texture": "metal_specular",
+          "texture": "lamp",
+          "sampler": "default"
+        },
+        {
+          "texture": "lamp",
+          "sampler": "default"
+        },
+        {
+          "texture": "metal_roughness",
+          "sampler": "default"
+        },
+        {
+          "texture": "lamp_off",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "metal_bed",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 0.1, 0.1, 0.1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "metalbw_albedo",
+          "sampler": "default"
+        },
+        {
+          "texture": "metalbw_specular",
           "sampler": "default"
         },
         {
@@ -491,6 +705,55 @@
         },
         {
           "texture": "lamp",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "door",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "door",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
           "sampler": "default"
         }
       ]
@@ -523,7 +786,56 @@
       ],
       "textureSampler": [
         {
-          "texture": "glassDoor",
+          "texture": "wood_albedo",
+          "sampler": "default"
+        },
+        {
+          "texture": "wood_specular",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "wood_roughness",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "red_box",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 0.407, 0.031, 0.035 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "cartoon",
           "sampler": "default"
         },
         {
@@ -539,7 +851,350 @@
           "sampler": "default"
         },
         {
-          "texture": "glassDoor",
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "green_box",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 0.058, 0.407, 0.031 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "cartoon",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "blue_box",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 0.105, 0.082, 0.615 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "cartoon",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "hand",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "hand",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "TV",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "TV",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "bone",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "bone",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "xray",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "xray",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "riddle",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "riddle",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
           "sampler": "default"
         }
       ]
