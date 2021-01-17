@@ -80,194 +80,204 @@
       "path": "assets/models/Skeletons/Skeletons.obj"
     }
   ],
-  "textures": [
-    {
-      "type": "color",
-      "name": "black",
-      "data": { "z": [ 0, 0, 0, 255 ] }
-    },
-    {
-      "type": "color",
-      "name": "grey",
-      "data": { "z": [ 70, 70, 70, 255 ] }
-    },
-    {
-      "type": "color",
-      "name": "white",
-      "data": { "z": [ 255, 255, 255, 255 ] }
-    },
-    {
-      "type": "checkboard",
-      "name": "checkboard_albedo",
-      "data": {
-        "x": [ 256, 256 ],
-        "y": [ 128, 128 ],
-        "z": [ 255, 255, 255, 255 ],
-        "w": [ 16, 16, 16, 255 ]
-      }
+    "textures": [
+        {
+            "type": "color",
+            "name": "black",
+            "data": { "z": [ 0, 0, 0, 255 ] }
+        },
+        {
+            "type": "color",
+            "name": "grey",
+            "data": { "z": [ 70, 70, 70, 255 ] }
+        },
+        {
+            "type": "color",
+            "name": "white",
+            "data": { "z": [ 255, 255, 255, 255 ] }
+        },
+        {
+            "type": "checkboard",
+            "name": "checkboard_albedo",
+            "data": {
+                "x": [ 256, 256 ],
+                "y": [ 128, 128 ],
+                "z": [ 255, 255, 255, 255 ],
+                "w": [ 16, 16, 16, 255 ]
+            }
 
-    },
-    {
-      "type": "checkboard",
-      "name": "checkboard_specular",
-      "data": {
-        "x": [ 256, 256 ],
-        "y": [ 128, 128 ],
-        "z": [ 0, 0, 0, 255 ],
-        "w": [ 255, 255, 255, 255 ]
-      }
+        },
+        {
+            "type": "checkboard",
+            "name": "checkboard_specular",
+            "data": {
+                "x": [ 256, 256 ],
+                "y": [ 128, 128 ],
+                "z": [ 0, 0, 0, 255 ],
+                "w": [ 255, 255, 255, 255 ]
+            }
 
-    },
-    {
-      "type": "checkboard",
-      "name": "checkboard_roughness",
-      "data": {
-        "x": [ 256, 256 ],
-        "y": [ 128, 128 ],
-        "z": [ 255, 255, 255, 255 ],
-        "w": [ 64, 64, 64, 255 ]
-      }
+        },
+        {
+            "type": "checkboard",
+            "name": "checkboard_roughness",
+            "data": {
+                "x": [ 256, 256 ],
+                "y": [ 128, 128 ],
+                "z": [ 255, 255, 255, 255 ],
+                "w": [ 64, 64, 64, 255 ]
+            }
 
-    },
-    {
-      "type": "file",
-      "name": "metal_albedo",
-      "path": "assets/images/common/materials/metal/albedo.jpg"
-    },
-    {
-      "type": "file",
-      "name": "metalbw_albedo",
-      "path": "assets/images/common/materials/metal/albedobw.jpg"
-    },
-    {
-      "type": "file",
-      "name": "metal_specular",
-      "path": "assets/images/common/materials/metal/specular.jpg"
-    },
-    {
-      "type": "file",
-      "name": "metalbw_specular",
-      "path": "assets/images/common/materials/metal/specularbw.jpg"
-    },
-    {
-      "type": "file",
-      "name": "metal_roughness",
-      "path": "assets/images/common/materials/metal/roughness.jpg"
-    },
+        },
+        {
+            "type": "file",
+            "name": "metal_albedo",
+            "path": "assets/images/common/materials/metal/albedo.jpg"
+        },
+        {
+            "type": "file",
+            "name": "metalbw_albedo",
+            "path": "assets/images/common/materials/metal/albedobw.jpg"
+        },
+        {
+            "type": "file",
+            "name": "metal_specular",
+            "path": "assets/images/common/materials/metal/specular.jpg"
+        },
+        {
+            "type": "file",
+            "name": "metalbw_specular",
+            "path": "assets/images/common/materials/metal/specularbw.jpg"
+        },
+        {
+            "type": "file",
+            "name": "metal_roughness",
+            "path": "assets/images/common/materials/metal/roughness.jpg"
+        },
 
-    {
-      "type": "file",
-      "name": "wood_albedo",
-      "path": "assets/images/common/materials/wood/albedo.jpg"
-    },
-    {
-      "type": "file",
-      "name": "wood_specular",
-      "path": "assets/images/common/materials/wood/specular.jpg"
-    },
-    {
-      "type": "file",
-      "name": "wood_roughness",
-      "colored": 0,
-      "path": "assets/images/common/materials/wood/roughness.jpg"
-    },
-    {
-      "type": "file",
-      "name": "asphalt_albedo",
-      "path": "assets/images/common/materials/asphalt/albedo.jpg"
-    },
-    {
-      "type": "file",
-      "name": "asphalt_specular",
-      "path": "assets/images/common/materials/asphalt/specular.jpg"
-    },
-    {
-      "type": "file",
-      "name": "asphalt_roughness",
-      "colored": 0,
-      "path": "assets/images/common/materials/asphalt/roughness.jpg"
-    },
-    {
-      "type": "file",
-      "name": "asphalt_emissive",
-      "path": "assets/images/common/materials/asphalt/emissive.jpg"
-    },
-    {
-      "type": "file",
-      "name": "floor",
-      "path": "assets/images/common/floor.png"
-    },
-    {
-      "type": "file",
-      "name": "wall",
-      "path": "assets/images/common/wall.jpg"
-    },
-    {
-      "type": "file",
-      "name": "lamp",
-      "path": "assets/images/common/lamp.jpg"
-    },
-    {
-      "type": "file",
-      "name": "lamp_off",
-      "path": "assets/images/common/lamp_off.jpg"
-    },
-    {
-      "type": "file",
-      "name": "bed",
-      "path": "assets/images/common/bed.jpg"
-    },
-    {
-      "type": "file",
-      "name": "cartoon",
-      "path": "assets/images/common/cartoon.png"
-    },
-    {
-      "type": "file",
-      "name": "hand",
-      "path": "assets/images/common/hand.png"
-    },
-    {
-      "type": "file",
-      "name": "door",
-      "path": "assets/images/common/door.png"
-    },
-    {
-      "type": "file",
-      "name": "TV",
-      "path": "assets/images/common/TV.jpg"
-    },
-    {
-      "type": "file",
-      "name": "bone",
-      "path": "assets/images/common/bone.png"
-    },
-    {
-      "type": "file",
-      "name": "xray",
-      "path": "assets/images/common/xray.jpg"
-    },
-    {
-      "type": "file",
-      "name": "riddle",
-      "path": "assets/images/common/riddle.png"
-    },
-    {
-      "type": "file",
-      "name": "corridorWall",
-      "path": "assets/images/common/corridorWall.jpg"
-    },
-    {
-      "type": "file",
-      "name": "corridorFloor",
-      "path": "assets/images/common/corridorFloor.jpg"
-    },
-    {
-      "type": "file",
-      "name": "roomSign",
-      "path": "assets/images/common/roomSign.jpg"
-    }
-  ],
+        {
+            "type": "file",
+            "name": "wood_albedo",
+            "path": "assets/images/common/materials/wood/albedo.jpg"
+        },
+        {
+            "type": "file",
+            "name": "wood_specular",
+            "path": "assets/images/common/materials/wood/specular.jpg"
+        },
+        {
+            "type": "file",
+            "name": "wood_roughness",
+            "colored": 0,
+            "path": "assets/images/common/materials/wood/roughness.jpg"
+        },
+        {
+            "type": "file",
+            "name": "asphalt_albedo",
+            "path": "assets/images/common/materials/asphalt/albedo.jpg"
+        },
+        {
+            "type": "file",
+            "name": "asphalt_specular",
+            "path": "assets/images/common/materials/asphalt/specular.jpg"
+        },
+        {
+            "type": "file",
+            "name": "asphalt_roughness",
+            "colored": 0,
+            "path": "assets/images/common/materials/asphalt/roughness.jpg"
+        },
+        {
+            "type": "file",
+            "name": "asphalt_emissive",
+            "path": "assets/images/common/materials/asphalt/emissive.jpg"
+        },
+        {
+            "type": "file",
+            "name": "floor",
+            "path": "assets/images/common/floor.png"
+        },
+        {
+            "type": "file",
+            "name": "wall",
+            "path": "assets/images/common/wall.jpg"
+        },
+        {
+            "type": "file",
+            "name": "lamp",
+            "path": "assets/images/common/lamp.jpg"
+        },
+        {
+            "type": "file",
+            "name": "lamp_off",
+            "path": "assets/images/common/lamp_off.jpg"
+        },
+        {
+            "type": "file",
+            "name": "bed",
+            "path": "assets/images/common/bed.jpg"
+        },
+        {
+            "type": "file",
+            "name": "cartoon",
+            "path": "assets/images/common/cartoon.png"
+        },
+        {
+            "type": "file",
+            "name": "hand",
+            "path": "assets/images/common/hand.png"
+        },
+        {
+            "type": "file",
+            "name": "door",
+            "path": "assets/images/common/door.png"
+        },
+        {
+            "type": "file",
+            "name": "TV",
+            "path": "assets/images/common/TV.jpg"
+        },
+        {
+            "type": "file",
+            "name": "bone",
+            "path": "assets/images/common/bone.png"
+        },
+        {
+            "type": "file",
+            "name": "xray",
+            "path": "assets/images/common/xray.jpg"
+        },
+        {
+            "type": "file",
+            "name": "riddle",
+            "path": "assets/images/common/riddle.png"
+        },
+        {
+            "type": "file",
+            "name": "corridorWall",
+            "path": "assets/images/common/corridorWall.jpg"
+        },
+        {
+            "type": "file",
+            "name": "corridorFloor",
+            "path": "assets/images/common/corridorFloor.jpg"
+        },
+        {
+            "type": "file",
+            "name": "roomSign",
+            "path": "assets/images/common/roomSign.jpg"
+        },
+        {
+            "type": "file",
+            "name": "corridorDoor",
+            "path": "assets/images/common/corridorDoor.jpg"
+        },
+        {
+            "type": "file",
+            "name": "toBeContinued",
+            "path": "assets/images/common/toBeContinued.jpg"
+        }
+    ],
   "samplers": [
     {
       "name": "default"
@@ -508,6 +518,55 @@
       "textureSampler": [
         {
           "texture": "roomSign",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "grey",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "toBeContinued",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "vec2": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "toBeContinued",
           "sampler": "default"
         },
         {
@@ -802,6 +861,55 @@
       "textureSampler": [
         {
           "texture": "door",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "corridorDoor",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "value": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "corridorDoor",
           "sampler": "default"
         },
         {
