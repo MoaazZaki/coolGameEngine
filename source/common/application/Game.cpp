@@ -85,7 +85,7 @@ void from_json(const nlohmann::json& j, componentJSON& c)
 		c.camera->projectionType = (bool)j.value<int>("projectionType", 1);
 		c.camera->target = j.value<glm::vec3>("target", { 0,0,0 });
 		c.camera->near = j.value<float>("near", 0.01f);
-		c.camera->far = j.value<float>("far", 500.0f);
+		c.camera->far = j.value<float>("far", 1000.0f);
 		c.camera->aspect_ratio = j.value<float>("aspect_ratio", 16.0/9.0);
 		c.camera->vertical_field_of_view_angle = j.value<float>("vertical_field_of_view_angle", glm::radians(90.0f));
 		c.camera->field_of_view_y = j.value<float>("field_of_view_y", glm::radians(90.0f));
