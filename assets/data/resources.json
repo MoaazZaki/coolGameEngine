@@ -251,6 +251,11 @@
       "type": "file",
       "name": "riddle",
       "path": "assets/images/common/riddle.png"
+    },
+    {
+      "type": "file",
+      "name": "corridorWall",
+      "path": "assets/images/common/corridorWall.jpg"
     }
   ],
   "samplers": [
@@ -346,6 +351,55 @@
       "textureSampler": [
         {
           "texture": "wall",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "grey",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "corridorWall",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "vec2": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "corridorWall",
           "sampler": "default"
         },
         {
@@ -1124,7 +1178,7 @@
         {
           "name": "emissive_tint",
           "type": "vec3",
-          "vec3": [ 0,0, 0 ]
+          "vec3": [ 0, 0, 0 ]
         }
       ],
       "textureSampler": [
