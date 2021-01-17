@@ -62,9 +62,9 @@ namespace famm {
 
 		
 
-		void startInit();
+		void startInit(std:: string path);
 
-		void loadAssets();
+		void loadAssets(std:: string path);
 
 		void configureOpenGL();                             // This function sets OpenGL Window Hints in GLFW.
 		//void setupCallbacks(GLFWwindow* window);

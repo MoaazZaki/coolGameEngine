@@ -113,7 +113,7 @@ void famm::Store::configureOpenGL() {
 }
 
 
-void famm::Store::startInit()
+void famm::Store::startInit(std:: string path)
 {
     // Set the function to call when an error occurs.
     glfwSetErrorCallback(glfw_error_callback);
@@ -169,7 +169,7 @@ void famm::Store::startInit()
     ImGui_ImplOpenGL3_Init("#version 330 core");
 
 
-    loadAssets();
+    loadAssets(path);
 
 }
 
@@ -369,9 +369,9 @@ void from_json(const nlohmann::json& j, materialJSON& m)
 
 
 ///////////////////////////////////////////////////
-void famm::Store::loadAssets()
+void famm::Store::loadAssets(std:: string path)
 {
-    std::ifstream file_in("assets/data/resources.json");
+    std::ifstream file_in(path);
     nlohmann::json resources;
     file_in >> resources;
     file_in.close();

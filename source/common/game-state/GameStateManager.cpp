@@ -1,7 +1,7 @@
 #include "GameStateManager.hpp"
 
 void famm::GameStateManager::onInitilaize() {
-	myStore.startInit();
+	myStore.startInit("assets/data/resources.json");
 	currentState = new famm::GameMenuState(&deviceManager, &myStore);
 }
 
