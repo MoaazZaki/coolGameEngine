@@ -55,9 +55,9 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 122.7, 21.6, -79.3 ],
+                    "position": [ 122.7, 21.6, -80.9 ],
                     "rotation": [ 0, 0, -1.57 ],
-                    "scale": [ 100, 1, 89.9 ]
+                    "scale": [ 100, 1, 93.2 ]
                   },
                   {
                     "type": "meshRenderer",
@@ -207,9 +207,9 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 123.1, 37.5, 230 ],
+                    "position": [ 123.1, 37.5, 187.7 ],
                     "rotation": [ 0, 0, -1.57 ],
-                    "scale": [ 69, 1, 478.9 ]
+                    "scale": [ 69, 1, 395.1 ]
                   },
                   {
                     "type": "meshRenderer",
@@ -227,9 +227,9 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 123.1, 37, -230.6 ],
+                    "position": [ 123.1, 37, -184.4 ],
                     "rotation": [ 0, 0, -1.57 ],
-                    "scale": [ 69, 1, 392 ]
+                    "scale": [ 69, 1, 300.1 ]
                   },
                   {
                     "type": "meshRenderer",
@@ -315,7 +315,7 @@
                     "type": "transform",
                     "position": [ 170, 71.6, 24.4 ],
                     "rotation": [ 0, 0, 0 ],
-                    "scale": [ 91.3, 1, 715.3 ]
+                    "scale": [ 93.4, 1, 715.3 ]
                   },
                   {
                     "type": "meshRenderer",
