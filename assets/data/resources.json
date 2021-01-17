@@ -256,6 +256,16 @@
       "type": "file",
       "name": "corridorWall",
       "path": "assets/images/common/corridorWall.jpg"
+    },
+    {
+      "type": "file",
+      "name": "corridorFloor",
+      "path": "assets/images/common/corridorFloor.jpg"
+    },
+    {
+      "type": "file",
+      "name": "roomSign",
+      "path": "assets/images/common/roomSign.jpg"
     }
   ],
   "samplers": [
@@ -302,6 +312,55 @@
       "textureSampler": [
         {
           "texture": "floor",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "grey",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "corridorFloor",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "vec2": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "corridorFloor",
           "sampler": "default"
         },
         {
@@ -400,6 +459,55 @@
       "textureSampler": [
         {
           "texture": "corridorWall",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        },
+        {
+          "texture": "grey",
+          "sampler": "default"
+        },
+        {
+          "texture": "white",
+          "sampler": "default"
+        },
+        {
+          "texture": "black",
+          "sampler": "default"
+        }
+      ]
+    },
+    {
+      "type": "light",
+      "name": "roomSign",
+      "shader": "light",
+      "properties": [
+        {
+          "name": "albedo_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "specular_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        },
+        {
+          "name": "roughness_range",
+          "type": "vec2",
+          "vec2": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "emissive_tint",
+          "type": "vec3",
+          "vec3": [ 1, 1, 1 ]
+        }
+      ],
+      "textureSampler": [
+        {
+          "texture": "roomSign",
           "sampler": "default"
         },
         {

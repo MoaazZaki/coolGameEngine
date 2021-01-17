@@ -55,6 +55,100 @@
                 "components": [
                   {
                     "type": "transform",
+                    "position": [169.9, 37.5, 390.9 ],
+                    "rotation": [ 1.57, 0, 0 ],
+                    "scale": [ 93.6, 1, 100 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "cuboid",
+                    "material": "corridorWall",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
+                  },
+                  {
+                    "type": "renderState",
+                    "cullingEnabled": 0
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [169.9, 37.5, -333 ],
+                    "rotation": [ 1.57, 0, 0 ],
+                    "scale": [ 93.6, 1, 100 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "cuboid",
+                    "material": "corridorWall",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
+                  },
+                  {
+                    "type": "renderState",
+                    "cullingEnabled": 0
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [169.9, 37.5, -183.8 ],
+                    "rotation": [ 1.57, 0, 0 ],
+                    "scale": [ 93.6, 1, 100 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "enabled": 0,
+                    "mesh": "cuboid",
+                    "material": "wall",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
+                  },
+                  {
+                    "type": "renderState",
+                    "cullingEnabled": 0
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [169.9, 37.5, 133.2 ],
+                    "rotation": [ 1.57, 0, 0 ],
+                    "scale": [ 93.6, 1, 100 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "enabled": 0,
+                    "mesh": "cuboid",
+                    "material": "wall",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
+                  },
+                  {
+                    "type": "renderState",
+                    "cullingEnabled": 0
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
                     "position": [ 122.7, 21.6, -80.9 ],
                     "rotation": [ 0, 0, -1.57 ],
                     "scale": [ 100, 1, 93.2 ]
@@ -247,14 +341,14 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 123.1, 62.8, -22.8 ],
+                    "position": [ 123.1, 62.8, -22.2 ],
                     "rotation": [ 0, 0, -1.57 ],
-                    "scale": [ 18.8, 1, 27.7 ]
+                    "scale": [ 18.8, 1, 24.3 ]
                   },
                   {
                     "type": "meshRenderer",
                     "mesh": "cuboid",
-                    "material": "corridorWall",
+                    "material": "roomSign",
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
@@ -274,7 +368,7 @@
                   {
                     "type": "meshRenderer",
                     "mesh": "cuboid",
-                    "material": "wall",
+                    "material": "corridorWall",
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
@@ -320,7 +414,30 @@
                   {
                     "type": "meshRenderer",
                     "mesh": "cuboid",
-                    "material": "wall",
+                    "material": "corridorFloor",
+                    "tint": [ 1, 1, 1, 1 ]
+                  },
+                  {
+                    "type": "collider"
+                  },
+                  {
+                    "type": "renderState",
+                    "cullingEnabled": 0
+                  }
+                ]
+              },
+              {
+                "components": [
+                  {
+                    "type": "transform",
+                    "position": [ 170, 2.6, 24.4 ],
+                    "rotation": [ 0, 0, 0 ],
+                    "scale": [ 93.4, 1, 715.3 ]
+                  },
+                  {
+                    "type": "meshRenderer",
+                    "mesh": "cuboid",
+                    "material": "corridorFloor",
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
