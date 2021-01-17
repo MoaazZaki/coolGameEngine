@@ -348,9 +348,6 @@
                     "enabled": 1
                   },
                   {
-                    "type": "collider"
-                  },
-                  {
                     "type": "renderState",
                     "cullingEnabled": 0
                   },
