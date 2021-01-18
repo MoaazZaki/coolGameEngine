@@ -62,7 +62,7 @@ set(COMMON_SOURCES
         assets/ECS/Systems/InteractionSystem.cpp
         assets/ECS/Systems/ColliderSystem.cpp
         assets/ECS/Systems/ProgressSystem.cpp
-
+        assets/ECS/Systems/MovementSystem.cpp
 )
 
 # Define the directories in which to search for the included headers

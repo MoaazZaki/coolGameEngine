@@ -25,7 +25,7 @@ namespace famm {
 		glm::vec3 rotation;		//representing Euler Angles
 		Entity parent;			//parent id
 		bool isLoockedAt = false;
-		 
+		float distanceToPlayer;
 		Transform(
 			const glm::vec3& position = { 0,0,0 },
 			const glm::vec3& rotation = { 0,0,0 },
@@ -136,6 +136,8 @@ namespace famm {
 		glm::vec3 AABBcorners[2];		//Bounding box corners
 		glm::vec3 lastNonCollided;
 		bool highCollider =true;
+
+		glm::vec3 lastPos;
 	};
 
 	struct Progress
@@ -144,6 +146,13 @@ namespace famm {
 		GLubyte goal;
 		GLubyte conditionOfInteraction = 0;
 		std::vector<int> attachedTo;
+	};
+
+	struct Movement
+	{
+		bool enabled;
+		float distanceOfMoving = 50;
+		glm::vec3 lastPos;
 	};
 }
 

@@ -18,6 +18,7 @@ struct componentJSON {
 	famm::Interaction* interaction;
 	famm::Collider* collider;
 	famm::Progress* progress;
+	famm::Movement* movement;
 };
 
 // JSON Functions
@@ -141,6 +142,12 @@ void from_json(const nlohmann::json& j, componentJSON& c)
 		c.progress->conditionOfInteraction =j.value<GLbyte>("conditionOfInteraction", 0);
 		c.progress->attachedTo = j.value<std::vector<int>>("attachedTo", std::vector<int>(0));
 	}
+	else if (c.type == "movement")
+	{
+		c.movement = new famm::Movement;
+		c.movement->enabled = (bool)j.value<int>("enabled",1);
+		c.movement->distanceOfMoving = j.value<float>("distanceOfMoving", 50);
+	}
 }
 
 void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent,famm::Entity interactionParent, Store* myStore, ECSManager* myManager)
@@ -207,6 +214,10 @@ void famm::Game::extractWorld(const nlohmann::json& j, famm::Entity parent,famm:
 			{
 				myManager->addComponentData<Progress>(object, *c.progress);
 			}
+			else if (c.type == "movement")
+			{
+				myManager->addComponentData<Movement>(object, *c.movement);
+			}
 		}
 	}
 }
@@ -224,6 +235,7 @@ void famm::Game::onInitialize()
 	myManager.addComponentType<famm::Interaction>();
 	myManager.addComponentType<famm::Collider>();
 	myManager.addComponentType<famm::Progress>();
+	myManager.addComponentType<famm::Movement>();
 
 	// Creating systems
 	auto& rendererSystem = myManager.addSystem<famm::RendererSystem>();
@@ -240,6 +252,8 @@ void famm::Game::onInitialize()
 	mySystems.push_back(colliderSystem);
 	auto& progressSystem = myManager.addSystem<famm::ProgressSystem>();
 	mySystems.push_back(progressSystem);
+	auto& movementSystem = myManager.addSystem<famm::MovementSystem>();
+	mySystems.push_back(movementSystem);
 
 	// Setting signatures
 	famm::Signature signature;
@@ -276,6 +290,10 @@ void famm::Game::onInitialize()
 	signature.set(myManager.getComponentType<famm::Progress>());
 	myManager.setSystemSignature<ProgressSystem>(signature);
 
+	signature.reset();
+	signature.set(myManager.getComponentType<famm::Movement>());
+	myManager.setSystemSignature<MovementSystem>(signature);
+
 	Entity worldEntity;
 	Entity object;
 	Entity camera;
@@ -288,6 +306,7 @@ void famm::Game::onInitialize()
 
 	extractWorld(world, MAX_ENTITIES + 1,0, myStore, &myManager);
 	progressSystem->assignProgress(&myManager);
+	colliderSystem->initializeColliders(&myManager);
 	glClearColor(7/255.0,12/255.0, 41/ 255.0, 1);
 }
 
@@ -299,7 +318,7 @@ void famm::Game::onDraw(double deltaTime) {
 	std::shared_ptr<InteractionSystem> IS = std::static_pointer_cast<InteractionSystem>(mySystems[4]);
 	std::shared_ptr<ColliderSystem> CDS = std::static_pointer_cast<ColliderSystem>(mySystems[5]);
 	std::shared_ptr<ProgressSystem> PS = std::static_pointer_cast<ProgressSystem>(mySystems[6]);
-
+	std::shared_ptr<MovementSystem> MS = std::static_pointer_cast<MovementSystem>(mySystems[7]);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	if (!isPaused)
@@ -308,6 +327,7 @@ void famm::Game::onDraw(double deltaTime) {
 		RS->drawEnities(&myManager, CS,LS);
 		IS->updateInteractions(&myManager, deviceManager,CS, PS);
 		CDS->updateColliders(&myManager, CS);
+		MS->updateCoordinates(&myManager, deviceManager,CS);
 	}
 	if ((deviceManager->pressedActionChecker(famm::ControlsActions::MENU, famm::PressModes::JUST_PRESSED) && !isPaused))
 	{
@@ -421,13 +441,13 @@ void famm::Game::transformationGui(ImGuiIO* io)
 		static std::string FCEString = "Enable Face Culling##";
 		static std::string FTCString = "Face To Cull##";
 		static std::string FFCString = "Front Face##";
-
-		for (int i = 0; i < worldArray.size(); i++)
+		
+		for (auto& entity: mySystems[0]->entitiesSet)
 		{
-			std::string entityString = std::to_string(worldArray[i]);
+			std::string entityString = std::to_string(entity);
 
-			auto& myTransformComponent = myManager.getComponentData<famm::Transform>(worldArray[i]);
-			auto& myRemderStateComponent = myManager.getComponentData<famm::RenderState>(worldArray[i]);
+			auto& myTransformComponent = myManager.getComponentData<famm::Transform>(entity);
+			auto& myRemderStateComponent = myManager.getComponentData<famm::RenderState>(entity);
 
 			ImGui::Text(entityString.c_str());
 

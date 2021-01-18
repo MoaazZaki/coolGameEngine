@@ -10,6 +10,7 @@
 #include <InteractionSystem.hpp>
 #include <ColliderSystem.hpp>
 #include <imgui-utils/utils.hpp>
+#include <MovementSystem.hpp>
 
 struct componentJSON; // Forward decleration
 

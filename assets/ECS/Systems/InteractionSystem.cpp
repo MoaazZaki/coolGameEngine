@@ -67,13 +67,13 @@ void famm::InteractionSystem::updateInteractions(ECSManager* myManager, DeviceMa
 				if (!myInteractionComponent.startOn)
 				{
 					// Perform interaction on button click
-					glm::vec3& cameraPos = myManager->getComponentData<famm::Transform>(camera).position; //Get camera position
+					//glm::vec3& cameraPos = myManager->getComponentData<famm::Transform>(camera).position; //Get camera position
 					auto& myTransformComponent = myManager->getComponentData<famm::Transform>(entity);
-					float distance = glm::distance(cameraPos, myTransformComponent.position);
+					
 					
 					//std::cout << "The distance: " << (distance <= myInteractionComponent.distanceOfInteraction) << std::endl;
 
-					if (myTransformComponent.isLoockedAt && distance <= myInteractionComponent.distanceOfInteraction && myDeviceManager->mouseActionChecker(myInteractionComponent.buttonOfInteraction, famm::PressModes::JUST_PRESSED))
+					if (myTransformComponent.isLoockedAt && myTransformComponent.distanceToPlayer <= myInteractionComponent.distanceOfInteraction && myDeviceManager->mouseActionChecker(myInteractionComponent.buttonOfInteraction, famm::PressModes::JUST_PRESSED))
 					{
 						//Perform progress if attached
 						if (myInteractionComponent.fireProgress)

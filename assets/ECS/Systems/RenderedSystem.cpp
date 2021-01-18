@@ -38,6 +38,9 @@ void famm::RendererSystem::drawEnities(ECSManager* myManager, std::shared_ptr<Ca
         auto& myTransformComponent = myManager->getComponentData<famm::Transform>(entity);
         auto& myRenderStateComponent = myManager->getComponentData<famm::RenderState>(entity);
 
+
+        myTransformComponent.distanceToPlayer = glm::distance(cameraPos, myTransformComponent.position);
+
         glm::mat4 generalTransformationMatrix = glm::identity<glm::mat4>();
         Entity parentEntity = entity;
 

@@ -197,8 +197,8 @@ std::uint16_t famm::DeviceManager::getCorrespondingKey(ControlsActions action) {
 glm::vec2 famm::DeviceManager::getNormalizedMousePos() {
     glm::vec2 cursorPos = mouse.getMousePosition();
     cursorPos.y = windowSettings.size.y - cursorPos.y;
-    float sensitivityRatio = controlSettings.sensitivity / 10.0;
-    cursorPos = cursorPos * glm::vec2(2 * (1.3 + sensitivityRatio) / windowSettings.size.x, 2 * (0.71875 + (windowSettings.size.y / (float)windowSettings.size.x) * sensitivityRatio) / windowSettings.size.y) - glm::vec2(1.3 + sensitivityRatio, 0.71875 + (windowSettings.size.y / (float)windowSettings.size.x) * sensitivityRatio);
+    //float sensitivityRatio = controlSettings.sensitivity / 10.0;
+    //cursorPos = cursorPos * glm::vec2(2 * (1.3 + sensitivityRatio) / windowSettings.size.x, 2 * (0.71875 + (windowSettings.size.y / (float)windowSettings.size.x) * sensitivityRatio) / windowSettings.size.y) - glm::vec2(1.3 + sensitivityRatio, 0.71875 + (windowSettings.size.y / (float)windowSettings.size.x) * sensitivityRatio);
     return cursorPos;
 }
 

@@ -33,7 +33,7 @@
                   {
                     "type": "transform",
                     "position": [ -149.6, 21.6, 19.8 ],
-                    "rotation": [ 0, 0, -1.57 ],
+                    "rotation": [ 0, 0, 1.57 ],
                     "scale": [ 100, 1, 361.7 ]
                   },
                   {
@@ -311,7 +311,7 @@
                   {
                     "type": "transform",
                     "position": [ -37.4, 21.6, 168.1 ],
-                    "rotation": [ 0, 0, -1.57 ],
+                    "rotation": [ 0, 0, 1.57 ],
                     "scale": [ 100, 1, 195.5 ]
                   },
                   {
@@ -607,8 +607,8 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 5, 4, 35 ],
-                    "rotation": [ 0, 9.4, 0 ],
+                    "position": [ 76.1, 4, -96.8 ],
+                    "rotation": [ 0, 0, 0 ],
                     "scale": [ 20, 20, 20 ]
                   },
                   {
@@ -618,7 +618,8 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
-                    "type": "collider"
+                    "type": "collider",
+                    "highCollider": 1
                   },
                   {
                     "type": "renderState",
@@ -630,8 +631,8 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 90, 4, 40 ],
-                    "rotation": [ 0, 9.4, 0 ],
+                    "position": [ -19.2, 4, -96.8 ],
+                    "rotation": [ 0, 0, 0 ],
                     "scale": [ 20, 20, 20 ]
                   },
                   {
@@ -641,7 +642,8 @@
                     "tint": [ 1, 1, 1, 1 ]
                   },
                   {
-                    "type": "collider"
+                    "type": "collider",
+                    "highCollider": 1
                   },
                   {
                     "type": "renderState",
@@ -685,8 +687,8 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 55, 16, 55 ],
-                    "rotation": [ 0, 9.4, 0 ],
+                    "position": [ 17.9, 17.1, -114.7 ],
+                    "rotation": [ 0, 0, 0 ],
                     "scale": [ 0.03, 0.03, 0.03 ]
                   },
                   {
@@ -708,8 +710,8 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 25, 4, -110 ],
-                    "rotation": [ 0, 0, 0 ],
+                    "position": [ 40.6, 3.6, 55 ],
+                    "rotation": [ 0, 9.4, 0 ],
                     "scale": [ 5, 5, 0.5 ]
                   },
                   {
@@ -731,7 +733,7 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 120, 17, -97 ],
+                    "position": [ 120, 17,24.5 ],
                     "rotation": [ 0, 1.61, 0 ],
                     "scale": [ 200, 200, 200 ]
                   },
@@ -887,7 +889,7 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ 47, 4, 50 ],
+                    "position": [ 26.2, 4, -113.1 ],
                     "rotation": [ -1.56, -1.56, 0 ],
                     "scale": [ 25, 35, 25 ]
                   },
@@ -955,6 +957,10 @@
                   {
                     "type": "renderState",
                     "cullingEnabled": 0
+                  },
+                  {
+                    "type": "movement",
+                    "enabled": 1
                   }
                 ]
               },
@@ -1000,8 +1006,8 @@
                 "components": [
                   {
                     "type": "transform",
-                    "position": [ -60, 30, -125 ],
-                    "rotation": [ 1.6, 3.25, 0 ],
+                    "position": [ -14.9, 30, 70.2 ],
+                    "rotation": [ 1.57, 0, 0 ],
                     "scale": [ 1, 1, 1 ]
                   },
                   {
@@ -1035,16 +1041,17 @@
                           "components": [
                             {
                               "type": "transform",
-                              "position": [ -57.8, 22.5, -114 ],
-                              "rotation": [ -9.7, 37.9, 43.5 ]
+                              "position": [ -14.9, 26.7, 57.9],
+                              "rotation": [ 0, 15.3, 57.9 ]
                             },
                             {
                               "type": "light",
                               "enabled": 0,
                               "lightType": 2,
                               "color": [ 0.63921568, 0.14862745, 0.1352941 ],
-                              "constantAtt": -3.8,
-                              "linearAtt": 0.9,
+                              "constantAtt": 0.1,
+                              "linearAtt": 0.1,
+                              "quadraticAtt": 0.2,
                               "InnerSpotAngle": 0.8,
                               "OuterSpotAngle": 1.8
                             },
@@ -1271,7 +1278,7 @@
         {
           "type": "camera",
           "projection": "Perspective",
-          "enabled": 0,
+          "enabled":0,
           "mode": 1,
           "controller": {
             "entities": [
@@ -1364,7 +1371,7 @@
       "components": [
         {
           "type": "transform",
-          "position": [ 121.1, 32.4, -78.3 ]
+          "position": [ 121.1, 32.4, 43.6 ]
         },
         {
           "type": "light",
